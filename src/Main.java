@@ -12,7 +12,7 @@ public class Main extends JPanel implements KeyListener {
     class Runner implements Runnable {
         public void run() {
             while (true) {
-                //world.updateBlocks(1.0 / (double) FPS);
+                world.updateBlocks(1.0 / (double) FPS);
                 repaint();
                 try {
                     Thread.sleep(1000 / FPS);
@@ -46,7 +46,7 @@ public class Main extends JPanel implements KeyListener {
     }
 
     public Main(){
-        world = new World(WIDTH, HEIGHT, 25);
+        world = new World(WIDTH, HEIGHT, 25, 1);
         addKeyListener(this);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         Thread mainThread = new Thread(new Runner());
@@ -70,6 +70,7 @@ public class Main extends JPanel implements KeyListener {
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         world.drawBoard(g);
+        world.drawBlocks(g);
 
     }
 }

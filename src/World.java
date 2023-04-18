@@ -4,16 +4,23 @@ public class World {
     int height;
     int width;
 
-    int numSpheres;
+    int numBlocks;
 
     int size;
-    //Block blocks[];
+    Block blocks[];
 
-    public World(int initWidth, int initHeight, int blockSize) {
+    public World(int initWidth, int initHeight, int blockSize, int initNumBlocks) {
         width = initWidth;
         height = initHeight;
         size = blockSize;
 
+        numBlocks = initNumBlocks;
+        blocks  = new Block[numBlocks];
+
+        for (int i = 0; i < numBlocks; i ++)
+        {
+            blocks[i] = new Block();
+        }
 
     }
     public void drawBoard(Graphics g){//10 by 20 board
@@ -25,17 +32,21 @@ public class World {
         }
     }
 
-    /*
+
     public void drawBlocks(Graphics g) {
-        for (int i = 0; i < numSpheres; i++) {
-            //blocks[i].draw(g);
+        for (int i = 0; i < numBlocks; i++){
+            blocks[i].draw(g,this);
         }
+
     }
 
-    public void updateBlock(double time) {
-        for (int i = 0; i < numSpheres; i++)
-            //block[i].update(this, time);
+    public void updateBlocks(double time) {
+        for (int i = 0; i < numBlocks; i++){
+            blocks[i].update(this, time);
+        }
+
     }
 
-    */
+
+
 }

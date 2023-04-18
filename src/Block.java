@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.sql.SQLOutput;
 import java.util.Random;
 
 class Pair {
@@ -41,21 +42,44 @@ public class Block {
 
     Color color;
 
+    int [][] randomizedBlock;
+
     public Block() {
         Random rand = new Random();
+
         position = new Pair(500.0, 500.0);
-        velocity = new Pair((double) (rand.nextInt(1000) - 500), (double) (rand.nextInt(1000) - 500));
-        acceleration = new Pair(0, 200.0);
+        velocity = new Pair(0,0);
+        acceleration = new Pair(0, 0);
         radius = 25;
 
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
+
+        int r =(int) (Math.random()*7);
+        randomizedBlock = Blocks(r);
+    }
+    public static int[][] Blocks(int x) {
+        int[][] jBlock = {{1, 1}, {1, 0}, {1, 0}, {0, 0}};
+        int[][] lBlock = {{1, 1}, {0, 1}, {0, 1}, {0, 0}};
+        int[][] iBlock = {{1, 0}, {1, 0}, {1, 0}, {1, 0}};
+        int[][] sBlock = {{1, 0}, {1, 1}, {0, 1}, {0, 0}};
+        int[][] zBlock = {{0, 1}, {1, 1}, {1, 0}, {0, 0}};
+        int[][] oBlock = {{1, 1}, {1, 1}, {0, 0}, {0, 0}};
+        int[][] tBlock = {{1, 0}, {1, 1}, {1, 0}, {0, 0}};
+
+        int[][][] types = {jBlock, lBlock, iBlock, sBlock, zBlock, oBlock, tBlock};
+
+        int[][] randomBlock = types[x];
+
+        return randomBlock;
     }
 
 
+
     public void update(World w, double time) {
+
         position = position.add(velocity.times(time));
         velocity = velocity.add(acceleration.times(time));
-        bounce(w);
+        //bounce(w);
     }
 
     public void setPosition(Pair p) {
@@ -92,54 +116,33 @@ public class Block {
         return 0.0;
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g,World w) {
         Color c = g.getColor();
 
         g.setColor(color);
-        g.drawOval((int) (position.x - radius), (int) (position.y - radius), (int) (2 * radius), (int) (2 * radius));
-        g.setColor(c);
-    }
+        /*
+        draws a randomized block on the screen in a random color
+         */
 
-    private void bounce(World w) {
-        Boolean bounced = false;
-        if (position.x - radius < 0) {
-            velocity.flipX();
-            position.x = radius;
-            bounced = true;
-        } else if (position.x + radius > w.width) {
-            velocity.flipX();
-            position.x = w.width - radius;
-            bounced = true;
+        for (int i = 0; i<4;i++){
+            for(int j = 0 ; j<2; j++){
+                if(randomizedBlock[i][j] == 1){
+                    g.fillRect((int)position.x+i*w.size,(int)position.y+j*w.size,w.size, w.size );
+                }
+            }
+
         }
-        if (position.y - radius < 0) {
-            velocity.flipY();
-            position.y = radius;
-            bounced = true;
-        } else if (position.y + radius > w.height) {
-            velocity.flipY();
-            position.y = w.height - radius;
-            bounced = true;
-        }
-        if (bounced) {
-            //velocity = velocity.divide(dampening);
-        }
+        g.setColor(c);
+
     }
     /** Testing if the random block generation works
      **/
 
-    public static void main(String[] args) {
-        int r =(int) (Math.random()*7);
-        for (int l = 0; l < 4; l++) {
-            for (int w = 0; w < 2; w++) {
-                System.out.print(RandomBlocks.Blocks(r)[l][w]);
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
+
 
 
 }
+/*
 
 class RandomBlocks {
 
@@ -149,7 +152,7 @@ class RandomBlocks {
 
     /**
      generates random block configurations
-     */
+
 
     public static int[][] Blocks(int x) {
         int[][] jBlock = {{1, 1}, {1, 0}, {1, 0}, {0, 0}};
@@ -167,3 +170,5 @@ class RandomBlocks {
         return randomBlock;
     }
 }
+
+ */

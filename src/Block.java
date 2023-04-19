@@ -54,7 +54,9 @@ public class Block {
 
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
 
-        int r =(int) (Math.random()*7);
+        //Shouldn't this be Multiplied by 8, cuz Math.random generates a number between [0,1) so in order to generate a full 7 numbers
+        // then this needs to be 8?
+        int r =(int) (Math.random()*8);
         randomizedBlock = Blocks(r);
     }
     public static int[][] Blocks(int x) {

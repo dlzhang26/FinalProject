@@ -23,9 +23,9 @@ public class World {
         }
 
     }
-    public void drawBoard(Graphics g){//10 by 20 board
-        for (int i = 1; i < 22-1; i++){//height of the board
-            for (int j = 1; j < 12-1; j++) {//width of the board
+    public void drawBoard(Graphics g){//10 by 20 board - Each square is 25 rn
+        for (int i = 1; i < 21; i++){//height of the board
+            for (int j = 1; j < 11; j++) {//width of the board
                 g.setColor(Color.white);
                 g.drawRect(j*size,i*size, size,size);
             }

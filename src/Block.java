@@ -46,7 +46,7 @@ public class Block {
     public Block() {
         Random rand = new Random();
 
-        position = new Pair(500.0, 500.0);
+        position = new Pair(100,25);
         velocity = new Pair(0,0);
         acceleration = new Pair(0, 0);
 
@@ -77,8 +77,6 @@ public class Block {
 
     public void update(World w, double time) {
 
-        position = position.add(velocity.times(time));
-        velocity = velocity.add(acceleration.times(time));
 
     }
 

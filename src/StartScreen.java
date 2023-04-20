@@ -9,6 +9,8 @@ Boolean gameStart;
     public StartScreen(){//default constructor
         gameStart=false;//when leaderboard is first created, gameStart is false. 
     }
+
+    
 /////////////////////////////////////////////////////
     @Override
     public void keyPressed(KeyEvent e) {

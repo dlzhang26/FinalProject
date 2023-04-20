@@ -4,16 +4,17 @@ public class State extends OrderedCollection{
     Node end;
     int length;
 
-
+    // Constructor - Creates the first end, but then appends 20 rows
     public State(){
         end = null;
-        for(int i =0; i<10; i++){
+        for(int i =0; i<20; i++){
             append();
         }
 
     }
+    //
 
-
+    //append method, just adds a blank rows
     public void append(){
         Node toAdd = new Node();
         toAdd.prev= end;
@@ -21,11 +22,14 @@ public class State extends OrderedCollection{
         length++;
 
     }
+    //Returns the first rowstate
     public int[] peek(){
         
         return end.rowstate;
 
     }
+
+    //Removes the last rowstate - I think will need to add more functions such as a remove function
     public int[] pop(){
         int[] toReturn = end.rowstate; 
         end = end.prev;

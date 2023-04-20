@@ -46,16 +46,16 @@ public class Main extends JPanel implements KeyListener {
     }
 
     public Main(){
-        world = new World(WIDTH, HEIGHT, 25, 1);
+        world = new World(WIDTH, HEIGHT, 25, 1);//initialize the instance of the world class
         addKeyListener(this);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         Thread mainThread = new Thread(new Runner());
-        mainThread.start();
+        mainThread.start();//should we use some resources to figure out exactly what threads are?
     }
 
     public static void main(String[] args){
-        JFrame frame = new JFrame("Physics!!!");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame frame = new JFrame("Tetris");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//stops running program when JFrame is closed
         Main mainInstance = new Main();
         frame.setContentPane(mainInstance);
         frame.pack();
@@ -63,7 +63,7 @@ public class Main extends JPanel implements KeyListener {
     }
 
 
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {//graphics method
         super.paintComponent(g);
 
         g.setColor(Color.BLACK);

@@ -8,6 +8,7 @@ public class Main extends JPanel implements KeyListener {
     public static final int HEIGHT = 600;
     public static final int FPS = 60;
     World world;
+    StartScreen start;
 
     class Runner implements Runnable {
         public void run() {
@@ -47,6 +48,7 @@ public class Main extends JPanel implements KeyListener {
 
     public Main(){
         world = new World(WIDTH, HEIGHT, 25, 1);//initialize the instance of the world class
+        start = new StartScreen();//startscreen instance
         addKeyListener(this);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         Thread mainThread = new Thread(new Runner());
@@ -69,8 +71,12 @@ public class Main extends JPanel implements KeyListener {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
+        if(start.gameStart==true){
         world.drawBoard(g);
         world.drawBlocks(g);
+        }else{
+            start.draw(g, world);//draws the startscreen while the game has not started yet
+        }
 
     }
 }

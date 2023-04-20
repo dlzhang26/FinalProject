@@ -23,6 +23,10 @@ public class World {
         }
 
     }
+
+    public void drawStartScreen(Graphics g){
+        
+    }
     public void drawBoard(Graphics g){//10 by 20 board
         for (int i = 1; i < 22-1; i++){//height of the board
             for (int j = 1; j < 12-1; j++) {//width of the board

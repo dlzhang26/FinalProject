@@ -26,8 +26,14 @@ public class Main extends JPanel implements KeyListener {
 
 
     public void keyPressed(KeyEvent e) {
-        char c = e.getKeyChar();
-        System.out.println("You pressed down: " + c);
+        int keyCode = e.getKeyCode();
+        //rotates the block if the up key is pressed
+        if(keyCode ==KeyEvent.VK_UP){
+            for (int i = 0; i< world.numBlocks;i++){
+                world.blocks[i].rotate();
+            }
+        }
+
 
     }
 

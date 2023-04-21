@@ -7,6 +7,7 @@ public class World {
     int numBlocks;
 
     int size;
+
     Block blocks[];
 
     public World(int initWidth, int initHeight, int blockSize, int initNumBlocks) {
@@ -16,6 +17,7 @@ public class World {
 
         numBlocks = initNumBlocks;
         blocks  = new Block[numBlocks];
+
 
         for (int i = 0; i < numBlocks; i ++)
         {

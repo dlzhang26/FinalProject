@@ -37,7 +37,8 @@ public class Block {
     Pair velocity;
     Pair acceleration;//do they really need an acceleration? can't we just increment velocity when we get beyond each score level
 
-    int width;
+    // size of the square
+    int size;
 
     Color color;
 
@@ -46,9 +47,10 @@ public class Block {
     public Block() {
         Random rand = new Random();
 
-        position = new Pair(500.0, 500.0);
+        position = new Pair(100,25);
         velocity = new Pair(0,0);
         acceleration = new Pair(0, 0);
+        size = 25;
 
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
 
@@ -77,8 +79,6 @@ public class Block {
 
     public void update(World w, double time) {
 
-        position = position.add(velocity.times(time));
-        velocity = velocity.add(acceleration.times(time));
 
     }
 

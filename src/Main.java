@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class Main extends JPanel implements KeyListener {
     public static final int WIDTH = 600;
     public static final int HEIGHT = 600;
-    public static final int FPS = 60;
+    public static final int FPS = 1;
     World world;
 
     class Runner implements Runnable {

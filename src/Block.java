@@ -99,6 +99,22 @@ class Block {
         return randomizedBlock;
     }
 
+    public Pair[] moveRight(){
+        for (int i = 0; i < 4; i++) {
+            randomizedBlock[i].x = randomizedBlock[i].x + 1;
+        }
+        return randomizedBlock;
+    }
+    public Pair[] moveLeft(){
+        for (int i = 0; i < 4; i++) {
+            randomizedBlock[i].x = randomizedBlock[i].x - 1;
+        }
+        return randomizedBlock;
+    }
+
+
+
+
     public void draw(Graphics g, World w) {
         Color c = g.getColor();
 

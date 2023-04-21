@@ -44,6 +44,7 @@ public class World {
 
     public void updateBlocks(double time) {
         for (int i = 0; i < numBlocks; i++){
+            blocks[i].movedown();
             blocks[i].update(this, time);
         }
 

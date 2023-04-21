@@ -92,6 +92,12 @@ class Block {
 
     }
 
+    public Pair[] movedown() {
+        for (int i = 0; i < 4; i++) {
+            randomizedBlock[i].y = randomizedBlock[i].y + 1;
+        }
+        return randomizedBlock;
+    }
 
     public void draw(Graphics g, World w) {
         Color c = g.getColor();
@@ -101,7 +107,7 @@ class Block {
         //draws a randomized block on the screen in a random color
 
         for (int i = 0; i < 4; i++) {
-            g.fillRect((int)((position.x + randomizedBlock[i].x*w.size)-radius),(int)((position.y + randomizedBlock[i].y*w.size)-radius),w.size,w.size);
+            g.fillRect((int)((position.x + randomizedBlock[i].x*w.size)),(int)((position.y + randomizedBlock[i].y*w.size)),w.size,w.size);
         }
         g.setColor(c);
 

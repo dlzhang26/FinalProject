@@ -101,7 +101,7 @@ class Block {
         //draws a randomized block on the screen in a random color
 
         for (int i = 0; i < 4; i++) {
-            g.fillRect((int)((position.x + randomizedBlock[i].x*w.size)-radius),(int)((position.y + randomizedBlock[i].y*w.size)-radius),w.size,w.size);
+            g.fillRect((int)((50+randomizedBlock[i].x*w.size)),(int)((position.y + randomizedBlock[i].y*w.size)),w.size,w.size);
         }
         g.setColor(c);
 

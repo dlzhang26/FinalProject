@@ -23,6 +23,10 @@ public class State extends OrderedCollection{
         length++;
 
     }
+
+
+
+
     //Returns the first rowstate
     public int[] peek(){
         
@@ -41,10 +45,13 @@ public class State extends OrderedCollection{
         String toReturn = "";
         Node n = end;
         while(n!=null){
-            for( int i =0; i<10; i++){
-                toReturn = n.rowstate[i] + " " + toReturn;
+            for (int j =0; j<1; j++){
+                for( int i =0; i<10; i++){
+                    toReturn =toReturn + " " + n.rowstate[i] + " ";
+                }
+                toReturn = toReturn + "Row: " + n.rownum + "\n";
             }
-            toReturn = toReturn + "\n";
+
             n=n.prev;
         }
         return toReturn;
@@ -64,5 +71,16 @@ class Node{
     public Node(int num){
         rowstate = new int[10];
         this.rownum = num;
+
+        //Test to see if this is working and creating rows properly
+        for (int i = 0; i< 10; i++){
+            rowstate[i] = i;
+            System.out.print(rowstate[i]+ " ");
+        }
+        System.out.println("Row: " + rownum);
+        
+
+
+
     }
 }

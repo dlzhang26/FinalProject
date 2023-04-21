@@ -3,7 +3,6 @@
 public class State extends OrderedCollection{
     Node end;
     int length;
-    int numrows;
 
     // Constructor - Creates the first end, but then appends 20 rows
     public State(){
@@ -11,14 +10,14 @@ public class State extends OrderedCollection{
         for(int i =0; i<20; i++){
             append();
         }
-        numrows =20;
+        length =20;
 
     }
     //
 
     //append method, just adds a blank rows
     public void append(){
-        Node toAdd = new Node(0);
+        Node toAdd = new Node(length);
         toAdd.prev= end;
         end = toAdd;
         length++;

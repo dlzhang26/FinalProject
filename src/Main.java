@@ -9,7 +9,7 @@ public class Main extends JPanel implements KeyListener {
     public static final int FPS = 1;
     World world;
 
-    class Runner implements Runnable {
+    class Runner implements Runnable {//Runnable interface
         public void run() {
             while (true) {
                 world.updateBlocks(1.0 / (double) FPS);
@@ -25,7 +25,7 @@ public class Main extends JPanel implements KeyListener {
     }
 
 
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {//implementing methods from keylistener interface
         int keyCode = e.getKeyCode();
         //rotates the block if the up key is pressed
         if(keyCode ==KeyEvent.VK_UP){
@@ -85,7 +85,7 @@ public class Main extends JPanel implements KeyListener {
     public void paintComponent(Graphics g) {//graphics method
         super.paintComponent(g);
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.BLACK);//setup background
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         world.drawBoard(g);

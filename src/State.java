@@ -45,7 +45,7 @@ public class State extends OrderedCollection{
         String toReturn = "";
         Node n = end;
         while(n!=null){
-            for (int j =0; j<1; j++){
+            for (int j =0; j<1; j++){//why is this a nested for loop if you're only doing it for 1 row?
                 for( int i =0; i<10; i++){
                     toReturn =toReturn + " " + n.rowstate[i] + " ";
                 }
@@ -56,11 +56,11 @@ public class State extends OrderedCollection{
         }
         return toReturn;
     }
+
+
     public int length(){
         return length;
     }
-
-
 
 }
 class Node{

@@ -33,6 +33,11 @@ public class Main extends JPanel implements KeyListener {
                 world.blocks[i].rotate();
             }
         }
+        if(keyCode ==KeyEvent.VK_KP_RIGHT){ // To make go right
+            for (int i = 0; i< world.numBlocks;i++){
+                
+            }
+        }
 
 
     }

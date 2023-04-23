@@ -4,10 +4,12 @@ import java.util.Random;
 class Pair {
     public double x;
     public double y;
+    public boolean isFalling;
 
     public Pair(double initX, double initY) {
         x = initX;
         y = initY;
+        isFalling = true;
     }
 
     public Pair add(Pair toAdd) {
@@ -46,7 +48,7 @@ class Block {
         int r = (int) (Math.random() * 7); // (0,7) is range of values
         randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
         radius = 12.5;
-        position = new Pair(300, 300);
+        position = new Pair(300, 30);
 
     }
 
@@ -68,23 +70,26 @@ class Block {
 
 
     // goes through the array and switches x and y and multiples -1*y to rotate
-    public Pair[] rotate() {//-1*y and switch x and y to rotate everything
-
+    public Pair[] rotate() {
         //if the block is the oBlock, do not rotate
-        if(randomizedBlock == oBlock){
-           return randomizedBlock;
+        if (randomizedBlock == oBlock) {
+            return randomizedBlock;
         }
-        Block hold = new Block();
+    
+        Pair[] rotatedBlock = new Pair[4]; // create a temporary block to hold the rotated block
+        stopDownwardMotion();
+    
         for (int i = 0; i < 4; i++) {
-            //initializes hold[i] x and y to randomizedBlock[i]
-            hold.randomizedBlock[i].x = randomizedBlock[i].x;
-            hold.randomizedBlock[i].y = randomizedBlock[i].y;
-
-            randomizedBlock[i].x = hold.randomizedBlock[i].y;//replaces the randomized block y to the x
-            randomizedBlock[i].y = hold.randomizedBlock[i].x;//replaces the randomized block x to the y
-
-            randomizedBlock[i].flipY(); //flips the sign of y
+            double x = randomizedBlock[i].x;
+            double y = randomizedBlock[i].y;
+    
+            rotatedBlock[i] = new Pair(y, -x); // calculate the rotated position
+    
+            randomizedBlock[i] = rotatedBlock[i]; // assign the rotated position to randomizedBlock
         }
+    
+        resumeDownwardMotion();
+    
         return randomizedBlock;
     }
     public void update(World w, double time) {
@@ -92,12 +97,28 @@ class Block {
 
     }
 
+    // Moves all of the positions down
     public Pair[] movedown() {
         for (int i = 0; i < 4; i++) {
-            randomizedBlock[i].y = randomizedBlock[i].y + 1;
+            if (randomizedBlock[i].isFalling = true) {
+                randomizedBlock[i].y = randomizedBlock[i].y + 1;
+            }
         }
         return randomizedBlock;
     }
+
+    private void stopDownwardMotion() {
+        for (int i = 0; i < 4; i++) {
+            randomizedBlock[i].isFalling = false;
+        }
+    }
+    
+    private void resumeDownwardMotion() {
+        for (int i = 0; i < 4; i++) {
+            randomizedBlock[i].isFalling = true;
+        }
+    }
+    
 
     public void draw(Graphics g, World w) {
         Color c = g.getColor();

@@ -1,56 +1,23 @@
 import java.awt.*;
 import java.util.Random;
 
-class Pair {
-    public double x;
-    public double y;
-
-    public Pair(double initX, double initY) {
-        x = initX;
-        y = initY;
-    }
-
-    public Pair add(Pair toAdd) {
-        return new Pair(x + toAdd.x, y + toAdd.y);
-    }
-
-    public Pair divide(double denom) {
-        return new Pair(x / denom, y / denom);
-    }
-
-    public Pair times(double val) {
-        return new Pair(x * val, y * val);
-    }
-
-    public void flipX() {
-        x = -x;
-    }
-
-    public void flipY() {
-        y = -y;
-    }
-}
-
 class Block {
     Color color;
 
-    double radius;
     Pair position;
 
     Pair[] randomizedBlock;//array of pairs that is holding a randomized block
 
     Pair[] jBlock, lBlock, sBlock, zBlock, oBlock, iBlock,tBlock;
-    public Block() {
+    public Block() {//constructor
         Random rand = new Random();
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         int r = (int) (Math.random() * 7); // (0,7) is range of values
         randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
-        radius = 12.5;
         position = new Pair(300, 300);
-
     }
 
-    public Pair[] setBlock(int random) {
+    public Pair[] setBlock(int random) {//chooses a block
         jBlock = new Pair[]{new Pair(0, 1), new Pair(0, 0), new Pair(0, -1), new Pair(-1, -1)};
         lBlock = new Pair[]{new Pair(-1, 0), new Pair(0,0), new Pair(1,0), new Pair(1,1)};
         sBlock = new Pair[]{new Pair(-1, 0), new Pair(0,0), new Pair(0,1), new Pair(1,1)};
@@ -69,20 +36,21 @@ class Block {
     // goes through the array and switches x and y and multiples -1*y to rotate
     public Pair[] rotate() {//-1*y and switch x and y to rotate everything
 
-        //if the block is the oBlock, do not rotate
-        if(randomizedBlock == oBlock){//square block
+        //if the block is the oBlock, do not rotate (oblock is square)
+        if(randomizedBlock == oBlock){
            return randomizedBlock;
         }
-        Block hold = new Block();
+        Block hold = new Block();//initializing new block so that we can rotate original block
+
         for (int i = 0; i < 4; i++) {
             //initializes hold[i] x and y to randomizedBlock[i]
             hold.randomizedBlock[i].x = randomizedBlock[i].x;
             hold.randomizedBlock[i].y = randomizedBlock[i].y;
 
             randomizedBlock[i].x = hold.randomizedBlock[i].y;//replaces the randomized block y to the x
-            randomizedBlock[i].y = hold.randomizedBlock[i].x;//replaces the randomized block x to the y
+            randomizedBlock[i].y = -hold.randomizedBlock[i].x;//replaces the randomized block x to the y
 
-            randomizedBlock[i].flipY(); //flips the sign of y
+            //randomizedBlock[i].flipY(); //flips the sign of y
         }
         return randomizedBlock;
     }
@@ -111,7 +79,9 @@ class Block {
         return randomizedBlock;
     }
 
-
+    public String toString(){
+        return position.x +" " + position.y + randomizedBlock;
+    }
 
 
     public void draw(Graphics g, World w) {

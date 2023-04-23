@@ -6,10 +6,10 @@ import java.awt.event.KeyListener;
 public class Main extends JPanel implements KeyListener {
     public static final int WIDTH = 600;
     public static final int HEIGHT = 600;
-    public static final int FPS = 1;
+    public static final int FPS = 2;
     World world;
 
-    class Runner implements Runnable {
+    class Runner implements Runnable {//Runnable interface
         public void run() {
             while (true) {
                 world.updateBlocks(1.0 / (double) FPS);
@@ -25,17 +25,13 @@ public class Main extends JPanel implements KeyListener {
     }
 
 
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {//implementing methods from keylistener interface
         int keyCode = e.getKeyCode();
         //rotates the block if the up key is pressed
         if(keyCode ==KeyEvent.VK_UP){
+            //need to change the for loop so it only changes the one block
             for (int i = 0; i< world.numBlocks;i++){
                 world.blocks[i].rotate();
-            }
-        }
-        if(keyCode ==KeyEvent.VK_KP_RIGHT){ // To make go right
-            for (int i = 0; i< world.numBlocks;i++){
-                
             }
         }
 
@@ -77,7 +73,7 @@ public class Main extends JPanel implements KeyListener {
     public void paintComponent(Graphics g) {//graphics method
         super.paintComponent(g);
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.BLACK);//setup background
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         world.drawBoard(g);

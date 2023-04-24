@@ -8,6 +8,7 @@ public class Main extends JPanel implements KeyListener {
     public static final int HEIGHT = 600;
     public static final int FPS = 2;
     World world;
+    int gamestart =0 ;
 
     class Runner implements Runnable {//Runnable interface
         public void run() {
@@ -34,6 +35,7 @@ public class Main extends JPanel implements KeyListener {
                 world.blocks[i].rotate();
             }
         }
+        gamestart++;
 
 
     }
@@ -75,9 +77,13 @@ public class Main extends JPanel implements KeyListener {
 
         g.setColor(Color.BLACK);//setup background
         g.fillRect(0, 0, WIDTH, HEIGHT);
-
+        if (gamestart==0){
+            g.setColor(Color.white);
+            g.drawString("Press any key to start", 250, 300);
+        }
+        else{
         world.drawBoard(g);
         world.drawBlocks(g);
-
+        }
     }
 }

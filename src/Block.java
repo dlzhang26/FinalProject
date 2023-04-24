@@ -5,6 +5,7 @@ class Block {
     Color color;
 
     Pair position;
+    boolean isFalling;
 
     Pair[] randomizedBlock;//array of pairs that is holding a randomized block
 
@@ -13,8 +14,7 @@ class Block {
         Random rand = new Random();
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         int r = (int) (Math.random() * 7); // (0,7) is range of values
-        randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
-        radius = 12.5;
+        this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
         position = new Pair(300, 300);
 
     }
@@ -54,7 +54,7 @@ class Block {
             randomizedBlock[i].flipY(); //flips the sign of y
         }
     
-        resumeDownwardMotion();
+       // resumeDownwardMotion();
     
         return randomizedBlock;
     }
@@ -66,9 +66,9 @@ class Block {
     // Moves all of the positions down
     public Pair[] movedown() {
         for (int i = 0; i < 4; i++) {
-            if (randomizedBlock[i].isFalling = true) {
+           /*  if (randomizedBlock[i].isFalling = true) {
                 randomizedBlock[i].y = randomizedBlock[i].y + 1;
-            }
+            }*/
         }
         return randomizedBlock;
     }

@@ -30,7 +30,7 @@ public class World {
         for (int i = 1; i < 21; i++){//height of the board
             for (int j = 1; j < 11; j++) {//width of the board
                 g.setColor(Color.white);
-                g.drawRect(j*size,i*size, size,size);
+                g.drawRect(width/4 +j*size,i*size, size,size);
             }
         }
     }

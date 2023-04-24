@@ -29,7 +29,7 @@ public class Main extends JPanel implements KeyListener {
         int keyCode = e.getKeyCode();
         //rotates the block if the up key is pressed
         if(keyCode ==KeyEvent.VK_UP){
-            //need to change the for loop so it only changes the one block
+            //need to change the for loop later so it only changes the one block
             for (int i = 0; i< world.numBlocks;i++){
                 world.blocks[i].rotate();
             }

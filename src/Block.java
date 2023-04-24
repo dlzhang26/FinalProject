@@ -1,6 +1,35 @@
 import java.awt.*;
 import java.util.Random;
 
+class Pair {
+    public double x;
+    public double y;
+
+    public Pair(double initX, double initY) {
+        x = initX;
+        y = initY;
+    }
+
+    public Pair add(Pair toAdd) {
+        return new Pair(x + toAdd.x, y + toAdd.y);
+    }
+
+    public Pair divide(double denom) {
+        return new Pair(x / denom, y / denom);
+    }
+
+    public Pair times(double val) {
+        return new Pair(x * val, y * val);
+    }
+
+    public void flipX() {
+        x = -x;
+    }
+
+    public void flipY() {
+        y = -y;
+    }
+}
 
 class Block {
     Color color;
@@ -15,7 +44,7 @@ class Block {
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         int r = (int) (Math.random() * 7); // (0,7) is range of values
         randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
-        //radius = 12.5;
+        radius = 12.5;
         position = new Pair(300, 300);
 
     }
@@ -55,7 +84,7 @@ class Block {
             randomizedBlock[i].flipY(); //flips the sign of y
         }
     
-       // resumeDownwardMotion();
+        resumeDownwardMotion();
     
         return randomizedBlock;
     }
@@ -65,22 +94,14 @@ class Block {
     }
 
     // Moves all of the positions down
-
     public Pair[] movedown() {
         for (int i = 0; i < 4; i++) {
-
             if (randomizedBlock[i].isFalling = true) {
                 randomizedBlock[i].y = randomizedBlock[i].y + 1;
             }
-
-
-            randomizedBlock[i].y = randomizedBlock[i].y + 1;
         }
         return randomizedBlock;
     }
-
-
-
 
     public void draw(Graphics g, World w) {
         Color c = g.getColor();

@@ -34,6 +34,24 @@ public class State extends OrderedCollection{
 
     }
 
+    public int[] remove(int index){
+        int[] toReturn;
+        Node n = end; 
+        if(index == 1){
+            toReturn = pop();
+        }
+        while(n != null){
+            if(n.rownum == index){
+                toReturn = n.rowstate;
+
+            }
+        }
+        toReturn = n.rowstate;
+        return toReturn;
+
+    }
+
+
     //Removes the last rowstate - I think will need to add more functions such as a remove function
     public int[] pop(){
         int[] toReturn = end.rowstate; 
@@ -73,6 +91,7 @@ class Node{
         this.rownum = num;
 
         //Test to see if this is working and creating rows properly
+        System.out.println("State Created:");
         for (int i = 0; i< 10; i++){
             rowstate[i] = i;
             System.out.print(rowstate[i]+ " ");

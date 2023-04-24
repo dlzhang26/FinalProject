@@ -11,9 +11,10 @@ public class Main extends JPanel implements KeyListener {
 
     class Runner implements Runnable {//Runnable interface
         public void run() {
-            while (true) {
+            while (true) {//while window is still open, do these things
                 world.updateBlocks(1.0 / (double) FPS);
                 repaint();
+
                 try {
                     Thread.sleep(1000 / FPS);
                 } catch (InterruptedException e) {
@@ -24,22 +25,25 @@ public class Main extends JPanel implements KeyListener {
 
     }
 
+/*********************implementing methods from keylistener interface ************************************/
 
-    public void keyPressed(KeyEvent e) {//implementing methods from keylistener interface
+    public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
-        //rotates the block if the up key is pressed
-        if(keyCode ==KeyEvent.VK_UP){
+        
+        if(keyCode ==KeyEvent.VK_UP){//rotates the block if the up key is pressed
             //need to change the for loop so it only changes the one block
             for (int i = 0; i< world.numBlocks;i++){
                 world.blocks[i].rotate();
             }
         }
+
         //moves the block left if the left arrow is pressed
         if(keyCode ==KeyEvent.VK_LEFT){
             for (int i = 0; i< world.numBlocks;i++){
                 world.blocks[i].moveLeft();
             }
         }
+
         //moves the block right if the right arrow is pressed
         if(keyCode ==KeyEvent.VK_RIGHT){
             for (int i = 0; i< world.numBlocks;i++){
@@ -48,6 +52,9 @@ public class Main extends JPanel implements KeyListener {
         }
 
 
+        //also need down arrow method to speed up bricks when down arrow is pressed. 
+
+        /*******************************************************************************/
     }
 
     public void keyReleased(KeyEvent e) {

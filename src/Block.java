@@ -13,7 +13,7 @@ class Block {
         Random rand = new Random();
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         int r = (int) (Math.random() * 7); // (0,7) is range of values
-        randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
+        this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
         position = new Pair(300, 300);
     }
 

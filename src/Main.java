@@ -23,6 +23,7 @@ public class Main extends JPanel implements KeyListener {
 
         }
 
+
     }
 
 
@@ -33,6 +34,16 @@ public class Main extends JPanel implements KeyListener {
             //need to change the for loop so it only changes the one block
             for (int i = 0; i< world.numBlocks;i++){
                 world.blocks[i].rotate();
+            }
+        }
+        if(keyCode == KeyEvent.VK_RIGHT){
+            for (int i = 0; i< world.numBlocks;i++){
+                world.blocks[i].moveRight();
+            }
+        }
+        if(keyCode == KeyEvent.VK_LEFT){
+            for (int i = 0; i< world.numBlocks;i++){
+                world.blocks[i].moveLeft();
             }
         }
         gamestart++;

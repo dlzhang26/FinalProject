@@ -9,7 +9,8 @@ class Block {
 
     Pair[] randomizedBlock;//array of pairs that is holding a randomized block
 
-    Pair[] jBlock, lBlock, sBlock, zBlock, oBlock, iBlock,tBlock;
+    Pair[] jBlock, lBlock, sBlock, zBlock, oBlock, iBlock, tBlock;
+
     public Block() {//constructor
         Random rand = new Random();
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
@@ -21,12 +22,12 @@ class Block {
 
     public Pair[] setBlock(int random) {//chooses a block
         jBlock = new Pair[]{new Pair(0, 1), new Pair(0, 0), new Pair(0, -1), new Pair(-1, -1)};
-        lBlock = new Pair[]{new Pair(-1, 0), new Pair(0,0), new Pair(1,0), new Pair(1,1)};
-        sBlock = new Pair[]{new Pair(-1, 0), new Pair(0,0), new Pair(0,1), new Pair(1,1)};
-        zBlock = new Pair[]{new Pair(-1, 1), new Pair(0,1), new Pair(0,0), new Pair(1,0)};
-        tBlock = new Pair[]{new Pair(0, 1), new Pair(-1,0), new Pair(0,0), new Pair(1,0)};
-        oBlock = new Pair[]{new Pair(0, 1), new Pair(1,1), new Pair(0,0), new Pair(1,0)};
-        iBlock = new Pair[]{new Pair(-1, 0), new Pair(0,0), new Pair(1,0), new Pair(2,0)};
+        lBlock = new Pair[]{new Pair(-1, 0), new Pair(0, 0), new Pair(1, 0), new Pair(1, 1)};
+        sBlock = new Pair[]{new Pair(-1, 0), new Pair(0, 0), new Pair(0, 1), new Pair(1, 1)};
+        zBlock = new Pair[]{new Pair(-1, 1), new Pair(0, 1), new Pair(0, 0), new Pair(1, 0)};
+        tBlock = new Pair[]{new Pair(0, 1), new Pair(-1, 0), new Pair(0, 0), new Pair(1, 0)};
+        oBlock = new Pair[]{new Pair(0, 1), new Pair(1, 1), new Pair(0, 0), new Pair(1, 0)};
+        iBlock = new Pair[]{new Pair(-1, 0), new Pair(0, 0), new Pair(1, 0), new Pair(2, 0)};
 
         Pair[][] types = {jBlock, lBlock, iBlock, sBlock, zBlock, oBlock, tBlock};//creating basically a matrix that has the type of blocks but only using 1 dimension?
         Pair[] randomBlock = types[random];//picks one of the matricies from types and sets the variable randomBlock equal to it.
@@ -39,8 +40,8 @@ class Block {
     public Pair[] rotate() {//-1*y and switch x and y to rotate everything
 
         //if the block is the oBlock, do not rotate
-        if(randomizedBlock == oBlock){
-           return randomizedBlock;
+        if (randomizedBlock == oBlock) {
+            return randomizedBlock;
         }
         Block hold = new Block();
         for (int i = 0; i < 4; i++) {
@@ -53,15 +54,31 @@ class Block {
 
             randomizedBlock[i].flipY(); //flips the sign of y
         }
-    
-       // resumeDownwardMotion();
-    
+
+        // resumeDownwardMotion();
+
         return randomizedBlock;
     }
+
     public void update(World w, double time) {
 
 
     }
+
+    public Pair[] moveRight() {
+        for (int i = 0; i < 4; i++) {
+            randomizedBlock[i].x = randomizedBlock[i].x + 1;
+        }
+        return randomizedBlock;
+    }
+
+    public Pair[] moveLeft() {
+        for (int i = 0; i < 4; i++) {
+            randomizedBlock[i].x = randomizedBlock[i].x - 1;
+        }
+        return randomizedBlock;
+    }
+
 
     // Moves all of the positions down
     public Pair[] movedown() {
@@ -81,7 +98,7 @@ class Block {
         //draws a randomized block on the screen in a random color
 
         for (int i = 0; i < 4; i++) {
-            g.fillRect((int)((position.x + randomizedBlock[i].x*w.size)),(int)((position.y + randomizedBlock[i].y*w.size)),w.size,w.size);
+            g.fillRect((int) ((position.x + randomizedBlock[i].x * w.size)), (int) ((position.y + randomizedBlock[i].y * w.size)), w.size, w.size);
         }
         g.setColor(c);
 

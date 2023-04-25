@@ -1,5 +1,5 @@
 import java.awt.*;
-
+import java.util.ArrayList;
 public class World {
     int height;
     int width;
@@ -10,6 +10,8 @@ public class World {
 
     Block blocks[];
 
+    ArrayList blockss = new ArrayList<Block>();
+
     public World(int initWidth, int initHeight, int blockSize, int initNumBlocks) {
         width = initWidth;
         height = initHeight;
@@ -18,7 +20,7 @@ public class World {
         numBlocks = initNumBlocks;
         blocks  = new Block[numBlocks];
 
-
+        
 
         for (int i = 0; i < numBlocks; i ++)
         {

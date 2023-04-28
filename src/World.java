@@ -1,21 +1,21 @@
 import java.awt.*;
 import java.util.ArrayList;
 public class World {
-    int height;
-    int width;
+    int boardHeight;
+    int boardWidth;
+
 
     int numBlocks;
 
-    int size;
+    int size = Main.BLOCKSIZE;
 
     Block blocks[];
 
-    ArrayList blockss = new ArrayList<Block>();
+    ArrayList<Block> blockss = new ArrayList<Block>();
 
-    public World(int initWidth, int initHeight, int blockSize, int initNumBlocks) {
-        width = initWidth;
-        height = initHeight;
-        size = blockSize;
+    public World(int initWidth, int initHeight, int initNumBlocks) {
+        boardWidth = initWidth;
+        boardHeight = initHeight;
 
         numBlocks = initNumBlocks;
         blocks  = new Block[numBlocks];
@@ -29,10 +29,10 @@ public class World {
 
     }
     public void drawBoard(Graphics g){//10 by 20 board - Each square is 25 rn
-        for (int i = 1; i < 21; i++){//height of the board
-            for (int j = 1; j < 11; j++) {//width of the board
+        for (int i = 1; i < 21; i++){//adds boarders to the height of the board
+            for (int j = 1; j < 11; j++) {//adds boarders to the width of the board
                 g.setColor(Color.white);
-                g.drawRect(width/4 +j*size,i*size, size,size);
+                g.drawRect(j*size,i*size, size,size);
             }
         }
     }

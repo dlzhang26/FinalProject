@@ -89,6 +89,7 @@ class Block {
         return randomizedBlock;
     }
 
+
     public void draw(Graphics g, World w) {
         Color c = g.getColor();
 
@@ -97,11 +98,22 @@ class Block {
         //draws a randomized block on the screen in a random color
 
         for (int i = 0; i < 4; i++) {
-            g.fillRect((int) ((position.x + randomizedBlock[i].x * w.size)), (int) ((position.y + randomizedBlock[i].y * w.size)), w.size, w.size);
+            g.fillRect((int) ((position.x + randomizedBlock[i].x * w.size)), (int) ((position.y + randomizedBlock[i].y * w.size)),  w.size,  w.size);
         }
         g.setColor(c);
 
     }
+
+    public void updateBlocks(World w){
+        boolean isColliding = false;
+        for (int i = 0; i < 4; i++) {
+            int x = (int) (position.x + randomizedBlock[i].x);
+            int y = (int)(position.y + randomizedBlock[i].y);
+
+        }
+    }
+
+
 
 }
 /*

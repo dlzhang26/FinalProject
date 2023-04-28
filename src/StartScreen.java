@@ -36,14 +36,14 @@ public static Boolean gameStart;
         
          while(gameStart==false){//while the game has not started... do some drawings
             g.setColor(Color.BLACK);
-            g.fillRect(0, 0, w.width,w.height);//establishing the background
+            g.fillRect(0, 0, w.boardWidth,w.boardHeight);//establishing the background
             g.setColor(Color.red);//sets text color to red
             
             //this section gonna draw the stuff to the background.    
 
-            g.fillRect(w.height/2, w.width/2, 300,  200);
+            g.fillRect(w.boardHeight/2, w.boardWidth/2, 300,  200);
             g.setColor(Color.white);
-            g.drawString("Press any key to start", w.width/2, w.height/2);//text on round rectangle
+            g.drawString("Press any key to start", w.boardWidth/2, w.boardHeight/2);//text on round rectangle
 
         }
        

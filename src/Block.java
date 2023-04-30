@@ -16,7 +16,7 @@ class Block {
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         int r = (int) (Math.random() * 7); // (0,7) is range of values
         this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
-        position = new Pair(300, 300);
+        position = new Pair( 60,60);
     }
 
     public Pair[] setBlock(int random) {//chooses a block
@@ -65,22 +65,19 @@ class Block {
     }
 
     public Pair[] moveRight() {
-        for (int i = 0; i < 4; i++) {
-            randomizedBlock[i].x = randomizedBlock[i].x + 1;
-        }
+        this.position.x = this.position.x + 30;//30 is the block size
         return randomizedBlock;
     }
 
     public Pair[] moveLeft() {
-        for (int i = 0; i < 4; i++) {
-            randomizedBlock[i].x = randomizedBlock[i].x - 1;
-        }
+        this.position.x = this.position.x - 30;//30 is the block size
         return randomizedBlock;
     }
 
 
     // Moves all of the positions down
     public Pair[] movedown() {
+        this.position.y = this.position.y + 30;//30 is the block size
         for (int i = 0; i < 4; i++) {
            /*  if (randomizedBlock[i].isFalling = true) {
                 randomizedBlock[i].y = randomizedBlock[i].y + 1;

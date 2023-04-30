@@ -90,17 +90,14 @@ public class Main extends JPanel implements KeyListener {
 
         g.setColor(Color.BLACK);//setup background
         g.fillRect(0, 0, WIDTH*BLOCKSIZE, HEIGHT*BLOCKSIZE);
-        /*
-
 
         if (gamestart==0){
             g.setColor(Color.white);
-            g.drawString("Press any key to start", 250, 300);
+            g.drawString("Press any key to start", 120, 300);
         }
         else{
-            */
         world.drawBoard(g);
         world.drawBlocks(g);
-        //}
+        }
     }
 }

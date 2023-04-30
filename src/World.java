@@ -10,7 +10,7 @@ public class World {
 
     Block blocks[];
 
-    ArrayList blockss = new ArrayList<Block>();
+    ArrayList<Block> blockss = new ArrayList<Block>();
 
     public World(int initWidth, int initHeight, int blockSize, int initNumBlocks) {
         width = initWidth;
@@ -20,11 +20,12 @@ public class World {
         numBlocks = initNumBlocks;
         blocks  = new Block[numBlocks];
 
+        State cState = new State();
         
 
         for (int i = 0; i < numBlocks; i ++)
         {
-            blocks[i] = new Block();
+            blocks[i] = new Block(cState);
         }
 
     }

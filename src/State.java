@@ -10,17 +10,26 @@ public class State extends OrderedCollection{
         for(int i =0; i<20; i++){
             append();
         }
-        length =20;
+
 
     }
     //
 
     //append method, just adds a blank rows
     public void append(){
+        length++;
         Node toAdd = new Node(length);
         toAdd.prev= end;
         end = toAdd;
-        length++;
+    }
+
+    public void SpaceON(double column, double row){
+        Node n = end; 
+        while(n.rownum != row){
+            n=n.prev;
+        }
+        n.rowstate[(int)column] = 1;
+
 
     }
 
@@ -36,17 +45,29 @@ public class State extends OrderedCollection{
 
     public int[] remove(int index){
         int[] toReturn;
+        Node removed;
         Node n = end; 
-        if(index == 1){
-            toReturn = pop();
-        }
-        while(n != null){
-            if(n.rownum == index){
-                toReturn = n.rowstate;
 
-            }
+        //Go through datastructure until the one we want to remove + 1
+        while(n.prev.rownum != index+1){
+            n=n.prev;
         }
-        toReturn = n.rowstate;
+        toReturn = n.prev.rowstate;
+        //
+        removed = n.prev;
+        //In order to remove it we set the previous to the previous of the one before
+        System.out.println("Removed Row: " + removed.rownum);
+
+
+        n.prev = n.prev.prev;
+
+        n = end;
+        //now to update rownumbers
+        while(n.rownum >= index+1){
+            n.rownum--;
+            n = n.prev;
+        }
+
         return toReturn;
 
     }
@@ -76,6 +97,22 @@ public class State extends OrderedCollection{
     }
 
 
+    public void newblock(Pair[] block){
+        int top = 0;
+        for(Pair p : block){
+            if(p.y>top){
+                p.y = top;
+            }
+        }
+        Pair center = new Pair(5, 20-top);
+        for(Pair p: block){
+            SpaceON(p.x+center.x, p.y + center.y);
+        }
+        
+
+    }
+
+
     public int length(){
         return length;
     }
@@ -90,13 +127,8 @@ class Node{
         rowstate = new int[10];
         this.rownum = num;
 
-        //Test to see if this is working and creating rows properly
-        System.out.println("State Created:");
-        for (int i = 0; i< 10; i++){
-            rowstate[i] = i;
-            System.out.print(rowstate[i]+ " ");
-        }
-        System.out.println("Row: " + rownum);
+        //Test to see if this is working and creating rows properly/
+       // System.out.println("Row: " + rownum);
         
 
 

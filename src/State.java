@@ -101,13 +101,14 @@ public class State extends OrderedCollection{
         int top = 0;
         for(Pair p : block){
             if(p.y>top){
-                p.y = top;
+                top = (int)p.y;
             }
         }
         Pair center = new Pair(5, 20-top);
         for(Pair p: block){
             SpaceON(p.x+center.x, p.y + center.y);
         }
+        System.out.println(this);
         
 
     }

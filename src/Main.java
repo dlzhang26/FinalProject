@@ -2,8 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Main extends JPanel implements KeyListener {
+public class Main extends JPanel implements KeyListener, MouseListener {
     public static final int WIDTH = 12;
     public static final int HEIGHT = 22;
 
@@ -28,6 +30,31 @@ public class Main extends JPanel implements KeyListener {
 
 
     }
+
+    /*INFO for mouselistener found @ https://docs.oracle.com/javase/tutorial/uiswing/events/mouselistener.html */
+
+    public void mousePressed(MouseEvent e) {
+        System.out.println("Mouse pressed; # of clicks: "
+                     + e.getClickCount());
+     }
+ 
+     public void mouseReleased(MouseEvent e) {
+        System.out.println("Mouse released; # of clicks: "
+                     + e.getClickCount());
+     }
+ 
+     public void mouseEntered(MouseEvent e) {
+        System.out.println("Mouse entered");
+     }
+ 
+     public void mouseExited(MouseEvent e) {
+        System.out.println("Mouse exited");
+     }
+ 
+     public void mouseClicked(MouseEvent e) {
+        System.out.println("Mouse clicked (# of clicks: "
+                     + e.getClickCount() + ")");
+     }
 
 
     public void keyPressed(KeyEvent e) {//implementing methods from keylistener interface
@@ -83,13 +110,14 @@ public class Main extends JPanel implements KeyListener {
     public Main() {
         world = new World(WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);//initialize the instance of the world class
         addKeyListener(this);
+        addMouseListener(this);
         this.setPreferredSize(new Dimension(WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE));
         Thread mainThread = new Thread(new Runner());
         mainThread.start();//should we use some resources to figure out exactly what threads are?
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Tetris");
+        JFrame frame = new JFrame("ARCADE!!!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//stops running program when JFrame is closed
         Main mainInstance = new Main();
         frame.setContentPane(mainInstance);
@@ -97,6 +125,7 @@ public class Main extends JPanel implements KeyListener {
         frame.setVisible(true);
     }
 
+    
 
     public void paintComponent(Graphics g) {//graphics method
         super.paintComponent(g);
@@ -104,11 +133,23 @@ public class Main extends JPanel implements KeyListener {
         g.setColor(Color.BLACK);//setup background
         g.fillRect(0, 0, WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);
         if (gamestart == 0) {
-            g.setColor(Color.white);
-            g.drawString("Press any key to start", 250, 300);
+            drawStartScreen(g);
         } else {
-            world.drawBoard(g);
-            world.drawBlocks(g);
+            gameGraphics(g);
         }
+    }
+
+
+
+    public void drawStartScreen(Graphics g){//method for drawing of the startscreen ui
+        g.setColor(Color.white);
+            g.drawString("Press any key to start", 130, 300);
+    }
+
+    public void gameGraphics(Graphics g){//method for drawing of the game graphics
+        world.drawBoard(g);
+        world.drawBlocks(g);
+        g.drawString("SCORE: ", 220, 15);
+        g.drawString("CURRENT PLAYER: ", 50, 15);
     }
 }

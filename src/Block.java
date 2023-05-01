@@ -55,8 +55,6 @@ class Block {
                 return randomizedBlock;
             }
             Block hold = new Block();
-            System.out.println("here");
-            System.out.println(isFalling);
             if (isFalling == true) {
                 System.out.println("got here");
             for (int i = 0; i < 4; i++) {
@@ -139,7 +137,6 @@ class Block {
         if (position.y + bottom * 30 > 600) {
             position.y = 600 - bottom * 30;
             isFalling = false;
-            System.out.println("Works");
         }
         if (position.x + left * 30 < 30) {
             position.x = 30 - left * 30;

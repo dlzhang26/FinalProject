@@ -22,13 +22,13 @@ class Block {
 
     public Block(State currenState) {//constructor
         Random rand = new Random();
-        int r = rand.nextInt(0,8);
+        int r = rand.nextInt(0, 8);
         //color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         this.isFalling = true;
         //int r = (int) (Math.random() * 7); // (0,7) is range of values
         this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
 
-        Color[] colors = {new Color(255, 0, 128),new Color(128, 0, 255),new Color(255, 165, 0), new Color(0,255,255),new Color(255,0,255),new Color(255,255,0),new Color(0,255,0)};
+        Color[] colors = {new Color(255, 0, 128), new Color(128, 0, 255), new Color(255, 165, 0), new Color(0, 255, 255), new Color(255, 0, 255), new Color(255, 255, 0), new Color(0, 255, 0)};
         color = colors[r];
         currenState.newblock(randomizedBlock);
     }

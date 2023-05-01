@@ -10,9 +10,10 @@ public class Main extends JPanel implements KeyListener {
     public static final int BLOCKSIZE = 30;
     public static final int FPS = 2;
     World world;
-    int gamestart =0 ;
+    int gamestart = 0;
 
     class Runner implements Runnable {//Runnable interface
+
         public void run() {
             while (true) {
                 world.updateBlocks(1.0 / (double) FPS);
@@ -32,7 +33,7 @@ public class Main extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {//implementing methods from keylistener interface
         int keyCode = e.getKeyCode();
         //rotates the block if the up key is pressed
-        if(keyCode ==KeyEvent.VK_UP){
+        if (keyCode == KeyEvent.VK_UP) {
             world.currentBlock.rotate();
             /*
             //need to change the for loop so it only changes the one block
@@ -42,7 +43,7 @@ public class Main extends JPanel implements KeyListener {
 
              */
         }
-        if(keyCode == KeyEvent.VK_RIGHT){
+        if (keyCode == KeyEvent.VK_RIGHT) {
             world.currentBlock.moveRight();
             /*
             for (int i = 0; i< world.numBlocks;i++){
@@ -51,7 +52,7 @@ public class Main extends JPanel implements KeyListener {
 
              */
         }
-        if(keyCode == KeyEvent.VK_LEFT){
+        if (keyCode == KeyEvent.VK_LEFT) {
             world.currentBlock.moveLeft();
             /*
             for (int i = 0; i< world.numBlocks;i++){
@@ -66,7 +67,7 @@ public class Main extends JPanel implements KeyListener {
     }
 
     public void keyReleased(KeyEvent e) {
-        char c=e.getKeyChar();
+        char c = e.getKeyChar();
     }
 
 
@@ -79,15 +80,15 @@ public class Main extends JPanel implements KeyListener {
         requestFocus();
     }
 
-    public Main(){
-        world = new World(WIDTH*BLOCKSIZE, HEIGHT*BLOCKSIZE);//initialize the instance of the world class
+    public Main() {
+        world = new World(WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);//initialize the instance of the world class
         addKeyListener(this);
-        this.setPreferredSize(new Dimension(WIDTH*BLOCKSIZE, HEIGHT*BLOCKSIZE));
+        this.setPreferredSize(new Dimension(WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE));
         Thread mainThread = new Thread(new Runner());
         mainThread.start();//should we use some resources to figure out exactly what threads are?
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         JFrame frame = new JFrame("Tetris");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//stops running program when JFrame is closed
         Main mainInstance = new Main();
@@ -101,14 +102,13 @@ public class Main extends JPanel implements KeyListener {
         super.paintComponent(g);
 
         g.setColor(Color.BLACK);//setup background
-        g.fillRect(0, 0, WIDTH*BLOCKSIZE, HEIGHT*BLOCKSIZE);
-        if (gamestart==0){
+        g.fillRect(0, 0, WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);
+        if (gamestart == 0) {
             g.setColor(Color.white);
             g.drawString("Press any key to start", 250, 300);
-        }
-        else{
-        world.drawBoard(g);
-        world.drawBlocks(g);
+        } else {
+            world.drawBoard(g);
+            world.drawBlocks(g);
         }
     }
 }

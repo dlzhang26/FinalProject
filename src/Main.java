@@ -96,7 +96,6 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
              */
         }
-        //gamestart++;
 
 
     }
@@ -117,11 +116,11 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
     public Main() {
         world = new World(WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);//initialize the instance of the world class
-        addKeyListener(this);
+        addKeyListener(this);//adding key/mouselisteners so functions can be performed. 
         addMouseListener(this);
         this.setPreferredSize(new Dimension(WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE));
         Thread mainThread = new Thread(new Runner());
-        mainThread.start();//should we use some resources to figure out exactly what threads are?
+        mainThread.start();
     }
 
     public static void main(String[] args) {
@@ -137,9 +136,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
     public void paintComponent(Graphics g) {//graphics method
         super.paintComponent(g);
-
-        g.setColor(Color.BLACK);//setup background
-        g.fillRect(0, 0, WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);
+        setupBackground(g);
         if (gamestart == 0) {
             drawStartScreen(g);
         } else {
@@ -148,7 +145,10 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     }
 
 
-
+    public void setupBackground(Graphics g){
+        g.setColor(Color.BLACK);//setup background
+        g.fillRect(0, 0, WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);
+    }
     public void drawStartScreen(Graphics g){//method for drawing of the startscreen ui
         g.setColor(Color.white);
         g.fillRect(120, 285, 150, 25);

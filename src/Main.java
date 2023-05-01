@@ -12,7 +12,9 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     public static final int BLOCKSIZE = 30;
     public static final int FPS = 2;
     World world;
-    int gamestart = 0;
+    static int gamestart = 0;
+    boolean highlight = false;
+
 
     class Runner implements Runnable {//Runnable interface
 
@@ -34,8 +36,13 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     /*INFO for mouselistener found @ https://docs.oracle.com/javase/tutorial/uiswing/events/mouselistener.html */
 
     public void mousePressed(MouseEvent e) {
-        System.out.println("Mouse pressed; # of clicks: "
-                     + e.getClickCount());
+                     int mouseX = e.getX();
+                     int mouseY = e.getY();
+                     System.out.println("Mouse clicked" + mouseX + "  " + mouseY);
+                     if(mouseX>120 && mouseX<270 && mouseY>280 && mouseY<305){
+                        System.out.println("got here");
+                         gamestart++;
+                     }
      }
  
      public void mouseReleased(MouseEvent e) {
@@ -45,6 +52,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
  
      public void mouseEntered(MouseEvent e) {
         System.out.println("Mouse entered");
+        
      }
  
      public void mouseExited(MouseEvent e) {
@@ -88,7 +96,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
              */
         }
-        gamestart++;
+        //gamestart++;
 
 
     }
@@ -143,7 +151,13 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
     public void drawStartScreen(Graphics g){//method for drawing of the startscreen ui
         g.setColor(Color.white);
-            g.drawString("Press any key to start", 130, 300);
+        g.fillRect(120, 285, 150, 25);
+        if(highlight==true){
+            g.setColor(Color.yellow);
+            g.drawRect(115, 280, 155, 30);
+        }
+        g.setColor(Color.MAGENTA);
+        g.drawString("Click to start", 130, 300);
     }
 
     public void gameGraphics(Graphics g){//method for drawing of the game graphics

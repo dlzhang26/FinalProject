@@ -58,7 +58,7 @@ public class World {
         addBlock();
         currentBlock.movedown();//updates the current block;
         currentBlock.update(this, time);
-
+        
         /* im pretty sure we dont need this but im gonna comment it out just in case
         for(int i = 0; i< blockss.size()-1;i++){
             blockss.get(i).update(this,time);

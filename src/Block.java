@@ -18,19 +18,19 @@ class Block {
         this.isFalling = true;
         int r = (int) (Math.random() * 7); // (0,7) is range of values
         this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
-        //position = new Pair(0, 0);
     }
 
     public Block(State currenState) {//constructor
         Random rand = new Random();
-        color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
+        int r = rand.nextInt(0,8);
+        //color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         this.isFalling = true;
-        int r = (int) (Math.random() * 7); // (0,7) is range of values
+        //int r = (int) (Math.random() * 7); // (0,7) is range of values
         this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
-        //position = new Pair(150, 0);
+
+        Color[] colors = {new Color(255, 0, 128),new Color(128, 0, 255),new Color(255, 165, 0), new Color(0,255,255),new Color(255,0,255),new Color(255,255,0),new Color(0,255,0)};
+        color = colors[r];
         currenState.newblock(randomizedBlock);
-
-
     }
 
     public Pair[] setBlock(int random) {//chooses a block
@@ -43,6 +43,8 @@ class Block {
         iBlock = new Pair[]{new Pair(-1, 0), new Pair(0, 0), new Pair(1, 0), new Pair(2, 0)};
 
         Pair[][] types = {jBlock, lBlock, iBlock, sBlock, zBlock, oBlock, tBlock};//creating basically a matrix that has the type of blocks but only using 1 dimension?
+
+
         Pair[] randomBlock = types[random];//picks one of the matricies from types and sets the variable randomBlock equal to it.
 
         return randomBlock;//return random block
@@ -57,7 +59,7 @@ class Block {
             return randomizedBlock;
         }
         Block hold = new Block();
-        if(this.isFalling == true){
+        if (this.isFalling == true) {
             for (int i = 0; i < 4; i++) {
                 //initializes hold[i] x and y to randomizedBlock[i]
                 hold.randomizedBlock[i].x = randomizedBlock[i].x;
@@ -69,10 +71,6 @@ class Block {
                 randomizedBlock[i].flipY(); //flips the sign of y
             }
         }
-
-
-        // resumeDownwardMotion();
-
         return randomizedBlock;
     }
 
@@ -81,26 +79,22 @@ class Block {
     }
 
     public Pair[] moveRight() {
-        if(this.isFalling == true){
+        if (this.isFalling == true) {
             position.x += 30;//30 is the block size
-
-
         }
         return randomizedBlock;
     }
 
     public Pair[] moveLeft() {
-        if(this.isFalling == true) {
+        if (this.isFalling == true) {
             position.x -= 30;//30 is the block size
-
         }
         return randomizedBlock;
     }
 
-
     // Moves all of the positions down
     public Pair[] movedown() {
-        if(this.isFalling == true){
+        if (this.isFalling == true) {
             position.y += 30;//30 is the block size
         }
         return randomizedBlock;
@@ -146,7 +140,7 @@ class Block {
         if (position.y + bottom * 30 > 600) {
             position.y = 600 - bottom * 30;
             this.isFalling = false;
-           // System.out.println(isFalling);
+            // System.out.println(isFalling);
         }
         if (position.x + left * 30 < 30) {
             position.x = 30 - left * 30;

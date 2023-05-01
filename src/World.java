@@ -3,9 +3,6 @@ import java.util.ArrayList;
 public class World {
     int height;
     int width;
-
-    int numBlocks;
-
     int size = Main.BLOCKSIZE;
 
     Block currentBlock;

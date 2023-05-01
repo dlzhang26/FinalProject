@@ -6,16 +6,15 @@ public class World {
 
     int numBlocks;
 
-    int size;
+    int size = Main.BLOCKSIZE;
 
     Block blocks[];
 
     ArrayList<Block> blockss = new ArrayList<Block>();
 
-    public World(int initWidth, int initHeight, int blockSize, int initNumBlocks) {
+    public World(int initWidth, int initHeight, int initNumBlocks) {
         width = initWidth;
         height = initHeight;
-        size = blockSize;
 
         numBlocks = initNumBlocks;
         blocks  = new Block[numBlocks];
@@ -33,7 +32,7 @@ public class World {
         for (int i = 1; i < 21; i++){//height of the board
             for (int j = 1; j < 11; j++) {//width of the board
                 g.setColor(Color.white);
-                g.drawRect(width/4 +j*size,i*size, size,size);
+                g.drawRect(j*size,i*size, size,size);
             }
         }
     }

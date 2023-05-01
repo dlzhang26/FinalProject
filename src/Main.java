@@ -4,8 +4,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Main extends JPanel implements KeyListener {
-    public static final int WIDTH = 600;
-    public static final int HEIGHT = 600;
+    public static final int WIDTH = 12;
+    public static final int HEIGHT = 22;
+
+    public static final int BLOCKSIZE = 30;
     public static final int FPS = 2;
     World world;
     int gamestart =0 ;
@@ -66,9 +68,9 @@ public class Main extends JPanel implements KeyListener {
     }
 
     public Main(){
-        world = new World(WIDTH, HEIGHT, 25, 1);//initialize the instance of the world class
+        world = new World(WIDTH*BLOCKSIZE, HEIGHT*BLOCKSIZE, 1);//initialize the instance of the world class
         addKeyListener(this);
-        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.setPreferredSize(new Dimension(WIDTH*BLOCKSIZE, HEIGHT*BLOCKSIZE));
         Thread mainThread = new Thread(new Runner());
         mainThread.start();//should we use some resources to figure out exactly what threads are?
     }
@@ -87,7 +89,7 @@ public class Main extends JPanel implements KeyListener {
         super.paintComponent(g);
 
         g.setColor(Color.BLACK);//setup background
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.fillRect(0, 0, WIDTH*BLOCKSIZE, HEIGHT*BLOCKSIZE);
         if (gamestart==0){
             g.setColor(Color.white);
             g.drawString("Press any key to start", 250, 300);

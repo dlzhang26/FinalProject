@@ -5,6 +5,7 @@ class Block {
     Color color;
 
     Pair position;
+
     boolean isFalling;
 
     Pair[] randomizedBlock;//array of pairs that is holding a randomized block
@@ -78,27 +79,20 @@ class Block {
     }
 
     public Pair[] moveRight() {
-        for (int i = 0; i < 4; i++) {
-            randomizedBlock[i].x = randomizedBlock[i].x + 1;
-        }
+        position.x += 30;//30 is the block size
+
         return randomizedBlock;
     }
 
     public Pair[] moveLeft() {
-        for (int i = 0; i < 4; i++) {
-            randomizedBlock[i].x = randomizedBlock[i].x - 1;
-        }
+        position.x -= 30;//30 is the block size
         return randomizedBlock;
     }
 
 
     // Moves all of the positions down
     public Pair[] movedown() {
-        for (int i = 0; i < 4; i++) {
-           /*  if (randomizedBlock[i].isFalling = true) {
-                randomizedBlock[i].y = randomizedBlock[i].y + 1;
-            }*/
-        }
+        position.y += 30;//30 is the block size
         return randomizedBlock;
     }
 

@@ -4,7 +4,7 @@ import java.util.Random;
 class Block {
     Color color;
 
-    Pair position;
+    Pair position = new Pair(150, 0);
 
     boolean isFalling;
 
@@ -17,9 +17,7 @@ class Block {
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         int r = (int) (Math.random() * 7); // (0,7) is range of values
         this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
-        position = new Pair(300, 300);
-        
-        
+        //position = new Pair(0, 0);
     }
 
     public Block(State currenState) {//constructor
@@ -27,10 +25,10 @@ class Block {
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         int r = (int) (Math.random() * 7); // (0,7) is range of values
         this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
-        position = new Pair(300, 300);
+        //position = new Pair(150, 0);
         currenState.newblock(randomizedBlock);
-        
-        
+
+
     }
 
     public Pair[] setBlock(int random) {//chooses a block
@@ -74,8 +72,7 @@ class Block {
     }
 
     public void update(World w, double time) {
-
-
+        edgeOfScreen(this.randomizedBlock);
     }
 
     public Pair[] moveRight() {
@@ -110,112 +107,40 @@ class Block {
 
     }
 
-}
-/*
-public class Block {
-    Pair position;
-    Pair velocity;
-    Pair acceleration;//do they really need an acceleration? can't we just increment velocity when we get beyond each score level
-
-    // size of the square
-    int size;
-
-    Color color;
-
-    int[][] randomizedBlock;//define a matrix holding randomized block
-
-    public Block() {
-        Random rand = new Random();
-
-        position = new Pair(100, 25);
-        velocity = new Pair(0, 0);
-        acceleration = new Pair(0, 0);
-        size = 25;
-
-        color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
-
-        //Shouldn't this be Multiplied by 8, cuz Math.random generates a number between [0,1) so in order to generate a full 7 numbers
-        // then this needs to be 8?
-        int r = (int) (Math.random() * 7); // (0,7) is range of values
-        randomizedBlock = Blocks(r);//gets random block from Blocks array (sort of)
-    }
-
-    public static int[][] Blocks(int x) {//mapping for each of the block types
-        int[][] jBlock = {{1, 1}, {1, 0}, {1, 0}, {0, 0}};
-        int[][] lBlock = {{1, 1}, {0, 1}, {0, 1}, {0, 0}};
-        int[][] iBlock = {{1, 0}, {1, 0}, {1, 0}, {1, 0}};
-        int[][] sBlock = {{1, 0}, {1, 1}, {0, 1}, {0, 0}};
-        int[][] zBlock = {{0, 1}, {1, 1}, {1, 0}, {0, 0}};
-        int[][] oBlock = {{1, 1}, {1, 1}, {0, 0}, {0, 0}};
-        int[][] tBlock = {{1, 0}, {1, 1}, {1, 0}, {0, 0}};
-
-        int[][][] types = {jBlock, lBlock, iBlock, sBlock, zBlock, oBlock, tBlock};//an array of matricies
-
-        int[][] randomBlock = types[x];//picks one of the matricies from types and sets the variable randomBlock equal to it.
-
-        return randomBlock;//return random block
-    }
-
-
-    public void update(World w, double time) {
-
-
-    }
-
-    public void setPosition(Pair p) {
-        position = p;
-    }
-
-    public void setVelocity(Pair v) {
-        velocity = v;
-    }
-
-    public void setAcceleration(Pair a) {
-        acceleration = a;
-    }
-
-    public Pair getPosition() {
-        return position;
-    }
-
-    public Pair getVelocity() {
-        return velocity;
-    }
-
-    public Pair getAcceleration() {
-        return acceleration;
-    }
-
-    public double flipX() {
-        acceleration.flipX();
-        return 0.0;
-    }
-
-    public double flipY() {
-        acceleration.flipY();
-        return 0.0;
-    }
-
-    public void draw(Graphics g, World w) {
-        Color c = g.getColor();
-
-        g.setColor(color);
-
-        //draws a randomized block on the screen in a random color
-
-
-        for (int i = 0; i < 4; i++) {//walking through the matrix of possible locations that can be filled given the randomized block
-            for (int j = 0; j < 2; j++) {
-                if (randomizedBlock[i][j] == 1) {
-                    g.fillRect((int) position.x + i * w.size, (int) position.y + j * w.size, w.size, w.size);
-                }
-            }
-
+    private void edgeOfScreen(Pair[] randomizedBlock) {
+        int bottom = 0;
+        int top = 0;
+        int left = 0;
+        int right = 0;
+        for (Pair p : randomizedBlock) {
+            if (p.y > bottom) {
+                bottom = (int) p.y;
+            }//sets the bottom value to the largest y value
+            if (p.y < top) {
+                bottom = (int) p.y;
+            }//sets the top value to the smallest y value, will be useful for game over conditions later
+            if (p.x > right) {
+                right = (int) p.x;
+            }//sets the rightmost value to the largest x value
+            if (p.x < left) {
+                left = (int) p.x;
+            }//sets the leftmost value to teh smallest x value
         }
-        g.setColor(c);
 
+        //keeps the blocks within the screen by "bouncing" it back to within the bounds of the board
+        // bottom, left, and right * 30 because that is the block size
+
+        if (position.y + bottom * 30 > 600) {
+            position.y = 600 - bottom * 30;
+        }
+        if (position.x + left * 30 < 30) {
+            position.x = 30 - left * 30;
+        }
+        if (position.x + right * 30 > 300) {
+            position.x = 300 - right * 30;
+        }
     }
+
 
 }
 
- */

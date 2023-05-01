@@ -33,20 +33,32 @@ public class Main extends JPanel implements KeyListener {
         int keyCode = e.getKeyCode();
         //rotates the block if the up key is pressed
         if(keyCode ==KeyEvent.VK_UP){
+            world.currentBlock.rotate();
+            /*
             //need to change the for loop so it only changes the one block
             for (int i = 0; i< world.numBlocks;i++){
                 world.blocks[i].rotate();
             }
+
+             */
         }
         if(keyCode == KeyEvent.VK_RIGHT){
+            world.currentBlock.moveRight();
+            /*
             for (int i = 0; i< world.numBlocks;i++){
                 world.blocks[i].moveRight();
             }
+
+             */
         }
         if(keyCode == KeyEvent.VK_LEFT){
+            world.currentBlock.moveLeft();
+            /*
             for (int i = 0; i< world.numBlocks;i++){
                 world.blocks[i].moveLeft();
             }
+
+             */
         }
         gamestart++;
 
@@ -68,7 +80,7 @@ public class Main extends JPanel implements KeyListener {
     }
 
     public Main(){
-        world = new World(WIDTH*BLOCKSIZE, HEIGHT*BLOCKSIZE, 1);//initialize the instance of the world class
+        world = new World(WIDTH*BLOCKSIZE, HEIGHT*BLOCKSIZE);//initialize the instance of the world class
         addKeyListener(this);
         this.setPreferredSize(new Dimension(WIDTH*BLOCKSIZE, HEIGHT*BLOCKSIZE));
         Thread mainThread = new Thread(new Runner());

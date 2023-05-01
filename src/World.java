@@ -8,25 +8,32 @@ public class World {
 
     int size = Main.BLOCKSIZE;
 
-    Block blocks[];
+    Block currentBlock;
+
+    //ArrayList<Block> deadBlocks = new ArrayList<Block>();
+
+    State currentState;
 
     ArrayList<Block> blockss = new ArrayList<Block>();
 
-    public World(int initWidth, int initHeight, int initNumBlocks) {
+    public World(int initWidth, int initHeight) {
         width = initWidth;
         height = initHeight;
 
-        numBlocks = initNumBlocks;
-        blocks  = new Block[numBlocks];
+        this.currentState = new State();
 
-        State cState = new State();
-        
+        blockss.add( new Block(currentState));
+        this.currentBlock = blockss.get(blockss.size() - 1);
 
-        for (int i = 0; i < numBlocks; i ++)
-        {
-            blocks[i] = new Block(cState);
+    }
+
+    public void addBlock(){
+
+        while(currentBlock.isFalling == false){
+            blockss.add(new Block(currentState));
+            currentBlock = blockss.get(blockss.size() - 1);
+            System.out.println(currentBlock.isFalling);
         }
-
     }
 
 
@@ -41,21 +48,27 @@ public class World {
     }
 
 
-    public void drawBlocks(Graphics g) {
-        for (int i = 0; i < numBlocks; i++){
-            blocks[i].draw(g,this);
-        }
 
+    public void drawBlocks(Graphics g) {
+        //draws the all the blocks to screen
+        for(int i = 0; i< blockss.size()-1;i++){
+            blockss.get(i).draw(g,this);
+        }
+        //draws the current block
+        currentBlock.draw(g,this);
     }
 
     public void updateBlocks(double time) {
-        for (int i = 0; i < numBlocks; i++){
-            blocks[i].movedown();
-            blocks[i].update(this, time);
+        addBlock();
+        currentBlock.movedown();//updates the current block;
+        currentBlock.update(this,time);
+
+        /* im pretty sure we dont need this but im gonna comment it out just in case
+        for(int i = 0; i< blockss.size()-1;i++){
+            blockss.get(i).update(this,time);
         }
 
+         */
+
     }
-
-
-
 }

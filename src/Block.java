@@ -7,6 +7,7 @@ class Block {
     Pair position = new Pair(150, 0);
 
     boolean isFalling;
+
     Pair[] randomizedBlock;//array of pairs that is holding a randomized block
 
     Pair[] jBlock, lBlock, sBlock, zBlock, oBlock, iBlock, tBlock;
@@ -14,7 +15,7 @@ class Block {
     public Block() {//constructor
         Random rand = new Random();
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
-        isFalling = true;
+        this.isFalling = true;
         int r = (int) (Math.random() * 7); // (0,7) is range of values
         this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
         //position = new Pair(0, 0);
@@ -23,7 +24,7 @@ class Block {
     public Block(State currenState) {//constructor
         Random rand = new Random();
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
-        isFalling = true;
+        this.isFalling = true;
         int r = (int) (Math.random() * 7); // (0,7) is range of values
         this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
         //position = new Pair(150, 0);
@@ -50,13 +51,13 @@ class Block {
 
     // goes through the array and switches x and y and multiples -1*y to rotate
     public Pair[] rotate() {//-1*y and switch x and y to rotate everything
-            //if the block is the oBlock, do not rotate
-            if (randomizedBlock == oBlock) {
-                return randomizedBlock;
-            }
-            Block hold = new Block();
-            if (isFalling == true) {
-                System.out.println("got here");
+
+        //if the block is the oBlock, do not rotate
+        if (randomizedBlock == oBlock) {
+            return randomizedBlock;
+        }
+        Block hold = new Block();
+        if(this.isFalling == true){
             for (int i = 0; i < 4; i++) {
                 //initializes hold[i] x and y to randomizedBlock[i]
                 hold.randomizedBlock[i].x = randomizedBlock[i].x;
@@ -67,33 +68,41 @@ class Block {
 
                 randomizedBlock[i].flipY(); //flips the sign of y
             }
-            }
+        }
+
+
         // resumeDownwardMotion();
 
         return randomizedBlock;
     }
-
-    
 
     public void update(World w, double time) {
         edgeOfScreen(this.randomizedBlock);
     }
 
     public Pair[] moveRight() {
-        position.x += 30;//30 is the block size
+        if(this.isFalling == true){
+            position.x += 30;//30 is the block size
 
+
+        }
         return randomizedBlock;
     }
 
     public Pair[] moveLeft() {
-        position.x -= 30;//30 is the block size
+        if(this.isFalling == true) {
+            position.x -= 30;//30 is the block size
+
+        }
         return randomizedBlock;
     }
 
 
     // Moves all of the positions down
     public Pair[] movedown() {
-        position.y += 30;//30 is the block size
+        if(this.isFalling == true){
+            position.y += 30;//30 is the block size
+        }
         return randomizedBlock;
     }
 
@@ -121,7 +130,7 @@ class Block {
                 bottom = (int) p.y;
             }//sets the bottom value to the largest y value
             if (p.y < top) {
-                bottom = (int) p.y;
+                top = (int) p.y;
             }//sets the top value to the smallest y value, will be useful for game over conditions later
             if (p.x > right) {
                 right = (int) p.x;
@@ -136,7 +145,8 @@ class Block {
 
         if (position.y + bottom * 30 > 600) {
             position.y = 600 - bottom * 30;
-            isFalling = false;
+            this.isFalling = false;
+           // System.out.println(isFalling);
         }
         if (position.x + left * 30 < 30) {
             position.x = 30 - left * 30;

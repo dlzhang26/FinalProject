@@ -15,7 +15,6 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     static int gamestart = 0;
     boolean highlight = false;
 
-
     class Runner implements Runnable {//Runnable interface
 
         public void run() {
@@ -41,7 +40,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                      System.out.println("Mouse clicked" + mouseX + "  " + mouseY);
                      if(mouseX>120 && mouseX<270 && mouseY>280 && mouseY<305){
                         System.out.println("got here");
-                         gamestart++;
+                        gamestart++;
                      }
      }
  
@@ -150,6 +149,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         g.fillRect(0, 0, WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);
     }
     public void drawStartScreen(Graphics g){//method for drawing of the startscreen ui
+       
         g.setColor(Color.white);
         g.fillRect(120, 285, 150, 25);
         if(highlight==true){

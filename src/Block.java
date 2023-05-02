@@ -16,8 +16,8 @@ class Block {
         Random rand = new Random();
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         this.isFalling = true;
-        int r = (int) (Math.random() * 7); // (0,7) is range of values
-        this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
+        int r = (int) (Math.random() * 7); // (0,6) is range of values
+        this.randomizedBlock = setBlock(r);//gets random block from Blocks array
     }
 
     public Block(State currenState) {//constructor

@@ -6,11 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Main extends JPanel implements KeyListener, MouseListener {
-    public static final int WIDTH = 12;
+    public static final int WIDTH = 24;
     public static final int HEIGHT = 22;
 
     public static final int BLOCKSIZE = 30;
-    public static final int FPS = 2;
+
+    public static int FPS = 2;
+    //public static final int FPS = 2;
     World world;
     static int gamestart = 0;
     boolean highlight = false;
@@ -69,38 +71,29 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         //rotates the block if the up key is pressed
         if (keyCode == KeyEvent.VK_UP) {
             world.currentBlock.rotate();
-            /*
-            //need to change the for loop so it only changes the one block
-            for (int i = 0; i< world.numBlocks;i++){
-                world.blocks[i].rotate();
-            }
-
-             */
         }
         if (keyCode == KeyEvent.VK_RIGHT) {
             world.currentBlock.moveRight();
-            /*
-            for (int i = 0; i< world.numBlocks;i++){
-                world.blocks[i].moveRight();
-            }
-
-             */
         }
         if (keyCode == KeyEvent.VK_LEFT) {
             world.currentBlock.moveLeft();
-            /*
-            for (int i = 0; i< world.numBlocks;i++){
-                world.blocks[i].moveLeft();
-            }
-
-             */
+        }
+        if(keyCode == KeyEvent.VK_DOWN){
+            FPS = 10;
+        }
+        if(keyCode == KeyEvent.VK_SHIFT){
+            world.hold();
         }
 
 
     }
 
     public void keyReleased(KeyEvent e) {
-        char c = e.getKeyChar();
+        int keyCode = e.getKeyCode();
+        if(keyCode == KeyEvent.VK_DOWN){
+            FPS = 2;
+        }
+
     }
 
 

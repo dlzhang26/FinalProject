@@ -4,7 +4,7 @@ import java.util.Random;
 class Block {
     Color color;
 
-    Pair position = new Pair(150, 0);
+    Pair position = new Pair(570, 60);
 
     boolean isFalling;
 
@@ -22,7 +22,7 @@ class Block {
 
     public Block(State currenState) {//constructor
         Random rand = new Random();
-        int r = rand.nextInt(0, 8);
+        int r = rand.nextInt(0, 7);
         //color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         this.isFalling = true;
         //int r = (int) (Math.random() * 7); // (0,7) is range of values
@@ -142,11 +142,14 @@ class Block {
             this.isFalling = false;
             // System.out.println(isFalling);
         }
-        if (position.x + left * 30 < 30) {
-            position.x = 30 - left * 30;
+
+        if (position.x + left * 30 < 210) {
+            position.x = 210 - left * 30;
         }
-        if (position.x + right * 30 > 300) {
-            position.x = 300 - right * 30;
+
+
+        if (position.x + right * 30 > 480) {
+            position.x = 480 - right * 30;
         }
     }
 

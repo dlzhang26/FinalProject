@@ -129,10 +129,10 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             world.currentBlock.moveLeft();
         }
         if(keyCode == KeyEvent.VK_DOWN){
-            FPS = 10;
+            FPS = 10;//this is to speed up the current block while it is falling
         }
         if(keyCode == KeyEvent.VK_SHIFT){
-            world.hold();
+            world.hold();//to add a block to the hold
         }
 
 

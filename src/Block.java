@@ -137,18 +137,18 @@ class Block {
         //keeps the blocks within the screen by "bouncing" it back to within the bounds of the board
         // bottom, left, and right * 30 because that is the block size
 
-        if (position.y + bottom * 30 > 600) {
+        if (position.y + bottom * 30 > 600) {//detecting bottom of screen
             position.y = 600 - bottom * 30;
             this.isFalling = false;
             // System.out.println(isFalling);
         }
 
-        if (position.x + left * 30 < 210) {
+        if (position.x + left * 30 < 210) {//detecting left side of board
             position.x = 210 - left * 30;
         }
 
 
-        if (position.x + right * 30 > 480) {
+        if (position.x + right * 30 > 480) {//detecting right side of the board. 
             position.x = 480 - right * 30;
         }
     }

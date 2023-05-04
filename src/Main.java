@@ -113,8 +113,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
      }
  
      public void mouseClicked(MouseEvent e) {
-        System.out.println("Mouse clicked (# of clicks: "
-                     + e.getClickCount() + ")");
+        System.out.println("Mouse clicked");
      }
 
      /******************MouseListener Methods Implemented********************************************************/

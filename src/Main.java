@@ -8,16 +8,13 @@ import java.awt.event.MouseListener;
 public class Main extends JPanel implements KeyListener, MouseListener {
     public static final int WIDTH = 24;
     public static final int HEIGHT = 22;
-
     public static final int BLOCKSIZE = 30;
-
     public static int FPS = 2;
-    //public static final int FPS = 2;
     World world;
-    //static int gamestart = 0;
     boolean highlight = false;
     static int page = 0;
     boolean showStart;
+    String player;
 
     class Runner implements Runnable {//Runnable interface
 
@@ -55,6 +52,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                         if (page <3){
                             StdAudio.play("click.wav");
                             page++;
+                            player = "Player 1";
 
                             //create a player object that has a highscore so that when you finish the game we can write the highscores to a specific file...
 
@@ -65,6 +63,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                         if (page <3){
                             StdAudio.play("click.wav");
                             page++;
+                            player = "Player 2";
                         }
                      }
 
@@ -72,14 +71,9 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                         if (page <3){
                             StdAudio.play("click.wav");
                             page++;
+                            player = "Player 3";
                         }
                      }
-
-
-/*g.fillRoundRect(280, 100, 160, 25, 10, 10);
-        g.fillRoundRect(80, 100, 160, 25, 10, 10);
-        g.fillRoundRect(480, 100, 160, 25, 10, 10); */
-                     
 
                      if(mouseX>5 && mouseX<50 && mouseY>5 && mouseY<30){//detecting back button 
 
@@ -91,9 +85,6 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                         
                         System.out.println("backButton");
                      }
-
-
-
 
      }
  
@@ -115,6 +106,11 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                      + e.getClickCount() + ")");
      }
 
+     /******************MouseListener Methods Implemented********************************************************/
+
+
+     /******************KeyListener Implementation***************************************************************/
+
 
     public void keyPressed(KeyEvent e) {//implementing methods from keylistener interface
         int keyCode = e.getKeyCode();
@@ -135,8 +131,8 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             world.hold();//to add a block to the hold
         }
 
-        if(keyCode == KeyEvent.VK_S){
-            SavedScores.saveScore("ethan", 100);//
+        if(keyCode == KeyEvent.VK_S){//method for saving the score and player --> need to include another && gameover part to if statement
+            SavedScores.saveScore(player, 100);
             System.out.println("saved score");
         }
 
@@ -155,6 +151,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     public void keyTyped(KeyEvent e) {
         char c = e.getKeyChar();
     }
+    /****************************KeyListener Methods Implemented**************************************************/
 
     public void addNotify() {
         super.addNotify();
@@ -171,7 +168,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("ARCADE!!!");
+        JFrame frame = new JFrame("TETRIS!!!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//stops running program when JFrame is closed
         Main mainInstance = new Main();
         frame.setContentPane(mainInstance);
@@ -180,7 +177,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     }
 
     
-
+    /************************These Methods Handle Graphics********************************************************/
     public void paintComponent(Graphics g) {//graphics method
         super.paintComponent(g);
         setupBackground(g);
@@ -223,7 +220,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         world.drawBoard(g);
         world.drawBlocks(g);
         g.drawString("SCORE: ", 250, 15);
-        g.drawString("CURRENT PLAYER: ", 70, 15);
+        g.drawString("CURRENT PLAYER: " + player, 70, 15);
         g.fillRoundRect(5, 5, 45, 25, 10, 10);
         g.setColor(Color.black);
         g.drawString(" BACK", 6, 20);
@@ -244,4 +241,4 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         g.drawString("     Player 3", 480, 120);
         g.drawString(" BACK", 6, 20);
     }
-}
+}//class Main.java

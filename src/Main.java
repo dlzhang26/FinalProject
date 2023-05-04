@@ -45,7 +45,8 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                      if(mouseX>280 && mouseX<440 && mouseY>330 && mouseY<355){//detecting start button
 
                         if (page<1){//only increments if page is currently 0
-                        page++;
+                            StdAudio.play("click.wav");
+                            page++;
                         }
 
                      }
@@ -53,7 +54,9 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                      if(mouseX>5 && mouseX<50 && mouseY>5 && mouseY<30){//detecting back button 
 
                         if(page==1){//to make sure it doesn't go negative and not show anything (only when page=1)
+                            StdAudio.play("click.wav");    
                             page--;
+                
                         }
                         
                         System.out.println("backButton");
@@ -160,17 +163,13 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
     public void drawStartScreen(Graphics g){//method for drawing of the startscreen ui
        //360,330 is center of canvas
-        g.setColor(Color.white);
-        g.fillRect(120, 285, 150, 25);
-        
+        g.setColor(Color.white); 
         g.fillRoundRect(280, 330, 160, 25, 10, 10);
         g.setColor(Color.black);
         g.drawString("      Click to Play", 280, 350);
 
-        
-        g.setColor(Color.MAGENTA);
-        g.drawString("Click to start", 130, 300);
 
+        
         //cannot get images to be drawn at all, not really sure why
         Image image = Toolkit.getDefaultToolkit().getImage("PNGtransparencydemonstration.png");
         g.drawImage(image,50,50,null);

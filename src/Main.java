@@ -20,7 +20,9 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
         public void run() {
             while (true) {
+                if(page==2){
                 world.updateBlocks(1.0 / (double) FPS);
+                }
                 repaint();
                 try {
                     Thread.sleep(1000 / FPS);

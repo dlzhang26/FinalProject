@@ -51,9 +51,39 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
                      }
 
+                     if(mouseX>80 && mouseX<240 && mouseY>100 && mouseY<125){//player 1 rectangle
+                        if (page <3){
+                            StdAudio.play("click.wav");
+                            page++;
+
+                            //create a player object that has a highscore so that when you finish the game we can write the highscores to a specific file...
+
+                        }
+                     }
+
+                     if(mouseX>280 && mouseX<440 && mouseY>100 && mouseY<125){//player 2 rectangle
+                        if (page <3){
+                            StdAudio.play("click.wav");
+                            page++;
+                        }
+                     }
+
+                     if(mouseX>480 && mouseX<640 && mouseY>100 && mouseY<125){//player 3 rectangle
+                        if (page <3){
+                            StdAudio.play("click.wav");
+                            page++;
+                        }
+                     }
+
+
+/*g.fillRoundRect(280, 100, 160, 25, 10, 10);
+        g.fillRoundRect(80, 100, 160, 25, 10, 10);
+        g.fillRoundRect(480, 100, 160, 25, 10, 10); */
+                     
+
                      if(mouseX>5 && mouseX<50 && mouseY>5 && mouseY<30){//detecting back button 
 
-                        if(page==1){//to make sure it doesn't go negative and not show anything (only when page=1)
+                        if(page==1 || page==2){//to make sure it doesn't go negative and not show anything (only when page=1)
                             StdAudio.play("click.wav");    
                             page--;
                 
@@ -61,6 +91,8 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                         
                         System.out.println("backButton");
                      }
+
+
 
 
      }
@@ -149,7 +181,11 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         setupBackground(g);
         if (page==0) {
             drawStartScreen(g);
-        } else if(page==1){
+        } 
+         if(page==1){
+            chooseUserProfile(g);
+        }
+        if (page==2){
             gameGraphics(g);
         }
     }
@@ -169,7 +205,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         g.drawString("      Click to Play", 280, 350);
 
 
-        
+
         //cannot get images to be drawn at all, not really sure why
         Image image = Toolkit.getDefaultToolkit().getImage("PNGtransparencydemonstration.png");
         g.drawImage(image,50,50,null);
@@ -185,6 +221,22 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         g.drawString("CURRENT PLAYER: ", 70, 15);
         g.fillRoundRect(5, 5, 45, 25, 10, 10);
         g.setColor(Color.black);
+        g.drawString(" BACK", 6, 20);
+    }
+
+
+    public void chooseUserProfile(Graphics g){
+        g.setColor(Color.white);
+        g.fillRoundRect(280, 100, 160, 25, 10, 10);
+        g.fillRoundRect(80, 100, 160, 25, 10, 10);
+        g.fillRoundRect(480, 100, 160, 25, 10, 10);
+        g.fillRoundRect(5, 5, 45, 25, 10, 10);
+
+        
+        g.setColor(Color.BLACK);
+        g.drawString("     Player 2", 280, 120);
+        g.drawString("     Player 1", 100, 120);
+        g.drawString("     Player 3", 480, 120);
         g.drawString(" BACK", 6, 20);
     }
 }

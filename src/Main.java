@@ -135,6 +135,11 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             world.hold();//to add a block to the hold
         }
 
+        if(keyCode == KeyEvent.VK_S){
+            SavedScores.saveScore("ethan", 100);//
+            System.out.println("saved score");
+        }
+
 
     }
 

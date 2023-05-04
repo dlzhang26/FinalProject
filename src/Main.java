@@ -88,6 +88,16 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                         System.out.println("backButton");
                      }
 
+                     // g.fillRoundRect(280, 500, 80, 50,10,10);
+
+                     if(mouseX>280 && mouseX<360 && mouseY>500 && mouseY<580 && page==0){
+                        pages.soundon=true;
+                     }
+
+                     if(mouseX>360 && mouseX<440 && mouseY>500 && mouseY<580 && page==0){
+                        pages.soundon=false;
+                     }
+
      }
  
      public void mouseReleased(MouseEvent e) {
@@ -185,6 +195,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         setupBackground(g);
         if (page==0) {
             drawStartScreen(g);
+            pages.soundOption(g);
         } 
          if(page==1){
             chooseUserProfile(g);

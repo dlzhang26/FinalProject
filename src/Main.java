@@ -14,8 +14,10 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     public static int FPS = 2;
     //public static final int FPS = 2;
     World world;
-    static int gamestart = 0;
+    //static int gamestart = 0;
     boolean highlight = false;
+    static int page = 0;
+    boolean showStart;
 
     class Runner implements Runnable {//Runnable interface
 
@@ -39,25 +41,38 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     public void mousePressed(MouseEvent e) {
                      int mouseX = e.getX();
                      int mouseY = e.getY();
-                     System.out.println("Mouse clicked" + mouseX + "  " + mouseY);
-                     if(mouseX>120 && mouseX<270 && mouseY>280 && mouseY<305){
-                        System.out.println("got here");
-                        gamestart++;
+                     System.out.println("Mouse clicked " + mouseX + "  " + mouseY);
+                     if(mouseX>280 && mouseX<440 && mouseY>330 && mouseY<355){//detecting start button
+
+                        if (page<1){//only increments if page is currently 0
+                        page++;
+                        }
+
                      }
+
+                     if(mouseX>5 && mouseX<50 && mouseY>5 && mouseY<30){//detecting back button 
+
+                        if(page==1){//to make sure it doesn't go negative and not show anything (only when page=1)
+                            page--;
+                        }
+                        
+                        System.out.println("backButton");
+                     }
+
+
      }
  
      public void mouseReleased(MouseEvent e) {
-        System.out.println("Mouse released; # of clicks: "
-                     + e.getClickCount());
+        
      }
  
      public void mouseEntered(MouseEvent e) {
-        System.out.println("Mouse entered");
+       
         
      }
  
      public void mouseExited(MouseEvent e) {
-        System.out.println("Mouse exited");
+        
      }
  
      public void mouseClicked(MouseEvent e) {
@@ -107,7 +122,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     }
 
     public Main() {
-        world = new World(WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);//initialize the instance of the world class
+        world = new World(WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);//initialize the instance of the world class, dimensions are (720,660)
         addKeyListener(this);//adding key/mouselisteners so functions can be performed. 
         addMouseListener(this);
         this.setPreferredSize(new Dimension(WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE));
@@ -129,9 +144,9 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     public void paintComponent(Graphics g) {//graphics method
         super.paintComponent(g);
         setupBackground(g);
-        if (gamestart == 0) {
+        if (page==0) {
             drawStartScreen(g);
-        } else {
+        } else if(page==1){
             gameGraphics(g);
         }
     }
@@ -141,22 +156,36 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         g.setColor(Color.BLACK);//setup background
         g.fillRect(0, 0, WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE);
     }
+
+
     public void drawStartScreen(Graphics g){//method for drawing of the startscreen ui
-       
+       //360,330 is center of canvas
         g.setColor(Color.white);
         g.fillRect(120, 285, 150, 25);
-        if(highlight==true){
-            g.setColor(Color.yellow);
-            g.drawRect(115, 280, 155, 30);
-        }
+        
+        g.fillRoundRect(280, 330, 160, 25, 10, 10);
+        g.setColor(Color.black);
+        g.drawString("      Click to Play", 280, 350);
+
+        
         g.setColor(Color.MAGENTA);
         g.drawString("Click to start", 130, 300);
+
+        //cannot get images to be drawn at all, not really sure why
+        Image image = Toolkit.getDefaultToolkit().getImage("PNGtransparencydemonstration.png");
+        g.drawImage(image,50,50,null);
     }
+    
+
+
 
     public void gameGraphics(Graphics g){//method for drawing of the game graphics
         world.drawBoard(g);
         world.drawBlocks(g);
-        g.drawString("SCORE: ", 220, 15);
-        g.drawString("CURRENT PLAYER: ", 50, 15);
+        g.drawString("SCORE: ", 250, 15);
+        g.drawString("CURRENT PLAYER: ", 70, 15);
+        g.fillRoundRect(5, 5, 45, 25, 10, 10);
+        g.setColor(Color.black);
+        g.drawString(" BACK", 6, 20);
     }
 }

@@ -11,6 +11,7 @@ public class World {
     Block blocks[];
 
     ArrayList<Block> blockss = new ArrayList<Block>();
+    State cState;
 
     public World(int initWidth, int initHeight, int initNumBlocks) {
         width = initWidth;
@@ -19,7 +20,7 @@ public class World {
         numBlocks = initNumBlocks;
         blocks  = new Block[numBlocks];
 
-        State cState = new State();
+        cState = new State();
         
 
         for (int i = 0; i < numBlocks; i ++)
@@ -50,7 +51,7 @@ public class World {
 
     public void updateBlocks(double time) {
         for (int i = 0; i < numBlocks; i++){
-            blocks[i].movedown();
+            //blocks[i].movedown(cState);
             blocks[i].update(this, time);
         }
 

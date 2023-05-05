@@ -29,8 +29,14 @@ public class State extends OrderedCollection{
             n=n.prev;
         }
         n.rowstate[(int)column] = 1;
+    }
 
-
+    public void SpaceOFF(double column, double row){
+        Node n = end; 
+        while(n.rownum != row){
+            n=n.prev;
+        }
+        n.rowstate[(int)column] = 0;
     }
 
 
@@ -85,7 +91,7 @@ public class State extends OrderedCollection{
         Node n = end;
         while(n!=null){
             for (int j =0; j<1; j++){//why is this a nested for loop if you're only doing it for 1 row?
-                for( int i =0; i<10; i++){
+                for( int i =9; i>=0; i--){
                     toReturn =toReturn + " " + n.rowstate[i] + " ";
                 }
                 toReturn = toReturn + "Row: " + n.rownum + "\n";
@@ -96,11 +102,20 @@ public class State extends OrderedCollection{
         return toReturn;
     }
 
+    public void updateBlock(Pair[] block){
+        for(Pair p: block){
+            int newrow = 20-((int)p.y/30);
+            int origrow = newrow+1;
+
+            
+        }
+    }
+
 
     public void newblock(Pair[] block){
         int top = 0;
         for(Pair p : block){
-            if(p.y>top){
+            if(p.y<top){
                 top = (int)p.y;
             }
         }

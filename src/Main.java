@@ -8,7 +8,7 @@ public class Main extends JPanel implements KeyListener {
     public static final int HEIGHT = 22;
 
     public static final int BLOCKSIZE = 30;
-    public static final int FPS = 2;
+    public static final int FPS = 1;
     World world;
     int gamestart =0 ;
 

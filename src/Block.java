@@ -4,7 +4,7 @@ import java.util.Random;
 class Block {
     Color color;
 
-    Pair position = new Pair(150, 0);
+    Pair position = new Pair(150, 30);
 
     boolean isFalling;
 
@@ -27,6 +27,7 @@ class Block {
         this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
         //position = new Pair(150, 0);
         currenState.newblock(randomizedBlock);
+    
 
 
     }
@@ -88,8 +89,9 @@ class Block {
 
 
     // Moves all of the positions down
-    public Pair[] movedown() {
+    public Pair[] movedown(State currState) {
         position.y += 30;//30 is the block size
+        currState.updateBlock(randomizedBlock);
         return randomizedBlock;
     }
 

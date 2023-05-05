@@ -31,7 +31,7 @@ public class World {
         
         this.nextBlock = blockss.get(blockss.size() - 1);//sets the next/preview block to the second generated block
 
-        currentBlock.position =  new Pair(360,30);//draws current block on the board
+        currentBlock.position =  new Pair(360,30);//draws current block on top of board
     }
 
     public void addBlock() {

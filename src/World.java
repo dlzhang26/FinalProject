@@ -6,8 +6,6 @@ public class World {
     int width;
     int size = Main.BLOCKSIZE;//takes static variable from Main.java named BLOCKSIZE
 
-    //boolean hasHoldBlock = false;
-
     Block currentBlock;
     Block nextBlock;
 
@@ -54,23 +52,28 @@ public class World {
 
     public void hold() {
         if (holdBlock == null) {
+            //sets the current block to the hold block and change the position
             holdBlock = currentBlock;
             holdBlock.position = new Pair(0,60);
 
+            //sets current block to next block to replace the old current block that's on hold
             currentBlock = nextBlock;//what is this here doing?
+
+            //adds a new block to the array list and sets a new next block
             blockss.add(new Block(currentState));
             nextBlock = blockss.get(blockss.size() - 1);
         }
 
         else {
-            //right now this part isn't working bc of the bounds.
-            //when setting the currentBlock position, it can't set it to outside the board position because of the edge
-            //of screen detection.
+            //switches current blocks and hold block and sets the new position
             Block temp = currentBlock;
             currentBlock = holdBlock;
             holdBlock = temp;
-            currentBlock.position = new Pair(0,60);
-            holdBlock.position = new Pair(360,30);
+
+            //setting the current and hold block's position
+            //current block draws on the board and hold block in the holding zone
+            currentBlock.position = new Pair(360,30);
+            holdBlock.position = new Pair(0,60);
         }
     }
 

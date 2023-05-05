@@ -1,11 +1,15 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
 public class Main extends JPanel implements KeyListener, MouseListener {
+    public static Image test;
     public static final int WIDTH = 24;
     public static final int HEIGHT = 22;
     public static final int BLOCKSIZE = 30;
@@ -205,6 +209,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
 
     public void gameGraphics(Graphics g){//method for drawing of the game graphics
+
         world.drawBoard(g);
         world.drawBlocks(g);
         g.drawString("SCORE: ", 250, 15);
@@ -212,7 +217,16 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         g.fillRoundRect(5, 5, 45, 25, 10, 10);
         g.setColor(Color.black);
         g.drawString(" BACK", 6, 20);
+
+        //for drawing images
+        Graphics2D g2d = (Graphics2D)g;
+        ///reading image file
+        try {
+            test = ImageIO.read(new File("dice.png"));
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        //draws image
+        g2d.drawImage(test,test.getWidth(this), test.getHeight(this), this);
     }
-
-
 }//class Main.java

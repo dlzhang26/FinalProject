@@ -59,7 +59,7 @@ class Block {
             return randomizedBlock;
         }
         Block hold = new Block();
-        if (this.isFalling == true) {
+        if (this.isFalling) {
             for (int i = 0; i < 4; i++) {
                 //initializes hold[i] x and y to randomizedBlock[i]
                 hold.randomizedBlock[i].x = randomizedBlock[i].x;
@@ -79,14 +79,14 @@ class Block {
     }
 
     public Pair[] moveRight() {
-        if (this.isFalling == true) {
+        if (this.isFalling) {
             position.x += 30;//30 is the block size
         }
         return randomizedBlock;
     }
 
     public Pair[] moveLeft() {
-        if (this.isFalling == true) {
+        if (this.isFalling) {
             position.x -= 30;//30 is the block size
         }
         return randomizedBlock;
@@ -94,7 +94,7 @@ class Block {
 
     // Moves all of the positions down
     public Pair[] movedown() {
-        if (this.isFalling == true) {
+        if (this.isFalling) {
             position.y += 30;//30 is the block size
         }
         return randomizedBlock;
@@ -136,21 +136,23 @@ class Block {
 
         //keeps the blocks within the screen by "bouncing" it back to within the bounds of the board
         // bottom, left, and right * 30 because that is the block size
+        if(isFalling){
+            if (position.y + bottom * 30 > 600) {
+                position.y = 600 - bottom * 30;
+                this.isFalling = false;
+            }
 
-        if (position.y + bottom * 30 > 600) {//detecting bottom of screen
-            position.y = 600 - bottom * 30;
-            this.isFalling = false;
-            // System.out.println(isFalling);
+            if (position.x + left * 30 < 210) {
+                position.x = 210 - left * 30;
+            }
+
+
+            if (position.x + right * 30 > 480) {
+                position.x = 480 - right * 30;
+            }
         }
 
-        if (position.x + left * 30 < 210) {//detecting left side of board
-            position.x = 210 - left * 30;
-        }
 
-
-        if (position.x + right * 30 > 480) {//detecting right side of the board. 
-            position.x = 480 - right * 30;
-        }
     }
 
 

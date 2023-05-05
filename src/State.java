@@ -29,8 +29,6 @@ public class State extends OrderedCollection{
             n=n.prev;
         }
         n.rowstate[(int)column] = 1;
-
-
     }
 
 
@@ -109,8 +107,6 @@ public class State extends OrderedCollection{
             SpaceON(p.x+center.x, p.y + center.y);
         }
         System.out.println(this);
-        
-
     }
 
 

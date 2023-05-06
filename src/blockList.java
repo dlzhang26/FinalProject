@@ -4,11 +4,9 @@ public class blockList {
 		end = null;//sets the base for the pointer i.e. what's it pointing to at first when it gets created. 
     }
     public void append (Block toAppend){
-        
         BlockNode toAdd = new BlockNode(toAppend);
         toAdd.prev = end;//end is set to previous node
         end = toAdd;//end is set to new node (toAdd)
-
     }
 
     public Block peek(){

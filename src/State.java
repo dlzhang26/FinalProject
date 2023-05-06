@@ -124,8 +124,6 @@ public class State extends OrderedCollection{
             SpaceON(p.x+center.x, p.y + center.y);
         }
         System.out.println(this);
-        
-
     }
 
 

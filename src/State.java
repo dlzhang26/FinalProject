@@ -115,7 +115,7 @@ public class State extends OrderedCollection{
     public void newblock(Pair[] block){
         int top = 0;
         for(Pair p : block){
-            if(p.y<top){
+            if(p.y>top){
                 top = (int)p.y;
             }
         }

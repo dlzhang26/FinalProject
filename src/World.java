@@ -26,7 +26,7 @@ public class World {
         blockss.add(new Block(currentState));
 
         this.currentBlock = blockss.get(blockss.size()-2);//sets the current block to be the first generated
-        cState = new State();
+        currentState = new State();
         
         this.nextBlock = blockss.get(blockss.size() - 1);//sets the next/preview block to the second generated block
 

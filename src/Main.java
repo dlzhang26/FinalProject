@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class Main extends JPanel implements KeyListener, MouseListener {
     public static Image test;
+    public static Image title;
     public static final int WIDTH = 24;
     public static final int HEIGHT = 22;
     public static final int BLOCKSIZE = 30;
@@ -196,7 +197,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         super.paintComponent(g);
         pages.setupBackground(g);
         if (page==0) {
-            pages.drawStartScreen(g);
+            drawStartScreen(g);
             pages.soundOption(g);
         } 
          if(page==1){
@@ -205,6 +206,25 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         if (page==2){
             gameGraphics(g);
         }
+    }
+
+    public void drawStartScreen(Graphics g) {//method for drawing of the startscreen ui
+        //360,330 is center of canvas
+        g.setColor(Color.white);
+        g.fillRoundRect(280, 330, 160, 25, 10, 10);
+        g.setColor(Color.black);
+        g.drawString("      Click to Play", 280, 350);
+
+        Graphics2D g2d = (Graphics2D)g;//typecasting 
+       
+        try {
+            title = ImageIO.read(new File("title.png")); ///reading image file
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        //draws image
+        g2d.drawImage(title,185, 100, this);
+
     }
 
 

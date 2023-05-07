@@ -1,9 +1,4 @@
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.io.File;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class pages{
 
@@ -27,13 +22,7 @@ public class pages{
 
 
     }
-    /*
-    public void paint(Graphics g){
-        BufferedImage bufferedImage = new BufferedImage(test.getWidth(this), test.getHeight(), BufferedImage.TYPE_INT_RGB);
-
-    }
-     */
-
+    
     public static void soundOption(Graphics g) {//making a sound toggle switch for music
         if (soundon == true) {
             g.setColor(Color.white);

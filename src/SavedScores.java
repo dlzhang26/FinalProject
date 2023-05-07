@@ -12,7 +12,7 @@ public class SavedScores {
 			//creates the printwriter class outside of the for loop
 			PrintWriter writer = new PrintWriter("highscores");
             writer.write(player + " Score: " + score + "\n");//writes the score and the playername to a file named highscores.java
-			
+			writer.println();
 			writer.close();//closes the printwriter
             System.out.println("done");// so it's calling the method correctly and getting into all of this. however, it just isn't managing to write to the disc, which is very confusing. 
 

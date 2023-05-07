@@ -26,7 +26,7 @@ public class World {
         blockss.add(new Block(currentState));
 
         this.currentBlock = blockss.get(blockss.size()-2);//sets the current block to be the first generated
-        currentState = new State();
+        //currentState = new State();
         
         this.nextBlock = blockss.get(blockss.size() - 1);//sets the next/preview block to the second generated block
 
@@ -96,7 +96,7 @@ public class World {
 
         //draws the next block holding area
         for (int i = 3; i < 7; i++) {//height of the board
-            for (int j = 19; j < 22; j++) {//width of the board
+            for (int j = 19; j < 23; j++) {//width of the board
                 g.setColor(Color.white);
                 g.drawRect(j * size, i * size, size, size);
             }

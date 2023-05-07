@@ -1,22 +1,19 @@
-// I am thinking that we can possibly make a class to hold the current state of the entire board in an ordered colleciton, this way 
-// if a row fills up then we can just remove and then its easier to move
+
 public class State extends OrderedCollection{
     Node end;
     int length;
 
-    // Constructor - Creates the first end, but then appends 20 rows
-    public State(){
+    
+    public State(){// Constructor - Creates the first end, but then appends 20 rows
         end = null;
         for(int i =0; i<20; i++){
             append();
         }
-
-
     }
-    //
+    
 
-    //append method, just adds a blank rows
-    public void append(){
+    
+    public void append(){//adds blank rows
         length++;
         Node toAdd = new Node(length);
         toAdd.prev= end;
@@ -90,17 +87,18 @@ public class State extends OrderedCollection{
         String toReturn = "";
         Node n = end;
         while(n!=null){
-            for (int j =0; j<1; j++){//why is this a nested for loop if you're only doing it for 1 row?
+           // for (int j =0; j<1; j++){
                 for( int i =9; i>=0; i--){
                     toReturn =toReturn + " " + n.rowstate[i] + " ";
                 }
                 toReturn = toReturn + "Row: " + n.rownum + "\n";
-            }
+            //}
 
             n=n.prev;
         }
         return toReturn;
     }
+
 
     public void updateBlock(Pair[] block){
         for(Pair p: block){
@@ -131,7 +129,9 @@ public class State extends OrderedCollection{
         return length;
     }
 
-}
+}//State class
+
+
 class Node{
     //each node will hold the state of the row in an array
     int rownum;
@@ -140,12 +140,5 @@ class Node{
     public Node(int num){
         rowstate = new int[10];
         this.rownum = num;
-
-        //Test to see if this is working and creating rows properly/
-       // System.out.println("Row: " + rownum);
-        
-
-
-
     }
 }

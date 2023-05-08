@@ -26,7 +26,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         public void run() {
             while (true) {
                 if(page==2){//while we are on the game screen, run the game
-                world.updateBlocks(1.0 / (double) FPS);
+                    world.updateBlocks(1.0 / (double) FPS);
                 }
                 repaint();
                 try {
@@ -43,88 +43,88 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     /*INFO for mouselistener found @ https://docs.oracle.com/javase/tutorial/uiswing/events/mouselistener.html */
 
     public void mousePressed(MouseEvent e) {
-                     int mouseX = e.getX();
-                     int mouseY = e.getY();
-                     System.out.println("Mouse clicked " + mouseX + "  " + mouseY);
-                     if(mouseX>280 && mouseX<440 && mouseY>330 && mouseY<355){//detecting start button
+        int mouseX = e.getX();
+        int mouseY = e.getY();
+        System.out.println("Mouse clicked " + mouseX + "  " + mouseY);
+        if(mouseX>280 && mouseX<440 && mouseY>330 && mouseY<355){//detecting start button
 
-                        if (page<1){//only increments if page is currently 0
-                            if(pages.soundon==true){StdAudio.play("click.wav");}
-                            page++;
-                        }
+            if (page<1){//only increments if page is currently 0
+                if(pages.soundon==true){StdAudio.play("click.wav");}
+                page++;
+            }
 
-                     }
+        }
 
-                     if(mouseX>80 && mouseX<240 && mouseY>100 && mouseY<125){//player 1 rectangle
-                        if (page <3){
-                            if(pages.soundon==true){StdAudio.play("click.wav");}
-                            page++;
-                            player = "Player 1";
+        if(mouseX>80 && mouseX<240 && mouseY>100 && mouseY<125){//player 1 rectangle
+            if (page <3){
+                if(pages.soundon==true){StdAudio.play("click.wav");}
+                page++;
+                player = "Player 1";
 
-                            //create a player object that has a highscore so that when you finish the game we can write the highscores to a specific file...
+                //create a player object that has a highscore so that when you finish the game we can write the highscores to a specific file...
 
-                        }
-                     }
+            }
+        }
 
-                     if(mouseX>280 && mouseX<440 && mouseY>100 && mouseY<125){//player 2 rectangle
-                        if (page <3){
-                            if(pages.soundon==true){StdAudio.play("click.wav");}
-                            page++;
-                            player = "Player 2";
-                        }
-                     }
+        if(mouseX>280 && mouseX<440 && mouseY>100 && mouseY<125){//player 2 rectangle
+            if (page <3){
+                if(pages.soundon==true){StdAudio.play("click.wav");}
+                page++;
+                player = "Player 2";
+            }
+        }
 
-                     if(mouseX>480 && mouseX<640 && mouseY>100 && mouseY<125){//player 3 rectangle
-                        if (page <3){
-                            if(pages.soundon==true){StdAudio.play("click.wav");}
-                            page++;
-                            player = "Player 3";
-                        }
-                     }
+        if(mouseX>480 && mouseX<640 && mouseY>100 && mouseY<125){//player 3 rectangle
+            if (page <3){
+                if(pages.soundon==true){StdAudio.play("click.wav");}
+                page++;
+                player = "Player 3";
+            }
+        }
 
-                     if(mouseX>5 && mouseX<50 && mouseY>5 && mouseY<30){//detecting back button 
+        if(mouseX>5 && mouseX<50 && mouseY>5 && mouseY<30){//detecting back button
 
-                        if(page==1 || page==2){//to make sure it doesn't go negative and not show anything (only when page=1)
-                            if(pages.soundon==true){StdAudio.play("click.wav");}   
-                            page--;
-                
-                        }
-                        
-                        System.out.println("backButton");
-                     }
+            if(page==1 || page==2){//to make sure it doesn't go negative and not show anything (only when page=1)
+                if(pages.soundon==true){StdAudio.play("click.wav");}
+                page--;
 
-                     if(mouseX>280 && mouseX<360 && mouseY>500 && mouseY<580 && page==0){//detecting soundOn Button
-                        pages.soundon=true;
-                        StdAudio.play("click.wav");
-                     }
+            }
 
-                     if(mouseX>360 && mouseX<440 && mouseY>500 && mouseY<580 && page==0){//detecting soundOff Button
-                        pages.soundon=false;
-                     }
+            System.out.println("backButton");
+        }
 
-     }
- 
-     public void mouseReleased(MouseEvent e) {
-        
-     }
- 
-     public void mouseEntered(MouseEvent e) {
-       
-        
-     }
- 
-     public void mouseExited(MouseEvent e) {
-        
-     }
- 
-     public void mouseClicked(MouseEvent e) {
+        if(mouseX>280 && mouseX<360 && mouseY>500 && mouseY<580 && page==0){//detecting soundOn Button
+            pages.soundon=true;
+            StdAudio.play("click.wav");
+        }
+
+        if(mouseX>360 && mouseX<440 && mouseY>500 && mouseY<580 && page==0){//detecting soundOff Button
+            pages.soundon=false;
+        }
+
+    }
+
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    public void mouseEntered(MouseEvent e) {
+
+
+    }
+
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    public void mouseClicked(MouseEvent e) {
         System.out.println("Mouse clicked");
-     }
+    }
 
-     /******************MouseListener Methods Implemented********************************************************/
+    /******************MouseListener Methods Implemented********************************************************/
 
 
-     /******************KeyListener Implementation***************************************************************/
+    /******************KeyListener Implementation***************************************************************/
 
 
     public void keyPressed(KeyEvent e) {//implementing methods from keylistener interface
@@ -153,7 +153,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
 
     }
-    
+
 
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
@@ -192,7 +192,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         frame.setVisible(true);
     }
 
-    
+
     /************************These Methods Handle Graphics********************************************************/
     public void paintComponent(Graphics g) {//graphics method
         super.paintComponent(g);
@@ -200,8 +200,8 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         if (page==0) {
             drawStartScreen(g);
             pages.soundOption(g);
-        } 
-         if(page==1){
+        }
+        if(page==1){
             pages.chooseUserProfile(g);
         }
         if (page==2){
@@ -217,7 +217,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         g.drawString("      Click to Play", 280, 350);
 
         Graphics2D g2d = (Graphics2D)g;//typecasting 
-       
+
         try {
             title = ImageIO.read(new File("title.png")); ///reading image file
         } catch (IOException e) {

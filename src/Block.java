@@ -106,6 +106,9 @@ class Block {
         }
         return randomizedBlock;
     }
+    public Pair getPosition(){
+        return position;
+    }
 
     public void draw(Graphics g, World w) {
         Color c = g.getColor();
@@ -143,7 +146,7 @@ class Block {
 
         //keeps the blocks within the screen by "bouncing" it back to within the bounds of the board
         // bottom, left, and right * 30 because that is the block size
-        if(isFalling){
+        if (isFalling) {
             if (position.y + bottom * 30 > 600) {
                 position.y = 600 - bottom * 30;
                 this.isFalling = false;
@@ -164,4 +167,3 @@ class Block {
 
 
 }
-

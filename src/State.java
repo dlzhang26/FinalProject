@@ -1,4 +1,4 @@
-// I am thinking that we can possibly make a class to hold the current state of the entire board in an ordered colleciton, this way 
+// I am thinking that we can possibly make a class to hold the current state of the entire board in an ordered colleciton, this way
 // if a row fills up then we can just remove and then its easier to move
 public class State extends OrderedCollection{
     Node end;
@@ -28,7 +28,7 @@ public class State extends OrderedCollection{
     }
 
     public void SpaceON(double column, double row){
-        Node n = end; 
+        Node n = end;
         while(n.rownum != row){
             n=n.prev;
         }
@@ -36,13 +36,13 @@ public class State extends OrderedCollection{
     }
 
     public void SpaceOFF(double column, double row){
-        Node n = end; 
+        Node n = end;
         while(n.rownum != row){
             n=n.prev;
         }
         System.out.println("Removed: " + column + "," + row);
         n.rowstate[(int)column] = 0;
-    
+
     }
 
 
@@ -50,7 +50,7 @@ public class State extends OrderedCollection{
 
     //Returns the first rowstate
     public int[] peek(){
-        
+
         return end.rowstate;
 
     }
@@ -58,7 +58,7 @@ public class State extends OrderedCollection{
     public int[] remove(int index){
         int[] toReturn;
         Node removed;
-        Node n = end; 
+        Node n = end;
 
         //Go through datastructure until the one we want to remove + 1
         while(n.prev.rownum != index){
@@ -88,7 +88,7 @@ public class State extends OrderedCollection{
 
     //Removes the last rowstate - I think will need to add more functions such as a remove function
     public int[] pop(){
-        int[] toReturn = end.rowstate; 
+        int[] toReturn = end.rowstate;
         end = end.prev;
         length++;
         return toReturn;
@@ -119,12 +119,12 @@ public class State extends OrderedCollection{
         int origrow = (int)((Lastpos.y/30)-(newPos.y/30));
         int origcol = (int)((Lastpos.x/30)-(newPos.x/30)) + newcol;
         System.out.println("New row: " + newrow + "\n" + "New col: " + newcol + "\n" + "Orig row: " + origrow + "\n" + "Orig Col: " + origcol );
-        
+
         for(Pair p: block){
             // space off takes column then row as parameters
             SpaceOFF(origcol + p.x, origrow + p.y+newrow);
         }
- 
+
         for(Pair p: block){
             SpaceON((newcol)+p.x, newrow + p.y);
         }
@@ -142,7 +142,7 @@ public class State extends OrderedCollection{
         for(Pair p: copyblock){
             SpaceOFF((origcol)+p.x, newrow + p.y);
         }
- 
+
         for(Pair p: copyblock){
             SpaceON((newcol)+p.x, newrow + p.y);
         }
@@ -154,13 +154,14 @@ public class State extends OrderedCollection{
     public void newblock(Pair[] block, Pair pos){
         int top = 1;
         for(Pair p : block){
-            if(p.y>top){
+            if(p.y<top){
                 top = (int)p.y;
             }
         }
         Pair center = new Pair(5, top);
-  
+
         for(Pair p: block){
+            System.out.println("Turning Space on: " + (p.x+center.x) + ", " + (p.y-center.y));
             SpaceON(p.x+center.x, p.y-center.y);
         }
         System.out.println(this);
@@ -175,15 +176,15 @@ public class State extends OrderedCollection{
 class Node{
     //each node will hold the state of the row in an array
     int rownum;
-    int[] rowstate; 
-    Node prev; 
+    int[] rowstate;
+    Node prev;
     public Node(int num){
         rowstate = new int[10];
         this.rownum = num;
 
         //Test to see if this is working and creating rows properly/
-       // System.out.println("Row: " + rownum);
-        
+        // System.out.println("Row: " + rownum);
+
 
 
 

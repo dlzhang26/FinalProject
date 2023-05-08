@@ -108,6 +108,9 @@ public class State extends OrderedCollection{
         }
         return toReturn;
     }
+    public void rotateBlock(){
+        
+    }
 
     public void updatePos(Pair[] block, Pair newPos){
        // System.out.println("Last pos: " + Lastpos.x + ", " + Lastpos.y + "\n" + "New Pos: " + newPos.x + ", " + newPos.y);

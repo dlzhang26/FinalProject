@@ -63,6 +63,7 @@ class Block {
             return randomizedBlock;
         }
         Block hold = new Block();
+        
         if (this.isFalling) {
             for (int i = 0; i < 4; i++) {
                 //initializes hold[i] x and y to randomizedBlock[i]

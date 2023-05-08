@@ -12,6 +12,7 @@ class Block {
 
     Pair[] jBlock, lBlock, sBlock, zBlock, oBlock, iBlock, tBlock;
 
+
     public Block() {//constructor
         Random rand = new Random();
         color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
@@ -25,13 +26,12 @@ class Block {
         int r = rand.nextInt(0, 7);
         //color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
         this.isFalling = true;
-        //int r = (int) (Math.random() * 7); // (0,7) is range of values
+        //int r = (int) (Math.random() * 7); // [0,7) is range of values
         this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
 
         Color[] colors = {new Color(255, 0, 128), new Color(128, 0, 255), new Color(255, 165, 0), new Color(0, 255, 255), new Color(255, 0, 255), new Color(255, 255, 0), new Color(0, 255, 0)};
         color = colors[r];
-        currenState.newblock(randomizedBlock);
-    
+        currenState.newblock(randomizedBlock, position);
 
 
     }
@@ -48,6 +48,7 @@ class Block {
         Pair[][] types = {jBlock, lBlock, iBlock, sBlock, zBlock, oBlock, tBlock};//creating basically a matrix that has the type of blocks but only using 1 dimension?
 
 
+        System.out.println(random);
         Pair[] randomBlock = types[random];//picks one of the matricies from types and sets the variable randomBlock equal to it.
 
         return randomBlock;//return random block
@@ -81,24 +82,27 @@ class Block {
         edgeOfScreen(this.randomizedBlock);
     }
 
-    public Pair[] moveRight() {
+    public Pair[] moveRight(State cstate) {
         if (this.isFalling) {
             position.x += 30;//30 is the block size
+            cstate.updatePos(randomizedBlock, position);
         }
         return randomizedBlock;
     }
 
-    public Pair[] moveLeft() {
+    public Pair[] moveLeft(State cstate) {
         if (this.isFalling) {
             position.x -= 30;//30 is the block size
+            cstate.updatePos(randomizedBlock, position);
         }
         return randomizedBlock;
     }
 
     // Moves all of the positions down
-    public Pair[] movedown() {
+    public Pair[] movedown(State cstate) {
         if (this.isFalling) {
             position.y += 30;//30 is the block size
+            cstate.updatePos(randomizedBlock, position);
         }
         return randomizedBlock;
     }

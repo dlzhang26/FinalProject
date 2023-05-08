@@ -133,10 +133,10 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             world.currentBlock.rotate();
         }
         if (keyCode == KeyEvent.VK_RIGHT) {
-            world.currentBlock.moveRight();
+            world.moveRight();
         }
         if (keyCode == KeyEvent.VK_LEFT) {
-            world.currentBlock.moveLeft();
+            world.moveLeft();
         }
         if(keyCode == KeyEvent.VK_DOWN){
             FPS = 10;//this is to speed up the current block while it is falling
@@ -152,6 +152,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
 
     }
+    
 
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();

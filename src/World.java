@@ -1,5 +1,8 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 
 public class World {
     int height;
@@ -26,7 +29,7 @@ public class World {
         blockss.add(new Block(currentState));
 
         this.currentBlock = blockss.get(blockss.size()-2);//sets the current block to be the first generated
-        cState = new State();
+    
         
         this.nextBlock = blockss.get(blockss.size() - 1);//sets the next/preview block to the second generated block
 
@@ -102,6 +105,13 @@ public class World {
             }
         }
     }
+    public void moveLeft(){
+        currentBlock.moveLeft(currentState);
+    }
+    public void moveRight(){
+        currentBlock.moveRight(currentState);
+    }
+    
 
     public void drawBlocks(Graphics g) {
         //draws the all the blocks to screen
@@ -116,8 +126,9 @@ public class World {
 
     public void updateBlocks(double time) {
         addBlock();
-        currentBlock.movedown();//updates the current block;
+        currentBlock.movedown(currentState);//updates the current block;
         currentBlock.update(this, time);
 
     }
+
 }

@@ -143,7 +143,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             FPS = 10;//this is to speed up the current block while it is falling
         }
         if(keyCode == KeyEvent.VK_SHIFT){
-            world.hold();//to add a block to the hold
+            //world.hold();//to add a block to the hold
         }
 
         if(keyCode == KeyEvent.VK_S){//method for saving the score and player --> need to include another && gameover part to if statement

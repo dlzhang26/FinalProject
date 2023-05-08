@@ -110,25 +110,26 @@ public class State extends OrderedCollection{
     }
 
     public void updatePos(Pair[] block, Pair newPos){
-        System.out.println("Last pos: " + Lastpos.x + ", " + Lastpos.y);
+       // System.out.println("Last pos: " + Lastpos.x + ", " + Lastpos.y + "\n" + "New Pos: " + newPos.x + ", " + newPos.y);
         //mew row is this
         int newrow = (int) (newPos.y/30)-1;
         // new column
         int newcol = ((int) (newPos.x/30))-7;
         Pair center = new Pair((double)newrow,(double) newcol);
-        int origrow = (int)((Lastpos.y/30)-(newPos.y/30));
+        int origrow = (int)((Lastpos.y/30)-(newPos.y/30))+ newrow;
         int origcol = (int)((Lastpos.x/30)-(newPos.x/30)) + newcol;
-        System.out.println("New row: " + newrow + "\n" + "New col: " + newcol + "\n" + "Orig row: " + origrow + "\n" + "Orig Col: " + origcol );
+        //System.out.println("New row: " + newrow + "\n" + "New col: " + newcol + "\n" + "Orig row: " + origrow + "\n" + "Orig Col: " + origcol );
 
         for(Pair p: block){
             // space off takes column then row as parameters
-            SpaceOFF(origcol + p.x, origrow + p.y+newrow);
+            SpaceOFF(origcol + p.x, origrow + p.y);
         }
 
         for(Pair p: block){
-            SpaceON((newcol)+p.x, newrow + p.y);
+            SpaceON(newcol+p.x, newrow + p.y);
         }
-        Lastpos = newPos;
+        this.Lastpos = new Pair(newPos.x, newPos.y);
+        System.out.println("Last Pos is now: " + Lastpos.x + ", " + Lastpos.y);
         System.out.println(this);
 
     }

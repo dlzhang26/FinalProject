@@ -25,15 +25,7 @@ public class pages{
         g.setColor(Color.black);
         g.drawString("      Click to Play", 280, 350);
 
-        ///////////
-        /*
-        try {
-            test = ImageIO.read(new File("dice.png"));
-        } catch (IOException e) {
-            System.err.println(e);
-        }
 
-         */
     }
     /*
     public void paint(Graphics g){

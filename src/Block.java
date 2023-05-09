@@ -8,32 +8,41 @@ class Block {
 
     boolean isFalling;
 
+    private int key = World.key;
+    Random ran = new Random(key);
+    Random rand = new Random(key);
+
+
     Pair[] randomizedBlock;//array of pairs that is holding a randomized block
 
     Pair[] jBlock, lBlock, sBlock, zBlock, oBlock, iBlock, tBlock;
 
-
-    public Block() {//constructor
-        Random rand = new Random();
-        color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
+    //this constructor is used for the preview/next block. We need 2 constructors so one stores the state and the other
+    //does not so when we generate the current and next block, the next block does not interfere with the current state
+    public Block(int key) {//constructor
+        //sets the color for the next block
+        color = setColor(key);
+        //gets the random block from the setBlock method and sets the next block
+        this.randomizedBlock = setBlock(key);
+        //initializing falling
         this.isFalling = true;
-        int r = (int) (Math.random() * 7); // (0,6) is range of values
-        this.randomizedBlock = setBlock(r);//gets random block from Blocks array
+
     }
 
-    public Block(State currenState) {//constructor
-        Random rand = new Random();
-        int r = rand.nextInt(0, 7);
-        //color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
+    public Block(State currenState, int key) {//constructor
+        //sets the color for the next block
+        color = setColor(key);
+        //gets the random block from the setBlock method and sets the next block
+        this.randomizedBlock = setBlock(key);
+        //initializing falling
         this.isFalling = true;
-        //int r = (int) (Math.random() * 7); // [0,7) is range of values
-        this.randomizedBlock = setBlock(r);//gets random block from Blocks array (sort of)
 
-        Color[] colors = {new Color(255, 0, 128), new Color(128, 0, 255), new Color(255, 165, 0), new Color(0, 255, 255), new Color(255, 0, 255), new Color(255, 255, 0), new Color(0, 255, 0)};
-        color = colors[r];
         currenState.newblock(randomizedBlock, position);
-
-
+    }
+    public Color setColor(int random){
+        Color[] allColors = {new Color(255, 0, 128), new Color(128, 0, 255), new Color(255, 165, 0), new Color(0, 255, 255), new Color(255, 0, 255), new Color(255, 255, 0), new Color(0, 255, 0)};
+        Color chosenColor = allColors[random];
+        return chosenColor;
     }
 
     public Pair[] setBlock(int random) {//chooses a block
@@ -62,16 +71,18 @@ class Block {
         if (randomizedBlock == oBlock) {
             return randomizedBlock;
         }
-        Block hold = new Block();
+
+        //it does not matter what the temp block is because it is getting replaced
+        Block temp = new Block(0);
         
         if (this.isFalling) {
             for (int i = 0; i < 4; i++) {
                 //initializes hold[i] x and y to randomizedBlock[i]
-                hold.randomizedBlock[i].x = randomizedBlock[i].x;
-                hold.randomizedBlock[i].y = randomizedBlock[i].y;
+                temp.randomizedBlock[i].x = randomizedBlock[i].x;
+                temp.randomizedBlock[i].y = randomizedBlock[i].y;
 
-                randomizedBlock[i].x = hold.randomizedBlock[i].y;//replaces the randomized block y to the x
-                randomizedBlock[i].y = hold.randomizedBlock[i].x;//replaces the randomized block x to the y
+                randomizedBlock[i].x = temp.randomizedBlock[i].y;//replaces the randomized block y to the x
+                randomizedBlock[i].y = temp.randomizedBlock[i].x;//replaces the randomized block x to the y
 
                 randomizedBlock[i].flipY(); //flips the sign of y
             }

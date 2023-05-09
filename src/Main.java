@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class Main extends JPanel implements KeyListener, MouseListener {
     public static Image test;
+    public static Image button;
     public static Image title;
     public static final int WIDTH = 24;
     public static final int HEIGHT = 22;
@@ -46,7 +47,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         int mouseX = e.getX();
         int mouseY = e.getY();
         System.out.println("Mouse clicked " + mouseX + "  " + mouseY);
-        if(mouseX>280 && mouseX<440 && mouseY>330 && mouseY<355){//detecting start button
+        if(mouseX>270 && mouseX<445 && mouseY>325 && mouseY<365){//detecting start button
 
             if (page<1){//only increments if page is currently 0
                 if(pages.soundon==true){StdAudio.play("click.wav");}
@@ -228,22 +229,32 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     }
 
     public void drawStartScreen(Graphics g) {//method for drawing of the startscreen ui
-        //360,330 is center of canvas
-        g.setColor(Color.white);
-        g.fillRoundRect(280, 330, 160, 25, 10, 10);
-        g.setColor(Color.black);
-        g.drawString("      Click to Play", 280, 350);
 
-        Graphics2D g2d = (Graphics2D)g;//typecasting 
+
+        Graphics2D g2d = (Graphics2D)g;//typecasting
+
+
 
         try {
-            title = ImageIO.read(new File("title.png")); ///reading image file
+            title = ImageIO.read(new File("titleOrig.png")); ///reading image file
+            button = ImageIO.read(new File("button.png")); ///reading image file
         } catch (IOException e) {
             System.err.println(e);
         }
         //draws image
-        g2d.drawImage(title,185, 100, this);
+        g2d.drawImage(title, 70,60,(int)(title.getWidth(this)/3.5),(int)(title.getHeight(this)/3.5),this);
+        //g2d.drawImage(title,185, 100, this);
+        //g2d.drawImage(button, 280,300,button.getWidth(this),button.getHeight(this),this);
+        g2d.drawImage(button, 240,230,280,280,this);
+        /*
+        //360,330 is center of canvas
+        g.setColor(Color.pink);
+        g.fillRoundRect(270, 325, 175, 40, 10, 10);
 
+        g.setColor(Color.black);
+        g.drawString("      Click to Play", 280, 350);
+
+         */
     }
 
 

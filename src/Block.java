@@ -57,8 +57,9 @@ class Block {
         Pair[][] types = {jBlock, lBlock, iBlock, sBlock, zBlock, oBlock, tBlock};//creating basically a matrix that has the type of blocks but only using 1 dimension?
 
 
-        System.out.println(random);
-        Pair[] randomBlock = types[random];//picks one of the matricies from types and sets the variable randomBlock equal to it.
+        //******Currently Changed to debug, spawning issues in state class******/
+        System.out.println(0);
+        Pair[] randomBlock = types[0];//picks one of the matricies from types and sets the variable randomBlock equal to it.
 
         return randomBlock;//return random block
     }

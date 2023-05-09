@@ -17,10 +17,9 @@ public class Test {
         //test.append();
 
         System.out.println("\n");
-
-        Block testBlock = new Block(test, 3);
-        test.checkCollision(false, test, testBlock.randomizedBlock);
-
+        test.remove(3);
+        test.remove(5);
+        System.out.println(test);
 
 
 

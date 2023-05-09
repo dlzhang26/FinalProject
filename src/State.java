@@ -136,6 +136,22 @@ public class State extends OrderedCollection{
 
     }
 
+    public void checkComplete(){
+        String toReturn = "";
+        Node n = end;
+        while(n!=null){
+            
+            for( int i =0; i<10; i++){
+                toReturn =toReturn + " " + n.rowstate[i] + " ";
+            }
+            toReturn = toReturn + "Row: " + n.rownum + "\n";
+            
+
+            n=n.prev;
+        }
+    }
+    
+
     public void updatePos(Pair[] block, Pair newPos){
        // System.out.println("Last pos: " + Lastpos.x + ", " + Lastpos.y + "\n" + "New Pos: " + newPos.x + ", " + newPos.y);
         //mew row is this
@@ -160,7 +176,9 @@ public class State extends OrderedCollection{
         System.out.println(this);
 
     }
-
+    
+/****************************************************************************************************/
+/////Check Collision
     public boolean checkCollision(boolean isFalling, State currentState, Pair[] block){
         int currRow=(int) (Lastpos.y/30)-1;
         // new column
@@ -213,6 +231,7 @@ public class State extends OrderedCollection{
 
         return isFalling;
     }
+    /**************************************************************************************************** */
 
 
     public void newblock(Pair[] block, Pair pos){
@@ -225,7 +244,7 @@ public class State extends OrderedCollection{
         Pair center = new Pair(5, top);
 
         for(Pair p: block){
-            //System.out.println("Turning Space on: " + (p.x+center.x) + ", " + (p.y-center.y));
+            //System.out.println("Turning Space on: " + (p.x+center.x) + ", " + (p.y-center.y)); / Test to see which space it is turning on
             SpaceON(p.x+center.x, p.y-center.y);
         }
         Lastpos=pos;

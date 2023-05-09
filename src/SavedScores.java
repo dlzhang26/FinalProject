@@ -30,7 +30,7 @@ public class SavedScores {
 
 		try{
 			Scanner s = new Scanner(new File("highscores"));//for fun 
-
+			
 
 
 		}

@@ -15,6 +15,10 @@ public class World {
     int currentBlockKey;
     int nextBlockKey;
 
+    /////////////////////////
+    int count;
+    ///////////////////////////
+
     int row, column;
     int size = Main.BLOCKSIZE;//takes static variable from Main.java named BLOCKSIZE
 
@@ -173,9 +177,10 @@ public class World {
 
     public void updateBlocks(double time) {
         addBlock();
-        //checkCollision();
-        currentBlock.movedown(currentState);//updates the current block;
-        currentBlock.update(this, time);
+        count++;
+        System.out.println("Called This many Times: "+count);
+    
+        currentBlock.update(this, time,currentState);
 
     }
 

@@ -18,13 +18,10 @@ public class Test {
 
         System.out.println("\n");
 
-        test.SpaceON(3, 4);
-        System.out.println(test);
+        Block testBlock = new Block(test, 3);
+        test.checkCollision(false, test, testBlock.randomizedBlock);
 
-        test.remove(4);
-        System.out.println(test);
-        test.append();
-        System.out.println(test);
+
 
 
         

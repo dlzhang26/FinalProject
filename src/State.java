@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 // I am thinking that we can possibly make a class to hold the current state of the entire board in an ordered colleciton, this way
 // if a row fills up then we can just remove and then its easier to move
 public class State extends OrderedCollection{
@@ -29,6 +31,7 @@ public class State extends OrderedCollection{
 
     public void SpaceON(double column, double row){
         Node n = end;
+        //System.out.println("Printing: " + column + ", " + row);
         while(n.rownum != row){
             n=n.prev;
         }
@@ -44,6 +47,14 @@ public class State extends OrderedCollection{
         n.rowstate[(int)column] = 0;
 
 
+    }
+
+    public int checkSpace(double column, double row){
+        Node n = end;
+        while(n.rownum != row){
+            n=n.prev;
+        }
+        return n.rowstate[(int)column];
     }
 
 
@@ -134,7 +145,7 @@ public class State extends OrderedCollection{
         Pair center = new Pair((double)newrow,(double) newcol);
         int origrow = (int)((Lastpos.y/30)-(newPos.y/30))+ newrow;
         int origcol = (int)((Lastpos.x/30)-(newPos.x/30)) + newcol;
-        //System.out.println("New row: " + newrow + "\n" + "New col: " + newcol + "\n" + "Orig row: " + origrow + "\n" + "Orig Col: " + origcol );
+        System.out.println("New row: " + newrow + "\n" + "New col: " + newcol + "\n" + "Orig row: " + origrow + "\n" + "Orig Col: " + origcol );
 
         for(Pair p: block){
             // space off takes column then row as parameters
@@ -145,22 +156,58 @@ public class State extends OrderedCollection{
             SpaceON(newcol+p.x, newrow + p.y);
         }
         this.Lastpos = new Pair(newPos.x, newPos.y);
-        //System.out.println("Last Pos is now: " + Lastpos.x + ", " + Lastpos.y);
+        System.out.println("Last Pos is now: " + Lastpos.x + ", " + Lastpos.y);
         System.out.println(this);
 
     }
 
-    public boolean checkCollision(boolean isFalling, State currentState, Pair position, Pair[] block){
-        int currRow=(int) (position.y/30)-1;
+    public boolean checkCollision(boolean isFalling, State currentState, Pair[] block){
+        int currRow=(int) (Lastpos.y/30)-1;
         // new column
-        int currCol = ((int) (position.x/30))-7;
-        Pair center = new Pair((double)currRow,(double) currCol); 
+        int currCol = (int) (((Lastpos.x/30))-7);
+        System.out.println("Current Column: "+ currCol+ "\n" + "Current Row: " + currRow);
+        Pair center = new Pair((double) currCol,(double)currRow); 
         
-        // So need to find the bottom, of the bounds, needs to be applicable for all things
-        //What I am thinking currently is that I will go through all the pairs in p and look at which one is the "lowest"
-        // To find the lowest need to look in every x cal
-        for(Pair p: block){
+         /******************************************************************
+          * This part of the method is to find the lowest blocks, basically the blocks that would be interacting with lower blocks
+          */
+        LinkedList <Pair> Check= new LinkedList<Pair>();
+        double biggestx = 0;
+        double smallestx= 0;
 
+        //Identify the bounds for the shape,
+        for(Pair p: block){
+            if(p.x>biggestx){
+                biggestx = p.x;
+            }
+            if(p.x<smallestx){
+                smallestx = p.x;
+            }
+        }
+        //find the lowest point for each row
+        for(double i = smallestx; i<biggestx+1; i++){
+            Pair lowestPoint = new Pair(i, -2);
+            for(Pair p: block){
+                if(p.x==lowestPoint.x && p.y>lowestPoint.y){
+                    lowestPoint = p;
+                }
+            }
+            Check.add(lowestPoint);
+        }
+        System.out.println("The Bottom Block is at: ");
+        for(Pair p: Check){
+            System.out.println(p.x + ", " + p.y);
+        }
+        /******************************************************************* */
+
+        //Look at the Row below each bottom block in check, if it is greater than 19, the maximum row, then stop falling. if It is occupied by a one stop
+        for(Pair p: Check){
+            System.out.println(p.x + ", "+ p.y);
+            System.out.println("Checking: " + center.x +" " + p.x + ", " + center.y+ " " +p.y + " " +1);
+            if((center.y+p.y+1)>19 || checkSpace((center.x + p.x), center.y+p.y+1) ==1){
+                isFalling=false;
+
+            }
         }
 
 

@@ -94,8 +94,13 @@ class Block {
         return randomizedBlock;
     }
 
-    public void update(World w, double time) {
-        edgeOfScreen(this.randomizedBlock);
+    public void update(World w, double time, State cState) {
+        isFalling= cState.checkCollision(isFalling, cState, randomizedBlock);
+        if(isFalling){
+            movedown(cState);//updates the current block;
+        }
+        
+
     }
 
     public Pair[] moveRight(State cstate) {

@@ -1,5 +1,10 @@
 import java.awt.*;
 import java.util.Random;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 
 class Block {
     Color color;
@@ -9,9 +14,15 @@ class Block {
     boolean isFalling;
     boolean isPaused;
 
+    private BufferedImage blockImage;
+    private String[] imageFiles = {"RedBlock.png", "BlueBlock.png", "GreenBlock.png", "PurpleBlock.png", "YellowBlock.png"};
+    private Random imageRand = new Random();
+
     private int key = World.key;
     Random ran = new Random(key);
     Random rand = new Random(key);
+
+
 
 
     Pair[] randomizedBlock;//array of pairs that is holding a randomized block
@@ -29,7 +40,13 @@ class Block {
         //initializing falling
         this.isFalling = false;
         this.isPaused = false;
-
+        int imageKey = key % imageFiles.length;
+        try {
+            blockImage = ImageIO.read(new File(imageFiles[imageKey]));
+        } catch (IOException e) {
+            System.err.println("Error loading image: " + e.getMessage());
+        }
+        color = setColor(imageKey);
     }
 
     public Block(State currenState, int key) {//constructor
@@ -42,6 +59,13 @@ class Block {
         this.isFalling = true;
 
         currenState.newblock(randomizedBlock, position);
+        int imageKey = key % imageFiles.length;
+        try {
+            blockImage = ImageIO.read(new File(imageFiles[imageKey]));
+        } catch (IOException e) {
+            System.err.println("Error loading image: " + e.getMessage());
+        }
+        
     }
     public Color setColor(int random){
         Color[] allColors = {new Color(255, 0, 128), new Color(128, 0, 255), new Color(255, 165, 0), new Color(0, 255, 255), new Color(255, 0, 255), new Color(255, 255, 0), new Color(0, 255, 0)};
@@ -175,6 +199,10 @@ class Block {
     }
 
     public void draw(Graphics g, World w) {
+        for (int i = 0; i < 4; i++) {
+            g.drawImage(blockImage, (int) ((position.x + randomizedBlock[i].x * w.size)), (int) ((position.y + randomizedBlock[i].y * w.size)), w.size, w.size, null);
+        }
+        /* 
         Color c = g.getColor();
 
         g.setColor(color);
@@ -185,7 +213,7 @@ class Block {
             g.fillRoundRect((int) ((position.x + randomizedBlock[i].x * w.size)), (int) ((position.y + randomizedBlock[i].y * w.size)), w.size, w.size,10,10);
         }
         g.setColor(c);
-
+        */
     }
 
     private void edgeOfScreen(Pair[] randomizedBlock) {

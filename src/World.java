@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 
 public class World {
@@ -14,6 +17,8 @@ public class World {
     static int key = 2932;
     int currentBlockKey;
     int nextBlockKey;
+
+    private Image blockImage;
 
     /////////////////////////
     int count;
@@ -35,6 +40,12 @@ public class World {
     public World(int initWidth, int initHeight) {//constructor for the world class
         width = initWidth;
         height = initHeight;
+
+        try {
+            blockImage = ImageIO.read(new File("BlockPicture.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         this.currentState = new State();
 
@@ -111,13 +122,26 @@ public class World {
 
 
     public void drawBoard(Graphics g) {
+        int boardWidth = 10 * size; // width of the board
+        int boardHeight = 20 * size; // height of the board
+        int boardX = 7 * size; // x-coordinate of the board's top-left corner
+        int boardY = 1 * size; // y-coordinate of the board's top-left corner
+
+        // Draw the 10x20 grid of the block image
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 10; j++) {
+                g.drawImage(blockImage, boardX + j * size, boardY + i * size, size, size, null);
+            }
+        }
+        
+        /*
         for (int i = 1; i < 21; i++) {//height of the board
             for (int j = 7; j < 17; j++) {//width of the board
                 g.setColor(Color.white);
                 g.drawRect(j * size, i * size, size, size);
             }
         }
-        /*
+        
         //draws the holding block place
         for (int i = 3; i < 7; i++) {//height of the board
             for (int j = 2; j < 5; j++) {//width of the board

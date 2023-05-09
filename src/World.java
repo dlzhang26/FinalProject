@@ -65,13 +65,13 @@ public class World {
         //sets the position of the next block in the preview box
         //nextBlock.position = new Pair(570, 60);//need to change the x and y to fit the box
 
-        while (currentBlock.isFalling == false) {
+        if (currentBlock.isFalling == false) {
 
             //updates the currentBlockKey to nextBlockKey
             currentBlockKey = nextBlockKey;
 
             nextBlockKey = rand.nextInt(0,7);
-            System.out.println( currentBlockKey + " "+ nextBlockKey);
+            //System.out.println( currentBlockKey + " "+ nextBlockKey);
             nextBlocks.add(new Block(nextBlockKey));
             nextBlock = nextBlocks.get(nextBlocks.size() - 1);
 
@@ -179,10 +179,9 @@ public class World {
     }
 
     public void updateBlocks(double time) {
-        
+        addBlock();
         currentBlock.update(this, time,currentState);
         System.out.println("Current block falling? " + currentBlock.isFalling);
-        addBlock();
     }
 
 }

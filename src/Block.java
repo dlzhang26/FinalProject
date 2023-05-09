@@ -62,7 +62,7 @@ class Block {
 
 
         //******Currently Changed to debug, spawning issues in state class******/
-        System.out.println(random);
+        //System.out.println(random);
         Pair[] randomBlock = types[random];//picks one of the matricies from types and sets the variable randomBlock equal to it.
 
         return randomBlock;//return random block
@@ -103,6 +103,7 @@ class Block {
         if(isFalling){
             movedown(cState);//updates the current block;
         }
+        System.out.println("BLock.Java Update: " + isFalling);
         
 
     }

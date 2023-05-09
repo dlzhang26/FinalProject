@@ -145,7 +145,7 @@ public class State extends OrderedCollection{
         Pair center = new Pair((double)newrow,(double) newcol);
         int origrow = (int)((Lastpos.y/30)-(newPos.y/30))+ newrow;
         int origcol = (int)((Lastpos.x/30)-(newPos.x/30)) + newcol;
-        System.out.println("New row: " + newrow + "\n" + "New col: " + newcol + "\n" + "Orig row: " + origrow + "\n" + "Orig Col: " + origcol );
+        //System.out.println("New row: " + newrow + "\n" + "New col: " + newcol + "\n" + "Orig row: " + origrow + "\n" + "Orig Col: " + origcol );
 
         for(Pair p: block){
             // space off takes column then row as parameters
@@ -156,7 +156,7 @@ public class State extends OrderedCollection{
             SpaceON(newcol+p.x, newrow + p.y);
         }
         this.Lastpos = new Pair(newPos.x, newPos.y);
-        System.out.println("Last Pos is now: " + Lastpos.x + ", " + Lastpos.y);
+        //System.out.println("Last Pos is now: " + Lastpos.x + ", " + Lastpos.y);
         System.out.println(this);
 
     }
@@ -165,7 +165,7 @@ public class State extends OrderedCollection{
         int currRow=(int) (Lastpos.y/30)-1;
         // new column
         int currCol = (int) (((Lastpos.x/30))-7);
-        System.out.println("Current Column: "+ currCol+ "\n" + "Current Row: " + currRow);
+        //System.out.println("Current Column: "+ currCol+ "\n" + "Current Row: " + currRow);
         Pair center = new Pair((double) currCol,(double)currRow); 
         
          /******************************************************************
@@ -194,8 +194,8 @@ public class State extends OrderedCollection{
             }
             Check.add(lowestPoint);
         }
-        System.out.println("The Bottom Block is at: ");
-        for(Pair p: Check){
+        //System.out.println("The Bottom Block is at: ");
+        /*for(Pair p: Check){
             System.out.println(p.x + ", " + p.y);
         }
         /******************************************************************* */
@@ -206,7 +206,7 @@ public class State extends OrderedCollection{
             System.out.println("Checking: " + center.x +" " + p.x + ", " + center.y+ " " +p.y + " " +1);
             if((center.y+p.y+1)>19 || checkSpace((center.x + p.x), center.y+p.y+1) ==1){
                 isFalling=false;
-
+                System.out.println("isFalling Set: "+ isFalling);
             }
         }
 
@@ -225,9 +225,10 @@ public class State extends OrderedCollection{
         Pair center = new Pair(5, top);
 
         for(Pair p: block){
-            System.out.println("Turning Space on: " + (p.x+center.x) + ", " + (p.y-center.y));
+            //System.out.println("Turning Space on: " + (p.x+center.x) + ", " + (p.y-center.y));
             SpaceON(p.x+center.x, p.y-center.y);
         }
+        Lastpos=pos;
         System.out.println(this);
     }
 

@@ -72,33 +72,54 @@ public class State extends OrderedCollection{
         Node removed;
         Node n = end;
 
+        //Different process for removing the end
+        if(index == 0){
+            toReturn = n.rowstate;
+            System.out.println("Removed Row: " + index);
+            end = n.prev;
+        }else{
         //Go through datastructure until the one we want to remove + 1
-        while(n.prev.rownum != index){
-            n=n.prev;
-        }
-        toReturn = n.prev.rowstate;
+            while(n.prev.rownum != index){
+                n=n.prev;
+            }
+            toReturn = n.prev.rowstate;
         //
-        removed = n.prev;
+            removed = n.prev;
         //In order to remove it we set the previous to the previous of the one before
-    System.out.println("Removed Row: " + removed.rownum);
+            System.out.println("Removed Row: " + removed.rownum);
 
 
-        n.prev = n.prev.prev;
+            n.prev = n.prev.prev;
+        }
+
+
 
         n = end;
+        System.out.println(n.rownum);
         //now to update rownumbers
-        while(n.rownum <= index-1){
+        if(index==19){
+            while(n.prev!= null){
+                n.rownum++;
+                n = n.prev;
+            }
             n.rownum++;
-            n = n.prev;
+            length++;
+
+        }else{
+            while(n.rownum <= index-1){
+                n.rownum++;
+                n = n.prev;
+            }
+            length++;
         }
-        length++;
+        
+        append();
 
         return toReturn;
 
     }
 
 
-    //Removes the last rowstate - I think will need to add more functions such as a remove function
     public int[] pop(){
         int[] toReturn = end.rowstate;
         end = end.prev;
@@ -137,17 +158,22 @@ public class State extends OrderedCollection{
     }
 
     public void checkComplete(){
-        String toReturn = "";
         Node n = end;
+        LinkedList <Integer> complete = new LinkedList<>();
         while(n!=null){
-            
+            int count = 0;
             for( int i =0; i<10; i++){
-                toReturn =toReturn + " " + n.rowstate[i] + " ";
+                if (n.rowstate[i] == 1){
+                    count++;
+                }
+                if(count==10){
+                    complete.add(n.rownum);
+                }
             }
-            toReturn = toReturn + "Row: " + n.rownum + "\n";
-            
-
             n=n.prev;
+        }
+        for(int p: complete){
+            remove(p);
         }
     }
     

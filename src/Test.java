@@ -15,12 +15,16 @@ public class Test {
         System.out.println(test);
         //System.out.println(test);
         //test.append();
+        int[] tester;
 
         System.out.println("\n");
-        test.remove(3);
-        test.remove(5);
+        for(int i = 0; i<10; i++){
+            test.SpaceON(i, 19);
+        }
         System.out.println(test);
+        test.remove(19);
 
+        System.out.println(test);
 
 
         

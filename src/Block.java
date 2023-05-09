@@ -103,9 +103,7 @@ class Block {
         if(isFalling){
             movedown(cState);//updates the current block;
         }
-        System.out.println("BLock.Java Update: " + isFalling);
-        
-
+        cState.checkComplete();
     }
 
 

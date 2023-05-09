@@ -55,25 +55,6 @@ public class World {
         nextBlock.isFalling = false;
         //draws current block on top of board
         currentBlock.position = new Pair(360, 30);
-
-
-
-        /*
-
-        //generates 2 blocks
-        blockss.add(new Block(currentState));
-        blockss.add(new Block(currentState));
-
-        this.currentBlock = blockss.get(blockss.size() - 2);//sets the current block to be the first generated
-
-
-        this.nextBlock = blockss.get(blockss.size() - 1);//sets the next/preview block to the second generated block
-
-        currentBlock.position = new Pair(360, 30);//draws current block on top of board
-
-         */
-
-
     }
 
     public void addBlock() {
@@ -93,26 +74,6 @@ public class World {
             System.out.println( currentBlockKey + " "+ nextBlockKey);
             nextBlocks.add(new Block(nextBlockKey));
             nextBlock = nextBlocks.get(nextBlocks.size() - 1);
-
-
-
-
-            /*
-
-            //the next block's position is set on the top of the board and starts falling when the current block stops falling
-            nextBlock.position = new Pair(360, 30);
-            nextBlock.isFalling = true;
-
-            //adds a new block to the linked list
-            blockss.add(new Block(currentState));
-
-            //sets the last block to next block and current block to the second to last block
-            currentBlock = blockss.get(blockss.size() - 2);
-            nextBlock = blockss.get(blockss.size() - 1);
-
-
-
-             */
         }
     }
 
@@ -149,6 +110,7 @@ public class World {
                 g.drawRect(j * size, i * size, size, size);
             }
         }
+        /*
         //draws the holding block place
         for (int i = 3; i < 7; i++) {//height of the board
             for (int j = 2; j < 5; j++) {//width of the board
@@ -164,6 +126,8 @@ public class World {
                 g.drawRect(j * size, i * size, size, size);
             }
         }
+        
+         */
     }
     public void checkCollision() {
 

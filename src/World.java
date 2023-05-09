@@ -58,26 +58,29 @@ public class World {
         this.nextBlock = nextBlocks.get(blockss.size() - 1);
         nextBlock.isFalling = false;
         //draws current block on top of board
-        currentBlock.position = new Pair(360, 30);
+       // currentBlock.position = new Pair(360, 30);
     }
 
     public void addBlock() {
         //sets the position of the next block in the preview box
-        nextBlock.position = new Pair(570, 60);//need to change the x and y to fit the box
+        //nextBlock.position = new Pair(570, 60);//need to change the x and y to fit the box
 
         while (currentBlock.isFalling == false) {
 
             //updates the currentBlockKey to nextBlockKey
             currentBlockKey = nextBlockKey;
 
-            blockss.add(new Block(currentState,currentBlockKey));
-            currentBlock = blockss.get(blockss.size() - 1);
-            currentBlock.position = new Pair(360,30);
-
             nextBlockKey = rand.nextInt(0,7);
             System.out.println( currentBlockKey + " "+ nextBlockKey);
             nextBlocks.add(new Block(nextBlockKey));
             nextBlock = nextBlocks.get(nextBlocks.size() - 1);
+
+            blockss.add(new Block(currentState,currentBlockKey));
+            currentBlock = blockss.get(blockss.size() - 1);
+            currentBlock.position = new Pair(360,30);
+            currentBlock.isFalling=true;
+
+            
         }
     }
 
@@ -176,12 +179,10 @@ public class World {
     }
 
     public void updateBlocks(double time) {
-        addBlock();
-        count++;
-        System.out.println("Called This many Times: "+count);
-    
+        
         currentBlock.update(this, time,currentState);
-
+        System.out.println("Current block falling? " + currentBlock.isFalling);
+        addBlock();
     }
 
 }

@@ -4,7 +4,7 @@ import java.util.Random;
 class Block {
     Color color;
 
-    Pair position = new Pair(570, 60);
+   Pair position;
 
     boolean isFalling;
     boolean isPaused;
@@ -25,8 +25,9 @@ class Block {
         color = setColor(key);
         //gets the random block from the setBlock method and sets the next block
         this.randomizedBlock = setBlock(key);
+        this.position = new Pair(570, 60);
         //initializing falling
-        this.isFalling = true;
+        this.isFalling = false;
         this.isPaused = false;
 
     }
@@ -37,6 +38,7 @@ class Block {
         //gets the random block from the setBlock method and sets the next block
         this.randomizedBlock = setBlock(key);
         //initializing falling
+        this.position = new Pair(360,30);
         this.isFalling = true;
 
         currenState.newblock(randomizedBlock, position);
@@ -60,8 +62,8 @@ class Block {
 
 
         //******Currently Changed to debug, spawning issues in state class******/
-        System.out.println(0);
-        Pair[] randomBlock = types[0];//picks one of the matricies from types and sets the variable randomBlock equal to it.
+        System.out.println(random);
+        Pair[] randomBlock = types[random];//picks one of the matricies from types and sets the variable randomBlock equal to it.
 
         return randomBlock;//return random block
     }

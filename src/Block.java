@@ -7,6 +7,7 @@ class Block {
     Pair position = new Pair(570, 60);
 
     boolean isFalling;
+    boolean isPaused;
 
     private int key = World.key;
     Random ran = new Random(key);
@@ -26,6 +27,7 @@ class Block {
         this.randomizedBlock = setBlock(key);
         //initializing falling
         this.isFalling = true;
+        this.isPaused = false;
 
     }
 
@@ -103,8 +105,21 @@ class Block {
 
     }
 
+
+
     public Pair[] moveRight(State cstate) {
-        if (this.isFalling) {
+        int right = 0;
+        //identifies the rightmost component of each block
+        for(Pair p : randomizedBlock){
+            if (p.x>right){
+                right = (int)p.x;
+            }
+        }
+        if (this.isFalling && !this.isPaused) {
+            if( position.x + right * 30 > 450){
+                position.x = 480-right *30;
+                return randomizedBlock;
+            }
             position.x += 30;//30 is the block size
             cstate.updatePos(randomizedBlock, position);
         }
@@ -112,7 +127,16 @@ class Block {
     }
 
     public Pair[] moveLeft(State cstate) {
-        if (this.isFalling) {
+        int left = 0;
+        for(Pair p : randomizedBlock){
+            if (p.x < left) {
+                left = (int) p.x;
+            }
+        }
+        if (this.isFalling && !this.isPaused) {
+            if (position.x + left * 30 < 240) {
+                position.x = 240 - left * 30;
+            }
             position.x -= 30;//30 is the block size
             cstate.updatePos(randomizedBlock, position);
         }
@@ -121,7 +145,17 @@ class Block {
 
     // Moves all of the positions down
     public Pair[] movedown(State cstate) {
-        if (this.isFalling) {
+        int bottom = 0;
+        for (Pair p : randomizedBlock) {
+            if (p.y > bottom) {
+                bottom = (int) p.y;
+            }
+        }
+        if (this.isFalling && !this.isPaused) {
+            if (position.y + bottom * 30 > 570) {
+                position.y = 570 - bottom * 30;
+                this.isFalling = false;
+            }
             position.y += 30;//30 is the block size
             cstate.updatePos(randomizedBlock, position);
         }
@@ -129,6 +163,14 @@ class Block {
     }
     public Pair getPosition(){
         return position;
+    }
+
+    public void pause() {
+        this.isPaused = true;
+    }
+    
+    public void resume() {
+        this.isPaused = false;
     }
 
     public void draw(Graphics g, World w) {

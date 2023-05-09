@@ -40,8 +40,9 @@ public class State extends OrderedCollection{
         while(n.rownum != row){
             n=n.prev;
         }
-        System.out.println("Removed: " + column + "," + row);
+        //System.out.println("Removed: " + column + "," + row);
         n.rowstate[(int)column] = 0;
+
 
     }
 
@@ -68,7 +69,7 @@ public class State extends OrderedCollection{
         //
         removed = n.prev;
         //In order to remove it we set the previous to the previous of the one before
-        System.out.println("Removed Row: " + removed.rownum);
+    System.out.println("Removed Row: " + removed.rownum);
 
 
         n.prev = n.prev.prev;
@@ -108,8 +109,20 @@ public class State extends OrderedCollection{
         }
         return toReturn;
     }
-    public void rotateBlock(){
-        
+    public void rotateBlock(Pair[] origBlock, Pair[] newBlock, Pair Pos){
+            //First need to erase Where the block originally was
+            Pair Center = new Pair((Pos.x/30)-7, (Pos.y/30)-1);
+            for(Pair p : origBlock){
+                //System.out.println("Turning Off: " + (p.x+Center.x)+ ", "+ (p.y + Center.y));
+                SpaceOFF(p.x+Center.x, p.y+Center.y);
+            }
+            //System.out.println("Line 119" + "\n" + this);
+            //Now turn on the spaces where the New Block is 
+            for(Pair p: newBlock){
+                SpaceON(Center.x+p.x, Center.y+p.y);
+            }
+            //System.out.println("Line 124" + "\n" + this);
+
     }
 
     public void updatePos(Pair[] block, Pair newPos){
@@ -132,7 +145,7 @@ public class State extends OrderedCollection{
             SpaceON(newcol+p.x, newrow + p.y);
         }
         this.Lastpos = new Pair(newPos.x, newPos.y);
-        System.out.println("Last Pos is now: " + Lastpos.x + ", " + Lastpos.y);
+        //System.out.println("Last Pos is now: " + Lastpos.x + ", " + Lastpos.y);
         System.out.println(this);
 
     }

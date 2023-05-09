@@ -131,7 +131,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         int keyCode = e.getKeyCode();
         //rotates the block if the up key is pressed
         if (keyCode == KeyEvent.VK_UP) {
-            world.currentBlock.rotate();
+            world.currentBlock.rotate(world.currentState);
         }
         if (keyCode == KeyEvent.VK_RIGHT) {
             world.moveRight();

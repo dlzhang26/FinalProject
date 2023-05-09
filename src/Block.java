@@ -56,25 +56,31 @@ class Block {
 
 
     // goes through the array and switches x and y and multiples -1*y to rotate
-    public Pair[] rotate() {//-1*y and switch x and y to rotate everything
+    public Pair[] rotate(State cState) {//-1*y and switch x and y to rotate everything
 
         //if the block is the oBlock, do not rotate
         if (randomizedBlock == oBlock) {
             return randomizedBlock;
         }
         Block hold = new Block();
-        
+        Block copyhold =new Block();
+
         if (this.isFalling) {
             for (int i = 0; i < 4; i++) {
                 //initializes hold[i] x and y to randomizedBlock[i]
                 hold.randomizedBlock[i].x = randomizedBlock[i].x;
                 hold.randomizedBlock[i].y = randomizedBlock[i].y;
+                copyhold.randomizedBlock[i].x = hold.randomizedBlock[i].x;
+                copyhold.randomizedBlock[i].y = hold.randomizedBlock[i].y;
+                
 
                 randomizedBlock[i].x = hold.randomizedBlock[i].y;//replaces the randomized block y to the x
                 randomizedBlock[i].y = hold.randomizedBlock[i].x;//replaces the randomized block x to the y
 
                 randomizedBlock[i].flipY(); //flips the sign of y
+
             }
+            cState.rotateBlock(copyhold.randomizedBlock, randomizedBlock, position);
         }
         return randomizedBlock;
     }

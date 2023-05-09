@@ -3,44 +3,30 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 
 public class World {
     int height;
     int width;
 
+    Random rand = new Random(3482);
+    static int key = 2932;
+    int currentBlockKey;
+    int nextBlockKey;
+
     int row, column;
     int size = Main.BLOCKSIZE;//takes static variable from Main.java named BLOCKSIZE
 
     Block currentBlock;
     Block nextBlock;
-
     Block holdBlock;
 
     State currentState;
 
-    int[][] gameBoard = {
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 1, 1, 1, 0, 0, 0, 0, 0, 0}};
-    ArrayList<Block> blockss = new ArrayList<Block>();//initializing the ArrayList of Blocks 
+    ArrayList<Block> blockss = new ArrayList<Block>();//initializing the ArrayList of Blocks
+
+    ArrayList<Block> nextBlocks = new ArrayList<Block>();//initializing the ArrayList of next Block
 
     public World(int initWidth, int initHeight) {//constructor for the world class
         width = initWidth;
@@ -48,16 +34,27 @@ public class World {
 
         this.currentState = new State();
 
-        //generates 2 blocks
-        blockss.add(new Block(currentState));
-        blockss.add(new Block(currentState));
+        //generates what the first block will be in the sequence
+        currentBlockKey = rand.nextInt(0,7);
 
-        this.currentBlock = blockss.get(blockss.size() - 2);//sets the current block to be the first generated
+        //generates the second block according to the key
+        nextBlockKey = rand.nextInt(0,7);
+        System.out.println(currentBlockKey +" " +nextBlockKey);
 
+        //adds a new block to the game screen with the first key
+        blockss.add(new Block(currentState,currentBlockKey));
 
-        this.nextBlock = blockss.get(blockss.size() - 1);//sets the next/preview block to the second generated block
+        //in the preview arraylist, add a new block with the nextBlock's key
+        nextBlocks.add(new Block(nextBlockKey));
 
-        currentBlock.position = new Pair(360, 30);//draws current block on top of board
+        //sets the current block to the last generated block in the blockss array list
+        this.currentBlock = blockss.get(blockss.size() - 1);
+
+        //sets the next/preview block to the last generated block in the nextBlocks array list
+        this.nextBlock = nextBlocks.get(blockss.size() - 1);
+        nextBlock.isFalling = false;
+        //draws current block on top of board
+        currentBlock.position = new Pair(360, 30);
     }
 
     public void addBlock() {
@@ -65,16 +62,18 @@ public class World {
         nextBlock.position = new Pair(570, 60);//need to change the x and y to fit the box
 
         while (currentBlock.isFalling == false) {
-            //the next block's position is set on the top of the board and starts falling when the current block stops falling
-            nextBlock.position = new Pair(360, 30);
-            nextBlock.isFalling = true;
 
-            //adds a new block to the linked list
-            blockss.add(new Block(currentState));
+            //updates the currentBlockKey to nextBlockKey
+            currentBlockKey = nextBlockKey;
 
-            //sets the last block to next block and current block to the second to last block
-            currentBlock = blockss.get(blockss.size() - 2);
-            nextBlock = blockss.get(blockss.size() - 1);
+            blockss.add(new Block(currentState,currentBlockKey));
+            currentBlock = blockss.get(blockss.size() - 1);
+            currentBlock.position = new Pair(360,30);
+
+            nextBlockKey = rand.nextInt(0,7);
+            System.out.println( currentBlockKey + " "+ nextBlockKey);
+            nextBlocks.add(new Block(nextBlockKey));
+            nextBlock = nextBlocks.get(nextBlocks.size() - 1);
         }
     }
 
@@ -82,13 +81,13 @@ public class World {
         if (holdBlock == null) {
             //sets the current block to the hold block and change the position
             holdBlock = currentBlock;
-            holdBlock.position = new Pair(0, 60);
+            holdBlock.position = new Pair(30, 60);
 
             //sets current block to next block to replace the old current block that's on hold
             currentBlock = nextBlock;//what is this here doing?
 
             //adds a new block to the array list and sets a new next block
-            blockss.add(new Block(currentState));
+            blockss.add(new Block(currentState,currentBlockKey));
             nextBlock = blockss.get(blockss.size() - 1);
         } else {
             //switches current blocks and hold block and sets the new position
@@ -111,6 +110,7 @@ public class World {
                 g.drawRect(j * size, i * size, size, size);
             }
         }
+        /*
         //draws the holding block place
         for (int i = 3; i < 7; i++) {//height of the board
             for (int j = 2; j < 5; j++) {//width of the board
@@ -126,6 +126,8 @@ public class World {
                 g.drawRect(j * size, i * size, size, size);
             }
         }
+
+         */
     }
     public void checkCollision() {
 
@@ -137,10 +139,12 @@ public class World {
             row = row / 30;
             column = column / 30;
             System.out.println(row + " " + column);
-
+            /*
             if (gameBoard[column][row] != 0) {
                 this.currentBlock.isFalling = false;
             }
+
+             */
         }
         System.out.println();
 
@@ -169,7 +173,7 @@ public class World {
 
     public void updateBlocks(double time) {
         addBlock();
-        checkCollision();
+        //checkCollision();
         currentBlock.movedown(currentState);//updates the current block;
         currentBlock.update(this, time);
 

@@ -81,7 +81,7 @@ public class World {
         if (holdBlock == null) {
             //sets the current block to the hold block and change the position
             holdBlock = currentBlock;
-            holdBlock.position = new Pair(0, 60);
+            holdBlock.position = new Pair(30, 60);
 
             //sets current block to next block to replace the old current block that's on hold
             currentBlock = nextBlock;//what is this here doing?
@@ -126,7 +126,7 @@ public class World {
                 g.drawRect(j * size, i * size, size, size);
             }
         }
-        
+
          */
     }
     public void checkCollision() {

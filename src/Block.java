@@ -71,13 +71,16 @@ class Block {
         if (randomizedBlock == oBlock) {
             return randomizedBlock;
         }
-        Block hold = new Block();
+        Block temp = new Block(0);
+        Block copyhold = new Block(0);
         
         if (this.isFalling) {
             for (int i = 0; i < 4; i++) {
                 //initializes hold[i] x and y to randomizedBlock[i]
-                hold.randomizedBlock[i].x = randomizedBlock[i].x;
-                hold.randomizedBlock[i].y = randomizedBlock[i].y;
+                temp.randomizedBlock[i].x = randomizedBlock[i].x;
+                temp.randomizedBlock[i].y = randomizedBlock[i].y;
+                copyhold.randomizedBlock[i].x = temp.randomizedBlock[i].x;
+                copyhold.randomizedBlock[i].y = temp.randomizedBlock[i].y;
 
                 randomizedBlock[i].x = temp.randomizedBlock[i].y;//replaces the randomized block y to the x
                 randomizedBlock[i].y = temp.randomizedBlock[i].x;//replaces the randomized block x to the y

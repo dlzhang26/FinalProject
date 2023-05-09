@@ -1,6 +1,7 @@
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.File;
+import java.util.Scanner;
 
 public class SavedScores {
 
@@ -20,6 +21,21 @@ public class SavedScores {
 
 		catch (FileNotFoundException e){//to catch exceptions if the above cannot be completed
 			System.out.println("Unable to Locate File");
+			System.err.println(e);
+		}
+
+	}
+
+	public static void readScores(){
+
+		try{
+			Scanner s = new Scanner(new File("highscores"));//for fun 
+
+
+
+		}
+		catch (Exception e){
+			System.out.println("Badness in loadPointFromFile");
 			System.err.println(e);
 		}
 

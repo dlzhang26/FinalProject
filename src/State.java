@@ -149,23 +149,23 @@ public class State extends OrderedCollection{
         System.out.println(this);
 
     }
-    /*public void moveLeft(Pair[] block, Pair newPos){
-        Pair[] copyblock = block;
-        int newrow = (int) (newPos.y/30)-1;
-        int newcol = ((int) (newPos.x/30))-7;
-        Pair center = new Pair((double)newrow,(double) newcol);
-        int origcol = newcol +1;
-        System.out.println("Original Column: " + origcol + "\n" + "Row: " + newcol + "\n" + "New Col: " + newcol);
-        for(Pair p: copyblock){
-            SpaceOFF((origcol)+p.x, newrow + p.y);
+
+    public boolean checkCollision(boolean isFalling, State currentState, Pair position, Pair[] block){
+        int currRow=(int) (position.y/30)-1;
+        // new column
+        int currCol = ((int) (position.x/30))-7;
+        Pair center = new Pair((double)currRow,(double) currCol); 
+        
+        // So need to find the bottom, of the bounds, needs to be applicable for all things
+        //What I am thinking currently is that I will go through all the pairs in p and look at which one is the "lowest"
+        // To find the lowest need to look in every x cal
+        for(Pair p: block){
+
         }
 
-        for(Pair p: copyblock){
-            SpaceON((newcol)+p.x, newrow + p.y);
-        }
-        System.out.println(this);
+
+        return isFalling;
     }
-    */
 
 
     public void newblock(Pair[] block, Pair pos){

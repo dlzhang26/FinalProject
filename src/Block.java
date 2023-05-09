@@ -7,6 +7,7 @@ class Block {
     Pair position = new Pair(570, 60);
 
     boolean isFalling;
+    boolean isPaused;
 
     private int key = World.key;
     Random ran = new Random(key);
@@ -26,6 +27,7 @@ class Block {
         this.randomizedBlock = setBlock(key);
         //initializing falling
         this.isFalling = true;
+        this.isPaused = false;
 
     }
 
@@ -98,8 +100,10 @@ class Block {
         edgeOfScreen(this.randomizedBlock);
     }
 
+
+
     public Pair[] moveRight(State cstate) {
-        if (this.isFalling) {
+        if (this.isFalling && !this.isPaused) {
             position.x += 30;//30 is the block size
             cstate.updatePos(randomizedBlock, position);
         }
@@ -107,7 +111,7 @@ class Block {
     }
 
     public Pair[] moveLeft(State cstate) {
-        if (this.isFalling) {
+        if (this.isFalling && !this.isPaused) {
             position.x -= 30;//30 is the block size
             cstate.updatePos(randomizedBlock, position);
         }
@@ -116,7 +120,7 @@ class Block {
 
     // Moves all of the positions down
     public Pair[] movedown(State cstate) {
-        if (this.isFalling) {
+        if (this.isFalling && !this.isPaused) {
             position.y += 30;//30 is the block size
             cstate.updatePos(randomizedBlock, position);
         }
@@ -124,6 +128,14 @@ class Block {
     }
     public Pair getPosition(){
         return position;
+    }
+
+    public void pause() {
+        this.isPaused = true;
+    }
+    
+    public void resume() {
+        this.isPaused = false;
     }
 
     public void draw(Graphics g, World w) {

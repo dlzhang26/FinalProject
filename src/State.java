@@ -26,7 +26,7 @@ public class State extends OrderedCollection{
         end = toAdd;
         length--;
     }
-
+    
     public void SpaceON(double column, double row){
         Node n = end;
         while(n.rownum != row){

@@ -13,8 +13,8 @@ public class World {
 
     ReadImages image = new ReadImages();
 
-    Random rand = new Random(key);
-    static int key = 4567;
+    Random rand;
+    
     int currentBlockKey;
     int nextBlockKey;
 
@@ -37,10 +37,8 @@ public class World {
         width = initWidth;
         height = initHeight;
 
-        //doesn't work right
-        this.key = generateKey();
-        System.out.println("key is: "+key);
-
+        this.rand = new Random();
+        
         this.currentState = new State();
 
         //generates what the first block will be in the sequence
@@ -49,28 +47,15 @@ public class World {
         //generates the second block according to the key
         nextBlockKey = rand.nextInt(0,7);
         System.out.println(currentBlockKey +" " +nextBlockKey);
-
-        //adds a new block to the game screen with the first key
-       // blockss.add(new Block(currentState,currentBlockKey));
         currentBlock = new Block(currentState, currentBlockKey);
-
-        //in the preview arraylist, add a new block with the nextBlock's key
-        //nextBlocks.add(new Block(nextBlockKey));
         nextBlock = new Block(nextBlockKey);
 
-        //sets the current block to the last generated block in the blockss array list
-        //this.currentBlock = blockss.get(blockss.size() - 1);
-
-        //sets the next/preview block to the last generated block in the nextBlocks array list
-        //this.nextBlock = nextBlocks.get(blockss.size() - 1);
         nextBlock.isFalling = false;
-        //draws current block on top of board
-       // currentBlock.position = new Pair(360, 30);
+    
     }
 
     public void addBlock() {
-        //sets the position of the next block in the preview box
-        //nextBlock.position = new Pair(570, 60);//need to change the x and y to fit the box
+       
 
         if (currentBlock.isFalling == false) {
 
@@ -78,12 +63,9 @@ public class World {
             currentBlockKey = nextBlockKey;
 
             nextBlockKey = rand.nextInt(0,7);
-            //nextBlocks.add(new Block(nextBlockKey));
-            //nextBlock = nextBlocks.get(nextBlocks.size() - 1);
             nextBlock = new Block(nextBlockKey);
 
-            //blockss.add(new Block(currentState,currentBlockKey));
-            //currentBlock = blockss.get(blockss.size() - 1);
+
             currentBlock = new Block(currentState, currentBlockKey);
             currentBlock.position = new Pair(360,30);
             currentBlock.isFalling=true;

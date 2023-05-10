@@ -290,10 +290,18 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                 int Winner = Math.max(p1score, p2score);
                 g.setColor(Color.BLACK);
                 g.fillRect(0, 0, WIDTH*30, HEIGHT*30);
+                g2d.drawImage(i.gameOverImage,40,40,i.gameOverImage.getWidth(this)/3,i.gameOverImage.getHeight(this)/3,this);
+                g.setColor(Color.black);
+                if(Winner == p1score){
+                    String playert = "Player 1 Wins! ";
+                    g.drawString(playert + "" +"score: " + Winner, 150, 300); 
+                }
+                if(Winner == p2score){
+                    String playert = "Player 2 Wins! ";
+                    g.drawString(playert + "" +"score: " + Winner, 150, 300); 
+                }
 
-                g.setColor(Color.white);
-       
-                g.drawString("winning score: " + Winner, 100, 200); 
+                
             }
         }
         if(page==3){

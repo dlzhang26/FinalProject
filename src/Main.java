@@ -262,9 +262,10 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         if(page==1){
             //pages.chooseUserProfile(g);
             g2d.drawImage(i.backButton, 5,5,i.backButton.getWidth(this)/25,i.backButton.getHeight(this)/25,this);
-            g2d.drawImage(i.player1Image, 80,100,i.player1Image.getWidth(this)/10,i.player1Image.getHeight(this)/10,this);
-            g2d.drawImage(i.player2Image, 300,100,i.player2Image.getWidth(this)/10,i.player2Image.getHeight(this)/10,this);
-            g2d.drawImage(i.player3Image, 520,100,i.player3Image.getWidth(this)/10,i.player3Image.getHeight(this)/10,this);
+            g2d.drawImage(i.level1Image, 80,100,i.level1Image.getWidth(this)/17,i.level1Image.getHeight(this)/17,this);
+            g2d.drawImage(i.level2Image, 300,100,i.level2Image.getWidth(this)/17,i.level2Image.getHeight(this)/17,this);
+            g2d.drawImage(i.level3Image, 520,100,i.level3Image.getWidth(this)/17,i.level3Image.getHeight(this)/17,this);
+            g2d.drawImage(i.instructions, 90,200,(int)(i.instructions.getWidth(this)/3.5),(int)(i.instructions.getHeight(this)/3.5),this );
         }
         if (page==2){
             world.TopRow(g);

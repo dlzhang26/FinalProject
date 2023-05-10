@@ -245,11 +245,41 @@ public class State extends OrderedCollection{
     }
     public void rotateBlock(Pair[] origBlock, Pair[] newBlock, Pair Pos){
             //First need to erase Where the block originally was
+
             Pair Center = new Pair((Pos.x/30)-7, (Pos.y/30));
+            /*//if right block is occupied or out of bounds, moves the block to the left
+            boolean right = checkRight(newBlock);
+            if(!right||Center.x==9){
+                System.out.println("called the right side ");
+                newBlock=origBlock;
+            }
+            */
+            
             for(Pair p : origBlock){
                 //System.out.println("Turning Off: " + (p.x+Center.x)+ ", "+ (p.y + Center.y));
                 SpaceOFF(p.x+Center.x, p.y+Center.y);
             }
+
+
+            //To make sure that the block doesn't go out of bounds on rotation
+            
+            
+
+            /*//Here we check if the left side is out of bounds or a block
+            boolean left = checkLeft(newBlock);
+            //Same with the right side
+            
+            //if both are taken, then the block does not rotate
+            if(!left && !right){
+                newBlock = origBlock;
+            }
+            //if there is a block on the left and none on the right, the block moves one over to rotate
+            if(!left && right){
+                System.out.println("called the left side ");
+                newBlock=origBlock;
+            }
+            */
+
             //System.out.println("Line 119" + "\n" + this);
             //Now turn on the spaces where the New Block is 
             for(Pair p: newBlock){

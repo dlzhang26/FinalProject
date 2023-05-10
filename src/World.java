@@ -127,7 +127,9 @@ public class World {
         int boardHeight = 20 * size; // height of the board
         int boardX = 7 * size; // x-coordinate of the board's top-left corner
         int boardY = 1 * size; // y-coordinate of the board's top-left corner
+        
         currentState.drawState(g, blockImage, boardX, boardY, size);
+        TopRow(g);
         // Draw the 10x20 grid of the block image
         /*for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 10; j++) {
@@ -161,6 +163,25 @@ public class World {
         }
 
          */
+    }
+    public void TopRow(Graphics g) {
+        g.setColor(Color.white);
+        g.drawString("Player 1 Score: " + currentState.Player1Score, 250, 15);
+        g.drawString("Player 2 Score: " + currentState.Player2Score, 250, 45);
+        if (Main.counter % 2 == 0) {
+            g.drawString("CURRENT PLAYER: Player 2", 70, 15);
+        }
+        else {
+            g.drawString("CURRENT PLAYER: Player 1", 70, 15);
+        }
+        
+        g.fillRoundRect(5, 5, 45, 25, 10, 10);
+        g.fillRoundRect(545, 5, 45, 25, 10, 10);
+        g.fillRoundRect(625, 5, 55, 25, 10, 10);
+        g.setColor(Color.black);
+        g.drawString(" BACK", 6, 20);
+        g.drawString(" PAUSE", 545, 20);
+        g.drawString(" RESUME", 625, 20);
     }
     public void checkCollision() {
 

@@ -259,6 +259,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             pages.chooseUserProfile(g);
         }
         if (page==2){
+            world.TopRow(g);
             gameGraphics(g);
         }
     }
@@ -294,35 +295,9 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
 
     public void gameGraphics(Graphics g){//method for drawing of the game graphics
-
         world.drawBoard(g);
         world.drawBlocks(g);
-        g.drawString("Player 1 Score: " + world.currentState.Player1Score, 250, 15);
-        g.drawString("Player 2 Score: " + world.currentState.Player2Score, 250, 45);
-        if (counter % 2 == 0) {
-            g.drawString("CURRENT PLAYER: Player 2", 70, 15);
-        }
-        else {
-            g.drawString("CURRENT PLAYER: Player 1", 70, 15);
-        }
-        
-        g.fillRoundRect(5, 5, 45, 25, 10, 10);
-        g.fillRoundRect(545, 5, 45, 25, 10, 10);
-        g.fillRoundRect(625, 5, 55, 25, 10, 10);
-        g.setColor(Color.black);
-        g.drawString(" BACK", 6, 20);
-        g.drawString(" PAUSE", 545, 20);
-        g.drawString(" RESUME", 625, 20);
-
-        //for drawing images
-        Graphics2D g2d = (Graphics2D)g;
-        ///reading image file
-        try {
-            test = ImageIO.read(new File("dice.png"));
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-        //draws image
-        g2d.drawImage(test,test.getWidth(this), test.getHeight(this), this);
+        world.TopRow(g);
     }
+    
 }//class Main.java

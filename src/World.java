@@ -1,8 +1,6 @@
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Random;
 import java.io.File;
 import java.io.IOException;
@@ -17,16 +15,9 @@ public class World {
     static int key = 4567;
     int currentBlockKey;
     int nextBlockKey;
-
     private Image blockImage;
-
-    /////////////////////////
-    int count;
-    ///////////////////////////
-
     int row, column;
     int size = Main.BLOCKSIZE;//takes static variable from Main.java named BLOCKSIZE
-
     Block currentBlock;
     Block nextBlock;
     Block holdBlock;
@@ -139,39 +130,7 @@ public class World {
         
         currentState.drawState(g, blockImage, boardX, boardY, size);
         TopRow(g);
-        // Draw the 10x20 grid of the block image
-        /*for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 10; j++) {
-                g.drawImage(blockImage, boardX + j * size, boardY + i * size, size, size, null);
-            }
-        }
-
         
-        /*
-        for (int i = 1; i < 21; i++) {//height of the board
-            for (int j = 7; j < 17; j++) {//width of the board
-                g.setColor(Color.white);
-                g.drawRect(j * size, i * size, size, size);
-            }
-        }
-        
-        //draws the holding block place
-        for (int i = 3; i < 7; i++) {//height of the board
-            for (int j = 2; j < 5; j++) {//width of the board
-                g.setColor(Color.white);
-                g.drawRect(j * size, i * size, size, size);
-            }
-        }
-
-        //draws the next block holding area
-        for (int i = 3; i < 7; i++) {//height of the board
-            for (int j = 19; j < 22; j++) {//width of the board
-                g.setColor(Color.white);
-                g.drawRect(j * size, i * size, size, size);
-            }
-        }
-
-         */
     }
     public void TopRow(Graphics g) {
         g.setColor(Color.white);
@@ -209,7 +168,7 @@ public class World {
 
              */
         }
-        System.out.println();
+       // System.out.println();
 
 
     }

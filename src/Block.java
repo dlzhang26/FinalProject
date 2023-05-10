@@ -169,21 +169,7 @@ class Block {
 
     // Moves all of the positions down
     public Pair[] movedown(State cstate) {
-        /* int bottom = 0;
-        for (Pair p : randomizedBlock) {
-            if (p.y > bottom) {
-                bottom = (int) p.y;
-            }
-        }
-        
-            if (position.y + bottom * 30 > 570) {
-                position.y = 570 - bottom * 30;
-                this.isFalling = false;
-            }
-            
-            
-        }
-        */
+       
         if (this.isFalling && !this.isPaused) {
             position.y += 30;//30 is the block size
             cstate.updatePos(randomizedBlock, position);
@@ -191,6 +177,7 @@ class Block {
         
         return randomizedBlock;
     }
+
     public Pair getPosition(){
         return position;
     }
@@ -205,63 +192,6 @@ class Block {
 
     public void draw(Graphics g, World w, State cstate) {
         cstate.drawState(g, blockImage, w.size*7, w.size, w.size);
-        /*for (int i = 0; i < 4; i++) {
-            g.drawImage(blockImage, (int) ((position.x + randomizedBlock[i].x * w.size)), (int) ((position.y + randomizedBlock[i].y * w.size)), w.size, w.size, null);
-        }
-        /* 
-        Color c = g.getColor();
-
-        g.setColor(color);
-
-        //draws a randomized block on the screen in a random color
-
-        for (int i = 0; i < 4; i++) {
-            g.fillRoundRect((int) ((position.x + randomizedBlock[i].x * w.size)), (int) ((position.y + randomizedBlock[i].y * w.size)), w.size, w.size,10,10);
-        }
-        g.setColor(c);
-        */
     }
-
-    private void edgeOfScreen(Pair[] randomizedBlock) {
-        int bottom = 0;
-        int top = 0;
-        int left = 0;
-        int right = 0;
-        for (Pair p : randomizedBlock) {
-            if (p.y > bottom) {
-                bottom = (int) p.y;
-            }//sets the bottom value to the largest y value
-            if (p.y < top) {
-                top = (int) p.y;
-            }//sets the top value to the smallest y value, will be useful for game over conditions later
-            if (p.x > right) {
-                right = (int) p.x;
-            }//sets the rightmost value to the largest x value
-            if (p.x < left) {
-                left = (int) p.x;
-            }//sets the leftmost value to teh smallest x value
-        }
-
-        //keeps the blocks within the screen by "bouncing" it back to within the bounds of the board
-        // bottom, left, and right * 30 because that is the block size
-        if (isFalling) {
-            if (position.y + bottom * 30 > 600) {
-                position.y = 600 - bottom * 30;
-                this.isFalling = false;
-            }
-
-            if (position.x + left * 30 < 210) {
-                position.x = 210 - left * 30;
-            }
-
-
-            if (position.x + right * 30 > 480) {
-                position.x = 480 - right * 30;
-            }
-        }
-
-
-    }
-
 
 }

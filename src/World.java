@@ -77,7 +77,6 @@ public class World {
             currentBlockKey = nextBlockKey;
 
             nextBlockKey = rand.nextInt(0,7);
-            //System.out.println( currentBlockKey + " "+ nextBlockKey);
             nextBlocks.add(new Block(nextBlockKey));
             nextBlock = nextBlocks.get(nextBlocks.size() - 1);
 
@@ -90,30 +89,7 @@ public class World {
         }
     }
 
-    public void hold() {
-        if (holdBlock == null) {
-            //sets the current block to the hold block and change the position
-            holdBlock = currentBlock;
-            holdBlock.position = new Pair(30, 60);
-
-            //sets current block to next block to replace the old current block that's on hold
-            currentBlock = nextBlock;//what is this here doing?
-
-            //adds a new block to the array list and sets a new next block
-            blockss.add(new Block(currentState,currentBlockKey));
-            nextBlock = blockss.get(blockss.size() - 1);
-        } else {
-            //switches current blocks and hold block and sets the new position
-            Block temp = currentBlock;
-            currentBlock = holdBlock;
-            holdBlock = temp;
-
-            //setting the current and hold block's position
-            //current block draws on the board and hold block in the holding zone
-            currentBlock.position = new Pair(360, 30);
-            holdBlock.position = new Pair(0, 60);
-        }
-    }
+    
     private static int generateKey(){
         Random randomKey = new Random();
         int r = randomKey.nextInt();
@@ -151,6 +127,7 @@ public class World {
         g.drawString(" PAUSE", 545, 20);
         g.drawString(" RESUME", 625, 20);
     }
+
     public void checkCollision() {
 
         //goes through each of the four squares of the current block and tracks which row and column it is on the board
@@ -161,14 +138,7 @@ public class World {
             row = row / 30;
             column = column / 30;
             System.out.println(row + " " + column);
-            /*
-            if (gameBoard[column][row] != 0) {
-                this.currentBlock.isFalling = false;
-            }
-
-             */
         }
-       // System.out.println();
 
 
     }
@@ -183,20 +153,6 @@ public class World {
         currentBlock.moveRight(currentState);
     }
 
-
-    public void drawBlocks(Graphics g) {
-        //draws the all the blocks to screen
-        /*for (int i = 0; i < blockss.size() - 1; i++) {
-            blockss.get(i).draw(g, this);
-        }
-        */
-        
-
-        //draws the current block
-        //currentBlock.draw(g, this);
-        //nextBlock.draw(g, this);
-
-    }
 
     public void updateBlocks(double time) {
         addBlock();

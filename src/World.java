@@ -108,10 +108,10 @@ public class World {
         int boardY = 1 * size; // y-coordinate of the board's top-left corner
         
         currentState.drawState(g, image.blockImage, boardX, boardY, size);
-        TopRow(g);
+        drawPlayer(g);
 
     }
-    public void TopRow(Graphics g) {
+    public void drawPlayer(Graphics g) {
         g.setColor(Color.white);
         g.drawString("Player 1 Score: " + currentState.Player1Score, 250, 15);
         g.drawString("Player 2 Score: " + currentState.Player2Score, 250, 45);
@@ -122,23 +122,6 @@ public class World {
             g.drawString("CURRENT PLAYER: Player 1", 70, 15);
         }
     }
-
-    public void checkCollision() {
-
-        //goes through each of the four squares of the current block and tracks which row and column it is on the board
-        for (int i = 0; i < 4; i++) {
-            //calculates the row that the block is actually in by doing some scaling
-            row = (int) (currentBlock.randomizedBlock[i].x * size + currentBlock.getPosition().x) - 7 * size;
-            column = Math.abs((int) (currentBlock.randomizedBlock[i].y * size + currentBlock.getPosition().y)-size);
-            row = row / 30;
-            column = column / 30;
-            System.out.println(row + " " + column);
-        }
-
-
-    }
-
-
 
     public void moveLeft() {
         currentBlock.moveLeft(currentState);

@@ -7,15 +7,10 @@ import java.io.IOException;
 
 
 class Block {
-    Color color;
-
    Pair position;
 
     boolean isFalling;
     boolean isPaused;
-
-    private BufferedImage blockImage;
-    private String[] imageFiles = {"RedBlock.png", "BlueBlock.png", "GreenBlock.png", "PurpleBlock.png", "YellowBlock.png"};
 
     Pair[] randomizedBlock;//array of pairs that is holding a randomized block
 
@@ -24,32 +19,15 @@ class Block {
     //this constructor is used for the preview/next block. We need 2 constructors so one stores the state and the other
     //does not so when we generate the current and next block, the next block does not interfere with the current state
     public Block(int key) {//constructor
-        //sets the color for the next block
-        color = setColor(key);
         //gets the random block from the setBlock method and sets the next block
         this.randomizedBlock = setBlock(key);
         this.position = new Pair(570, 60);
         //initializing falling
         this.isFalling = false;
         this.isPaused = false;
-
-        int imageKey = key % imageFiles.length;
-        /*
-        try {
-            blockImage = ImageIO.read(new File(imageFiles[imageKey]));
-        } catch (IOException e) {
-            System.err.println("Error loading image: " + e.getMessage());
-        }
-
-
-         */
-
-        color = setColor(imageKey);
     }
 
     public Block(State currenState, int key) {//constructor
-        //sets the color for the next block
-        color = setColor(key);
         //gets the random block from the setBlock method and sets the next block
         this.randomizedBlock = setBlock(key);
         //initializing falling
@@ -57,21 +35,6 @@ class Block {
         this.isFalling = true;
 
         currenState.newblock(randomizedBlock, position);
-        int imageKey = key % imageFiles.length;
-        /*
-        try {
-            blockImage = ImageIO.read(new File(imageFiles[imageKey]));
-        } catch (IOException e) {
-            System.err.println("Error loading image: " + e.getMessage());
-        }
-
-         */
-        
-    }
-    public Color setColor(int random){
-        Color[] allColors = {new Color(255, 0, 128), new Color(128, 0, 255), new Color(255, 165, 0), new Color(0, 255, 255), new Color(255, 0, 255), new Color(255, 255, 0), new Color(0, 255, 0)};
-        Color chosenColor = allColors[random];
-        return chosenColor;
     }
 
     public Pair[] setBlock(int random) {//chooses a block
@@ -199,8 +162,5 @@ class Block {
         this.isPaused = false;
     }
 
-    public void draw(Graphics g, World w, State cstate) {
-        cstate.drawState(g, blockImage, w.size*7, w.size, w.size);
-    }
 
 }

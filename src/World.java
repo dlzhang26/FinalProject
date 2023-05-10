@@ -7,7 +7,6 @@ import java.util.Random;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 
 
 public class World {
@@ -19,9 +18,6 @@ public class World {
     int currentBlockKey;
     int nextBlockKey;
 
-    private BufferedImage[] blockImages;
-    private String[] imageFiles = {"RedBlock.png"};
-    private Random imageRand = new Random();
     private Image blockImage;
 
     /////////////////////////
@@ -45,18 +41,6 @@ public class World {
         width = initWidth;
         height = initHeight;
 
-        this.imageRand = new Random(key); // Use key to initialize a new Random instance
-        int imageIndex = imageRand.nextInt(imageFiles.length); // Choose a random index into the imageFiles array
-        int imageKey = key % imageFiles.length;
-        try {
-            blockImages = new BufferedImage[imageFiles.length];
-            for (int i = 0; i < imageFiles.length; i++) {
-                blockImages[i] = ImageIO.read(new File(imageFiles[i]));
-                System.out.println("Loaded image: " + imageFiles[i] + " with dimensions " + blockImages[i].getWidth() + " x " + blockImages[i].getHeight());
-            }
-        } catch (IOException e) {
-            System.err.println("Error loading images: " + e.getMessage());
-        }
         try {
             blockImage = ImageIO.read(new File("BlockPicture.png"));
         } catch (IOException e) {
@@ -143,9 +127,9 @@ public class World {
         int boardHeight = 20 * size; // height of the board
         int boardX = 7 * size; // x-coordinate of the board's top-left corner
         int boardY = 1 * size; // y-coordinate of the board's top-left corner
-        currentState.drawState(g, blockImages, boardX, boardY, size);
+        currentState.drawState(g, blockImage, boardX, boardY, size);
         // Draw the 10x20 grid of the block image
-        for (int i = 0; i < 20; i++) {
+        /*for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 10; j++) {
                 g.drawImage(blockImage, boardX + j * size, boardY + i * size, size, size, null);
             }

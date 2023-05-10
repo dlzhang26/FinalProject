@@ -21,7 +21,7 @@ public class State extends OrderedCollection{
 
 
 
-    // Constructor - Creates the first end, but then appends 20 rows
+    // Constructor - Creates the first end, but then appends 20 rows - Important for instantiation of an initial blank State
     public State(){
         Player1Score = 0;
         Player2Score = 0;
@@ -32,36 +32,43 @@ public class State extends OrderedCollection{
             append();
         }
     }
-    //
+    ////////////////////////////////////////
 
-    //append method, just adds a blank rows
+    //append method, just adds a blank rows. Used only during initial instantiation or after a removal of a line. 
     public void append(){
         Node toAdd = new Node(length);
         toAdd.prev= end;
         end = toAdd;
         length--;
     }
+    /////////////////////////////////////////
     
+    /***********************************************************************/
+    //StateON Iterates through the Structure to turn on a specific space
     public void SpaceON(double column, double row){
         Node n = end;
-        System.out.println("Printing: " + column + ", " + row);
         while(n.rownum != row){
             n=n.prev;
         }
         n.rowstate[(int)column] = 1;
     }
 
+
+    /************************************************************************* */
+    //Same thing as SpaceOn, but rather turns of a specific state, used for deletion of original block after update
     public void SpaceOFF(double column, double row){
         Node n = end;
         while(n.rownum != row){
             n=n.prev;
         }
-        System.out.println("Removed: " + column + "," + row);
+        
         n.rowstate[(int)column] = 0;
-
 
     }
 
+
+    /********************************************************************** */
+    //Checks a specific space and returns the value of that space, used for checking block collision
     public int checkSpace(double column, double row){
         Node n = end;
         while(n.rownum != row){
@@ -69,17 +76,20 @@ public class State extends OrderedCollection{
         }
         return n.rowstate[(int)column];
     }
+
+
+    /*************************************************************************************** */
+    //Check left is used when moving the block left, indicates whether the spaces to the left of a block are occupied or out of bounds
     public boolean checkLeft(Pair[] block){
         boolean goleft =true;
         int currRow=(int) (Lastpos.y/30);
         // new column
         int currCol = (int) (((Lastpos.x/30))-7);
-        System.out.println("Current Column: "+ currCol+ "\n" + "Current Row: " + currRow);
+        //System.out.println("Current Column: "+ currCol+ "\n" + "Current Row: " + currRow); //Checks the current COlumn and row
         Pair center = new Pair((double) currCol,(double)currRow); 
         
-         /******************************************************************
-          * This part of the method is to find the lowest blocks, basically the blocks that would be interacting with lower blocks
-          */
+        ////////This part of the method is to find the lowest blocks, basically the blocks that would be interacting with lower blocks
+          
         LinkedList <Pair> Check= new LinkedList<Pair>();
         double biggesty = 0;
         double smallesty = 0;
@@ -103,28 +113,24 @@ public class State extends OrderedCollection{
             }
             Check.add(lowestPoint);
         }
-        System.out.println("The Leftmost Block is at: ");
         for(Pair p: Check){
-            System.out.println(p.x + ", " + p.y);
-        }
-        for(Pair p: Check){
-            System.out.println("Check " + p.x + ", "+ p.y);
-            System.out.println("Checking: " + (center.x+ p.x) + ", " + (center.y+p.y));
             if(p.x+center.x<0 || checkSpace((center.x + p.x-1), center.y+p.y) ==1){
-                System.out.println("called checkleft!!!!");
                 goleft=false;
-                System.out.println("goLeft Set: "+ goleft);
             }
         }
         return goleft;
     }
 
+
+
+
+      /*************************************************************************************** */
+    //Check left is used when moving the block right, indicates whether the spaces to the right of a block are occupied or out of bounds
     public boolean checkRight(Pair[] block){
         boolean goRight =true;
         int currRow=(int) (Lastpos.y/30);
         // new column
         int currCol = (int) (((Lastpos.x/30))-7);
-        System.out.println("Current Column: "+ currCol+ "\n" + "Current Row: " + currRow);
         Pair center = new Pair((double) currCol,(double)currRow); 
         
          /******************************************************************
@@ -153,17 +159,9 @@ public class State extends OrderedCollection{
             }
             Check.add(rightPoint);
         }
-        System.out.println("The RightMost Block is at: ");
         for(Pair p: Check){
-            System.out.println(p.x + ", " + p.y);
-        }
-        for(Pair p: Check){
-            System.out.println("Check " + p.x + ", "+ p.y);
-            System.out.println("Checking: " + (center.x+ p.x) + ", " + (center.y+p.y));
             if(p.x+center.x>9 || checkSpace((center.x + p.x+1), center.y+p.y) ==1){
-                System.out.println("called checkRight!!!!");
                 goRight=false;
-                System.out.println("goLeft Set: "+ goRight);
             }
         }
         return goRight;
@@ -171,7 +169,7 @@ public class State extends OrderedCollection{
 
 
 
-
+/********************************************************************** */
     //Returns the first rowstate
     public int[] peek(){
 
@@ -179,16 +177,21 @@ public class State extends OrderedCollection{
 
     }
 
+
+
+/******************************************************************************************
+ * Removes a node at a specific index, used primarily in conjunctino with checkComplete to see if a row is full and then remove
+ */
     public int[] remove(int index){
         int[] toReturn;
         Node removed;
         Node n = end;
 
         //Different process for removing the end
-        if(index == 0){
+        if(index == 1){
             toReturn = n.rowstate;
-            System.out.println("Removed Row: " + index);
-            end = n.prev;
+            length=-1;
+            pop();
         }else{
         //Go through datastructure until the one we want to remove + 1
             while(n.prev.rownum != index){
@@ -198,16 +201,15 @@ public class State extends OrderedCollection{
         //
             removed = n.prev;
         //In order to remove it we set the previous to the previous of the one before
-            System.out.println("Removed Row: " + removed.rownum);
+            //System.out.println("Removed Row: " + removed.rownum);
 
 
             n.prev = n.prev.prev;
         }
 
 
-
+        //Readjusts numbering for the rows, so that when append adds node number 1 to the beginning
         n = end;
-        System.out.println(n.rownum);
         //now to update rownumbers
         if(index==20){
             while(n.prev!= null){
@@ -231,13 +233,18 @@ public class State extends OrderedCollection{
 
     }
 
-
+/*************************************************************************
+ * Returns the last node,
+ */
     public int[] pop(){
         int[] toReturn = end.rowstate;
         end = end.prev;
         length++;
         return toReturn;
     }
+    /**********************************************************************
+     * ToString method, allows to print the entire state
+     */
     public String toString(){
         String toReturn = "";
         Node n = end;
@@ -253,52 +260,30 @@ public class State extends OrderedCollection{
         }
         return toReturn;
     }
-    public void rotateBlock(Pair[] origBlock, Pair[] newBlock, Pair Pos){
-            //First need to erase Where the block originally was
 
-            Pair Center = new Pair((Pos.x/30)-7, (Pos.y/30));
-            /*//if right block is occupied or out of bounds, moves the block to the left
-            boolean right = checkRight(newBlock);
-            if(!right||Center.x==9){
-                System.out.println("called the right side ");
-                newBlock=origBlock;
-            }
-            */
-            
+/************************************************************************************
+ * Rotates the block
+ */
+    public void rotateBlock(Pair[] origBlock, Pair[] newBlock, Pair Pos){
+        
+            //First need to erase Where the block originally was
+            Pair Center = new Pair((Pos.x/30)-7, (Pos.y/30)); 
             for(Pair p : origBlock){
                 //System.out.println("Turning Off: " + (p.x+Center.x)+ ", "+ (p.y + Center.y));
                 SpaceOFF(p.x+Center.x, p.y+Center.y);
             }
 
-
-            //To make sure that the block doesn't go out of bounds on rotation
-            
-            
-
-            /*//Here we check if the left side is out of bounds or a block
-            boolean left = checkLeft(newBlock);
-            //Same with the right side
-            
-            //if both are taken, then the block does not rotate
-            if(!left && !right){
-                newBlock = origBlock;
-            }
-            //if there is a block on the left and none on the right, the block moves one over to rotate
-            if(!left && right){
-                System.out.println("called the left side ");
-                newBlock=origBlock;
-            }
-            */
-
-            //System.out.println("Line 119" + "\n" + this);
             //Now turn on the spaces where the New Block is 
             for(Pair p: newBlock){
                 SpaceON(Center.x+p.x, Center.y+p.y);
             }
-            //System.out.println("Line 124" + "\n" + this);
+   
 
     }
 
+/*********************************************************************************
+ * Checks through each row to see if the row is full and removes any that are full
+ */
     public void checkComplete(){
         Node n = end;
         LinkedList <Integer> complete = new LinkedList<>();
@@ -327,22 +312,23 @@ public class State extends OrderedCollection{
         }
     }
     
-
+/***********************************************************************************
+ * Updates the position of the block, erases the old one, draws the new one, allows for movemnt of a block
+ */
     public void updatePos(Pair[] block, Pair newPos){
        // System.out.println("Last pos: " + Lastpos.x + ", " + Lastpos.y + "\n" + "New Pos: " + newPos.x + ", " + newPos.y);
         //mew row is this
         int newrow = (int) (newPos.y/30);
-        System.out.println("New Row: " + newrow + "\n" + "Last Row: " + Lastpos.y/30);
+
         // new column
         int newcol = ((int) (newPos.x/30))-7;
+
         Pair center = new Pair((double)newrow,(double) newcol);
         int origrow = (int)(Lastpos.y/30);
         int origcol = (int)((Lastpos.x/30)-(newPos.x/30)) + newcol;
-        System.out.println("New row: " + newrow + "\n" + "New col: " + newcol + "\n" + "Orig row: " + origrow + "\n" + "Orig Col: " + origcol );
 
         for(Pair p: block){
             // space off takes column then row as parameters
-            System.out.println("Removed: " + (origcol + p.x) + ", " + (origrow + p.y));
             SpaceOFF(origcol + p.x, origrow + p.y);
         }
 
@@ -350,18 +336,18 @@ public class State extends OrderedCollection{
             SpaceON(newcol+p.x, newrow + p.y);
         }
         this.Lastpos = new Pair(newPos.x, newPos.y);
-        System.out.println("Last Pos is now: " + Lastpos.x + ", " + Lastpos.y);
+
+        ///!!! COOL TIPPET!!!! if you uncomment the line below you can actually play terminal tetris!
         System.out.println(this);
 
     }
     
 /****************************************************************************************************/
 /////Check Collision
-    public boolean checkCollision(boolean isFalling, State currentState, Pair[] block){
+    public boolean checkCollision(boolean isFalling, Pair[] block){
         int currRow=(int) (Lastpos.y/30);
         // new column
         int currCol = (int) (((Lastpos.x/30))-7);
-        System.out.println("Current Column: "+ currCol+ "\n" + "Current Row: " + currRow);
         Pair center = new Pair((double) currCol,(double)currRow); 
         
          /******************************************************************
@@ -390,19 +376,12 @@ public class State extends OrderedCollection{
             }
             Check.add(lowestPoint);
         }
-        System.out.println("The Bottom Block is at: ");
-        for(Pair p: Check){
-            System.out.println(p.x + ", " + p.y);
-        }
         /******************************************************************* */
 
         //Look at the Row below each bottom block in check, if it is greater than 20, the maximum row, then stop falling. if It is occupied by a one stop
         for(Pair p: Check){
-            System.out.println("Check " + p.x + ", "+ p.y);
-            System.out.println("Checking: " + (center.x+ p.x) + ", " + (center.y+p.y));
             if((center.y+p.y+1)>20 || checkSpace((center.x + p.x), center.y+p.y+1) ==1){
                 isFalling=false;
-                System.out.println("isFalling Set: "+ isFalling);
             }
         }
 
@@ -412,6 +391,12 @@ public class State extends OrderedCollection{
     /**************************************************************************************************** */
 
 
+
+
+    /*****************************************************************************************************
+     * Pseudo-Constructor for block, instantiates the block into the state
+     */
+
     public void newblock(Pair[] block, Pair pos){
         int top = 0;
         for(Pair p : block){
@@ -419,11 +404,9 @@ public class State extends OrderedCollection{
                 top = (int)p.y;
             }
         }
-        System.out.println("Top is: " + top);
         Pair center = new Pair(5, top +pos.y/30);
 
         for(Pair p: block){
-            System.out.println("Turning Space on: " + (p.x+center.x) + ", " + (p.y+center.y)); // Test to see which space it is turning on
             SpaceON(p.x+center.x, p.y+center.y);
         }
         Lastpos=new Pair(360, 30);
@@ -434,11 +417,17 @@ public class State extends OrderedCollection{
         System.out.println(Player2Score);
     }
 
-
+/**********************************************************
+ * returns length
+ */
     public int length(){
         return length;
     }
 
+
+/**********************************************************************************
+ * Draws the whole board
+ */
     public void drawState(Graphics g, Image blockImage, int boardX, int boardY, int size){
         Node n = end;
         Graphics2D g2d = (Graphics2D)g;
@@ -459,14 +448,8 @@ public class State extends OrderedCollection{
             n=n.prev;
         }
 
-        System.out.println("Counter" + Main.counter);
+        //System.out.println("Counter" + Main.counter);
     }
-
-    /*public void drawBlocks(Graphics g, Image blockImage, Pair[] block){
-        
-    }
-    */
-
 
 
 }

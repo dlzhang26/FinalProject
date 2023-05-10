@@ -115,7 +115,7 @@ class Block {
     }
 
     public void update(World w, double time, State cState) {
-        isFalling= cState.checkCollision(isFalling, cState, randomizedBlock);
+        isFalling= cState.checkCollision(isFalling, randomizedBlock);
         if(isFalling){
             movedown(cState);//updates the current block;
         }

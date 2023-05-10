@@ -157,7 +157,6 @@ public class World {
     public void updateBlocks(double time) {
         addBlock();
         currentBlock.update(this, time,currentState);
-        System.out.println("Current block falling? " + currentBlock.isFalling);
     }
 
 }

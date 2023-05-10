@@ -170,7 +170,7 @@ class Block {
 
     // Moves all of the positions down
     public Pair[] movedown(State cstate) {
-        int bottom = 0;
+        /* int bottom = 0;
         for (Pair p : randomizedBlock) {
             if (p.y > bottom) {
                 bottom = (int) p.y;
@@ -181,9 +181,14 @@ class Block {
                 position.y = 570 - bottom * 30;
                 this.isFalling = false;
             }
-            position.y += 30;//30 is the block size
-            cstate.updatePos(randomizedBlock, position);
+            
+            
         }
+        */
+        position.y += 30;//30 is the block size
+            cstate.updatePos(randomizedBlock, position);
+        
+        
         return randomizedBlock;
     }
     public Pair getPosition(){
@@ -198,8 +203,9 @@ class Block {
         this.isPaused = false;
     }
 
-    public void draw(Graphics g, World w) {
-        for (int i = 0; i < 4; i++) {
+    public void draw(Graphics g, World w, State cstate) {
+        cstate.drawState(g, blockImage, w.size*7, w.size, w.size);
+        /*for (int i = 0; i < 4; i++) {
             g.drawImage(blockImage, (int) ((position.x + randomizedBlock[i].x * w.size)), (int) ((position.y + randomizedBlock[i].y * w.size)), w.size, w.size, null);
         }
         /* 

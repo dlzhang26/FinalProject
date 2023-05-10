@@ -121,18 +121,20 @@ public class World {
     }
 
 
-    public void drawBoard(Graphics g) {
+    public void drawBoard(Graphics g) {//
+       
         int boardWidth = 10 * size; // width of the board
         int boardHeight = 20 * size; // height of the board
         int boardX = 7 * size; // x-coordinate of the board's top-left corner
         int boardY = 1 * size; // y-coordinate of the board's top-left corner
-
+        currentState.drawState(g, blockImage, boardX, boardY, size);
         // Draw the 10x20 grid of the block image
-        for (int i = 0; i < 20; i++) {
+        /*for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 10; j++) {
                 g.drawImage(blockImage, boardX + j * size, boardY + i * size, size, size, null);
             }
         }
+
         
         /*
         for (int i = 1; i < 21; i++) {//height of the board
@@ -193,12 +195,15 @@ public class World {
 
     public void drawBlocks(Graphics g) {
         //draws the all the blocks to screen
-        for (int i = 0; i < blockss.size() - 1; i++) {
+        /*for (int i = 0; i < blockss.size() - 1; i++) {
             blockss.get(i).draw(g, this);
         }
+        */
+        
+
         //draws the current block
-        currentBlock.draw(g, this);
-        nextBlock.draw(g, this);
+        //currentBlock.draw(g, this);
+        //nextBlock.draw(g, this);
 
     }
 

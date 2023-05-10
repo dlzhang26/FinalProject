@@ -273,7 +273,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             g2d.drawImage(i.instructions, 90,200,(int)(i.instructions.getWidth(this)/3.5),(int)(i.instructions.getHeight(this)/3.5),this );
         }
         if (page==2){
-            world.TopRow(g);
+            world.drawPlayer(g);
             gameGraphics(g);
         }
         if(page==3){
@@ -308,6 +308,8 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         g2d.drawImage(i.backButton,5,5,i.backButton.getWidth(this)/25,i.backButton.getHeight(this)/25,this);
         g2d.drawImage(i.playButton,625,5,i.playButton.getWidth(this)/20,i.playButton.getHeight(this)/20,this);
         g2d.drawImage(i.pauseButton,545,5,i.pauseButton.getWidth(this)/20,i.pauseButton.getHeight(this)/20,this);
-        world.TopRow(g);
+
+        //draws current player and score
+        world.drawPlayer(g);
     }
 }//class Main.java

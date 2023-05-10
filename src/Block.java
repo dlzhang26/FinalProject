@@ -127,7 +127,10 @@ class Block {
         if(isFalling){
             movedown(cState);//updates the current block;
         }
-        cState.checkComplete();
+        if(!isFalling){
+            cState.checkComplete();
+        }
+        
     }
 
 

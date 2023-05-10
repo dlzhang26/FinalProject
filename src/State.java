@@ -10,9 +10,11 @@ public class State extends OrderedCollection{
     //length is backwards, indicates if there is less than 20
     int length;
     Pair Lastpos;
+    int score;
 
     // Constructor - Creates the first end, but then appends 20 rows
     public State(){
+        score = 0;
         end = null;
         length = 20;
         Lastpos = new Pair(360, 30);
@@ -275,6 +277,7 @@ public class State extends OrderedCollection{
             n=n.prev;
         }
         for(int p: complete){
+            score = score + 100;
             remove(p);
         }
     }
@@ -401,6 +404,7 @@ public class State extends OrderedCollection{
             }
             n=n.prev;
         }
+        System.out.println("Score" + score);
     }
 
     /*public void drawBlocks(Graphics g, Image blockImage, Pair[] block){

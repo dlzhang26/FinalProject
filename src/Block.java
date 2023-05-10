@@ -16,14 +16,6 @@ class Block {
 
     private BufferedImage blockImage;
     private String[] imageFiles = {"RedBlock.png", "BlueBlock.png", "GreenBlock.png", "PurpleBlock.png", "YellowBlock.png"};
-    private Random imageRand = new Random();
-
-    private int key = World.key;
-    Random ran = new Random(key);
-    Random rand = new Random(key);
-
-
-
 
     Pair[] randomizedBlock;//array of pairs that is holding a randomized block
 

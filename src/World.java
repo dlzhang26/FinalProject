@@ -13,8 +13,8 @@ public class World {
     int height;
     int width;
 
-    Random rand = new Random(3482);
-    static int key = 2932;
+    Random rand = new Random(key);
+    static int key = 4567;
     int currentBlockKey;
     int nextBlockKey;
 
@@ -40,6 +40,10 @@ public class World {
     public World(int initWidth, int initHeight) {//constructor for the world class
         width = initWidth;
         height = initHeight;
+
+        //doesn't work right
+        this.key = generateKey();
+        System.out.println("key is: "+key);
 
         try {
             blockImage = ImageIO.read(new File("BlockPicture.png"));
@@ -118,6 +122,11 @@ public class World {
             currentBlock.position = new Pair(360, 30);
             holdBlock.position = new Pair(0, 60);
         }
+    }
+    private static int generateKey(){
+        Random randomKey = new Random();
+        int r = randomKey.nextInt();
+        return r;
     }
 
 
@@ -204,6 +213,8 @@ public class World {
 
 
     }
+
+
 
     public void moveLeft() {
         currentBlock.moveLeft(currentState);

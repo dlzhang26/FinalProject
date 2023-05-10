@@ -1,17 +1,12 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
 
 public class Main extends JPanel implements KeyListener, MouseListener {
-    public static Image test;
-    public static Image button;
-    public static Image title;
+    public static ReadImages i = new ReadImages();
     public static final int WIDTH = 24;
     public static final int HEIGHT = 22;
     public static final int BLOCKSIZE = 30;
@@ -57,7 +52,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
         }
 
-        if(mouseX>80 && mouseX<240 && mouseY>100 && mouseY<125){//player 1 rectangle
+        if(mouseX>80 && mouseX<200 && mouseY>100 && mouseY<150){//player 1 rectangle
             if (page <3){
                 if(pages.soundon==true){StdAudio.play("click.wav");}
                 page++;
@@ -68,7 +63,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             }
         }
 
-        if(mouseX>280 && mouseX<440 && mouseY>100 && mouseY<125){//player 2 rectangle
+        if(mouseX>300 && mouseX<420 && mouseY>100 && mouseY<150){//player 2 rectangle
             if (page <3){
                 if(pages.soundon==true){StdAudio.play("click.wav");}
                 page++;
@@ -76,7 +71,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             }
         }
 
-        if(mouseX>480 && mouseX<640 && mouseY>100 && mouseY<125){//player 3 rectangle
+        if(mouseX>520 && mouseX<640 && mouseY>100 && mouseY<150){//player 3 rectangle
             if (page <3){
                 if(pages.soundon==true){StdAudio.play("click.wav");}
                 page++;
@@ -84,7 +79,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             }
         }
 
-        if(mouseX>5 && mouseX<50 && mouseY>5 && mouseY<30){//detecting back button
+        if(mouseX>5 && mouseX<50 && mouseY>5 && mouseY<38){//detecting back button
 
             if(page==1 || page==2){//to make sure it doesn't go negative and not show anything (only when page=1)
                 if(pages.soundon==true){StdAudio.play("click.wav");}
@@ -95,7 +90,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             System.out.println("backButton");
         }
 
-        if (mouseX > 545 && mouseX< 625 && mouseY > 5 && mouseY < 30) {
+        if (mouseX > 545 && mouseX< 573 && mouseY > 5 && mouseY < 30) {
             if(page==1 || page==2){
                 if(pages.soundon==true){StdAudio.play("click.wav");}
                 world.currentBlock.pause();
@@ -103,7 +98,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         
             System.out.println("Pause");
         }
-        if (mouseX > 625 && mouseX< 660 && mouseY > 5 && mouseY < 30) {
+        if (mouseX > 625 && mouseX< 653 && mouseY > 5 && mouseY < 30) {
             if(page==1 || page==2){
                 if(pages.soundon==true){StdAudio.play("click.wav");}
                 world.currentBlock.resume();
@@ -213,7 +208,6 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         if(keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S){
             FPS = 2;
         }
-        
 
     }
 
@@ -251,12 +245,26 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     public void paintComponent(Graphics g) {//graphics method
         super.paintComponent(g);
         pages.setupBackground(g);
+        Graphics2D g2d = (Graphics2D)g;//typecasting
         if (page==0) {
             drawStartScreen(g);
-            pages.soundOption(g);
+            //pages.soundOption(g);
+
+            if (pages.soundon == true) {
+                //draws image
+                g2d.drawImage(i.soundOnImage,280,500, (int)(i.soundOnImage.getWidth(this)/4.5), (int)(i.soundOnImage.getHeight(this)/4.5), this);
+            }
+            else{
+                g2d.drawImage(i.soundOffImage,280,500, (int)(i.soundOffImage.getWidth(this)/4.5), (int)(i.soundOffImage.getHeight(this)/4.5), this);
+
+            }
         }
         if(page==1){
-            pages.chooseUserProfile(g);
+            //pages.chooseUserProfile(g);
+            g2d.drawImage(i.backButton, 5,5,i.backButton.getWidth(this)/25,i.backButton.getHeight(this)/25,this);
+            g2d.drawImage(i.player1Image, 80,100,i.player1Image.getWidth(this)/10,i.player1Image.getHeight(this)/10,this);
+            g2d.drawImage(i.player2Image, 300,100,i.player2Image.getWidth(this)/10,i.player2Image.getHeight(this)/10,this);
+            g2d.drawImage(i.player3Image, 520,100,i.player3Image.getWidth(this)/10,i.player3Image.getHeight(this)/10,this);
         }
         if (page==2){
             world.TopRow(g);
@@ -264,40 +272,26 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         }
     }
 
-    public void drawStartScreen(Graphics g) {//method for drawing of the startscreen ui
-
-
+    public void drawStartScreen(Graphics g) {//method for drawing of the startscreen
         Graphics2D g2d = (Graphics2D)g;//typecasting
-
-
-
-        try {
-            title = ImageIO.read(new File("titleOrig.png")); ///reading image file
-            button = ImageIO.read(new File("button.png")); ///reading image file
-        } catch (IOException e) {
-            System.err.println(e);
-        }
         //draws image
-        g2d.drawImage(title, 70,60,(int)(title.getWidth(this)/3.5),(int)(title.getHeight(this)/3.5),this);
-        //g2d.drawImage(title,185, 100, this);
-        //g2d.drawImage(button, 280,300,button.getWidth(this),button.getHeight(this),this);
-        g2d.drawImage(button, 240,230,280,280,this);
-        /*
-        //360,330 is center of canvas
-        g.setColor(Color.pink);
-        g.fillRoundRect(270, 325, 175, 40, 10, 10);
-
-        g.setColor(Color.black);
-        g.drawString("      Click to Play", 280, 350);
-
-         */
+        g2d.drawImage(i.title, 70,60,(int)(i.title.getWidth(this)/3.5),(int)(i.title.getHeight(this)/3.5),this);
+        g2d.drawImage(i.button, 240,230,280,280,this);
     }
 
 
     public void gameGraphics(Graphics g){//method for drawing of the game graphics
         world.drawBoard(g);
         world.drawBlocks(g);
+        g.drawString("SCORE: ", 250, 15);
+        g.drawString("CURRENT PLAYER: " + player, 70, 15);
+
+        Graphics2D g2d = (Graphics2D)g;//typecasting
+
+        //draws back button, play button, and pause button
+        g2d.drawImage(i.backButton,5,5,i.backButton.getWidth(this)/25,i.backButton.getHeight(this)/25,this);
+        g2d.drawImage(i.playButton,625,5,i.playButton.getWidth(this)/20,i.playButton.getHeight(this)/20,this);
+        g2d.drawImage(i.pauseButton,545,5,i.pauseButton.getWidth(this)/20,i.pauseButton.getHeight(this)/20,this);
         world.TopRow(g);
     }
-    
 }//class Main.java

@@ -1,17 +1,15 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 // I am thinking that we can possibly make a class to hold the current state of the entire board in an ordered colleciton, this way
 // if a row fills up then we can just remove and then its easier to move
 public class State extends OrderedCollection{
+    ReadImages image = new ReadImages();
     Node end;
     //length is backwards, indicates if there is less than 20
     int length;
@@ -20,8 +18,7 @@ public class State extends OrderedCollection{
     int Player1Score;
     int Player2Score;
 
-    public static Image blockImage1;
-    public static Image blockImage2;
+
 
 
     // Constructor - Creates the first end, but then appends 20 rows
@@ -34,20 +31,6 @@ public class State extends OrderedCollection{
         for(int i =0; i<20; i++){
             append();
         }
-        
-        try {
-            blockImage1 = ImageIO.read(new File("RedBlock.png"));
-        } catch (IOException e) {
-            System.err.println("Error loading image: " + e.getMessage());
-        }
-
-        try {
-            blockImage2 = ImageIO.read(new File("BlueBlock.png"));
-        } catch (IOException e) {
-            System.err.println("Error loading image: " + e.getMessage());
-        }
-
-
     }
     //
 
@@ -465,20 +448,10 @@ public class State extends OrderedCollection{
                 g.drawImage(blockImage, boardX + i * size, boardY + (n.rownum+1) * size, size, size, null);
                 if(n.rowstate[i]==1){
                     if (Main.counter % 2 == 0) {
-                        g2d.drawImage(blockImage1, (int) i * size + 210, (int) n.rownum*size+30, 30, 30, null);
-                        /* 
-                        g.setColor(new Color(200, 0,0));
-                        g.fillRoundRect( (int) i*size + 210, (int) n.rownum*size+30, size, size, 10, 10);
-                        g.setColor(new Color(255, 255, 255));
-                        */
+                        g2d.drawImage(image.blockImage1, (int) i * size + 210, (int) n.rownum*size+30, 30, 30, null);
                     }
                     if (Main.counter % 2 == 1) {
-                        g2d.drawImage(blockImage2, (int) i * size + 210, (int) n.rownum*size+30, 30, 30, null);
-                        /* 
-                        g.setColor(new Color(0, 0,200));
-                        g.fillRoundRect( (int) i*size + 210, (int) n.rownum*size+30, size, size, 10, 10);
-                        g.setColor(new Color(255, 255, 255));
-                        */
+                        g2d.drawImage(image.blockImage2, (int) i * size + 210, (int) n.rownum*size+30, 30, 30, null);
                     }
                     
                 }

@@ -14,7 +14,7 @@ class Block {
     boolean isFalling;
     boolean isPaused;
 
-    private BufferedImage blockImage;
+    private BufferedImage[] blockImages;
     private String[] imageFiles = {"RedBlock.png", "BlueBlock.png", "GreenBlock.png", "PurpleBlock.png", "YellowBlock.png"};
     private Random imageRand = new Random();
 
@@ -33,25 +33,31 @@ class Block {
     //does not so when we generate the current and next block, the next block does not interfere with the current state
     public Block(int key) {//constructor
         //sets the color for the next block
-        color = setColor(key);
+        
         //gets the random block from the setBlock method and sets the next block
         this.randomizedBlock = setBlock(key);
         this.position = new Pair(570, 60);
         //initializing falling
         this.isFalling = false;
         this.isPaused = false;
+        this.imageRand = new Random(key); // Use key to initialize a new Random instance
+        int imageIndex = imageRand.nextInt(imageFiles.length); // Choose a random index into the imageFiles array
         int imageKey = key % imageFiles.length;
         try {
-            blockImage = ImageIO.read(new File(imageFiles[imageKey]));
+            blockImages = new BufferedImage[imageFiles.length];
+            for (int i = 0; i < imageFiles.length; i++) {
+                blockImages[i] = ImageIO.read(new File(imageFiles[i]));
+                System.out.println("Loaded image: " + imageFiles[i] + " with dimensions " + blockImages[i].getWidth() + " x " + blockImages[i].getHeight());
+            }
         } catch (IOException e) {
-            System.err.println("Error loading image: " + e.getMessage());
+            System.err.println("Error loading images: " + e.getMessage());
         }
-        color = setColor(imageKey);
+        
     }
 
     public Block(State currenState, int key) {//constructor
         //sets the color for the next block
-        color = setColor(key);
+        
         //gets the random block from the setBlock method and sets the next block
         this.randomizedBlock = setBlock(key);
         //initializing falling
@@ -59,12 +65,19 @@ class Block {
         this.isFalling = true;
 
         currenState.newblock(randomizedBlock, position);
+        this.imageRand = new Random(key); // Use key to initialize a new Random instance
+        int imageIndex = imageRand.nextInt(imageFiles.length); // Choose a random index into the imageFiles array
         int imageKey = key % imageFiles.length;
         try {
-            blockImage = ImageIO.read(new File(imageFiles[imageKey]));
+            blockImages = new BufferedImage[imageFiles.length];
+            for (int i = 0; i < imageFiles.length; i++) {
+                blockImages[i] = ImageIO.read(new File(imageFiles[i]));
+                System.out.println("Loaded image: " + imageFiles[i] + " with dimensions " + blockImages[i].getWidth() + " x " + blockImages[i].getHeight());
+            }
         } catch (IOException e) {
-            System.err.println("Error loading image: " + e.getMessage());
+            System.err.println("Error loading images: " + e.getMessage());
         }
+        
         
     }
     public Color setColor(int random){
@@ -208,22 +221,11 @@ class Block {
     }
 
     public void draw(Graphics g, World w, State cstate) {
-        cstate.drawState(g, blockImage, w.size*7, w.size, w.size);
-        /*for (int i = 0; i < 4; i++) {
-            g.drawImage(blockImage, (int) ((position.x + randomizedBlock[i].x * w.size)), (int) ((position.y + randomizedBlock[i].y * w.size)), w.size, w.size, null);
-        }
-        /* 
-        Color c = g.getColor();
-
-        g.setColor(color);
-
-        //draws a randomized block on the screen in a random color
-
+        
         for (int i = 0; i < 4; i++) {
-            g.fillRoundRect((int) ((position.x + randomizedBlock[i].x * w.size)), (int) ((position.y + randomizedBlock[i].y * w.size)), w.size, w.size,10,10);
+            cstate.drawState(g, blockImages, w.size*7, w.size, w.size);        
         }
-        g.setColor(c);
-        */
+        
     }
 
     private void edgeOfScreen(Pair[] randomizedBlock) {

@@ -2,6 +2,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.LinkedList;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
 // I am thinking that we can possibly make a class to hold the current state of the entire board in an ordered colleciton, this way
 // if a row fills up then we can just remove and then its easier to move
@@ -11,11 +16,25 @@ public class State extends OrderedCollection{
     int length;
     Pair Lastpos;
 
+    private BufferedImage blockImage;
+    private String[] imageFiles = {"RedBlock.png", "BlueBlock.png", "GreenBlock.png", "PurpleBlock.png", "YellowBlock.png"};
+    private Random imageRand = new Random();
+
     // Constructor - Creates the first end, but then appends 20 rows
     public State(){
         end = null;
         length = 20;
         Lastpos = new Pair(360, 30);
+
+        BufferedImage[] blockImage = new BufferedImage[imageFiles.length];
+        for (int i = 0; i < imageFiles.length; i++) {
+            try {
+                blockImage[i] = ImageIO.read(new File(imageFiles[i]));
+            } catch (IOException e) {
+                System.err.println("Error loading image: " + e.getMessage());
+            }
+        }
+
         for(int i =0; i<20; i++){
             append();
         }
@@ -387,22 +406,20 @@ public class State extends OrderedCollection{
         return length;
     }
 
-    public void drawState(Graphics g, Image blockImage, int boardX, int boardY, int size){
+    public void drawState(Graphics g, Image[] blockImages, int boardX, int boardY, int size) {
         Node n = end;
-        
+            
         for(int p =0; p<20; p++){
             for(int i =0; i<10; i++){
-                g.drawImage(blockImage, boardX + i * size, boardY + (n.rownum+1) * size, size, size, null);
-                if(n.rowstate[i]==1){
-                    g.setColor(new Color(200, 0,0));
-                    g.fillRoundRect( (int) i*size + 210, (int) n.rownum*size+30, size, size, 10, 10);
-                    g.setColor(new Color(255, 255, 255));
+                if(n.rowstate[i] == 1) {
+                    int imageIndex = i % blockImages.length; // Choose the image based on the column number
+                    Image blockImage = blockImages[imageIndex]; // Get the corresponding image
+                    g.drawImage(blockImage, boardX + i * size, boardY + (n.rownum+1) * size, size, size, null); // Draw the image
                 }
             }
             n=n.prev;
         }
     }
-
     /*public void drawBlocks(Graphics g, Image blockImage, Pair[] block){
         
     }

@@ -10,11 +10,13 @@ public class State extends OrderedCollection{
     //length is backwards, indicates if there is less than 20
     int length;
     Pair Lastpos;
-    int score;
+    int Player1Score;
+    int Player2Score;
 
     // Constructor - Creates the first end, but then appends 20 rows
     public State(){
-        score = 0;
+        Player1Score = 0;
+        Player2Score = 0;
         end = null;
         length = 20;
         Lastpos = new Pair(360, 30);
@@ -307,7 +309,14 @@ public class State extends OrderedCollection{
             n=n.prev;
         }
         for(int p: complete){
-            score = score + 100;
+            if (Main.counter % 2 == 1) {
+                Player1Score = Player1Score + 100;
+                System.out.println(Player1Score);
+            }
+            else {
+                Player2Score = Player2Score + 100;
+                System.out.println(Player2Score);
+            }
             remove(p);
         }
     }
@@ -413,6 +422,10 @@ public class State extends OrderedCollection{
         }
         Lastpos=new Pair(360, 30);
         System.out.println(this);
+        Main.counter++;
+        System.out.println(Main.counter);
+        System.out.println(Player1Score);
+        System.out.println(Player2Score);
     }
 
 
@@ -427,14 +440,22 @@ public class State extends OrderedCollection{
             for(int i =0; i<10; i++){
                 g.drawImage(blockImage, boardX + i * size, boardY + (n.rownum+1) * size, size, size, null);
                 if(n.rowstate[i]==1){
-                    g.setColor(new Color(200, 0,0));
-                    g.fillRoundRect( (int) i*size + 210, (int) n.rownum*size+30, size, size, 10, 10);
-                    g.setColor(new Color(255, 255, 255));
+                    if (Main.counter % 2 == 0) {
+                        g.setColor(new Color(200, 0,0));
+                        g.fillRoundRect( (int) i*size + 210, (int) n.rownum*size+30, size, size, 10, 10);
+                        g.setColor(new Color(255, 255, 255));
+                    }
+                    if (Main.counter % 2 == 1) {
+                        g.setColor(new Color(0, 0,200));
+                        g.fillRoundRect( (int) i*size + 210, (int) n.rownum*size+30, size, size, 10, 10);
+                        g.setColor(new Color(255, 255, 255));
+                    }
+                    
                 }
             }
             n=n.prev;
         }
-        System.out.println("Score" + score);
+        System.out.println("Counter" + Main.counter);
     }
 
     /*public void drawBlocks(Graphics g, Image blockImage, Pair[] block){

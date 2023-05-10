@@ -17,6 +17,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     public static final int BLOCKSIZE = 30;
     public static int FPS = 2;
     World world;
+    public static int counter;
     boolean highlight = false;
     static int page = 0;
     boolean showStart;
@@ -149,24 +150,56 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     public void keyPressed(KeyEvent e) {//implementing methods from keylistener interface
         int keyCode = e.getKeyCode();
         //rotates the block if the up key is pressed
-        if (keyCode == KeyEvent.VK_UP) {
-            world.currentBlock.rotate(world.currentState);
+        if (counter % 2 == 1) {
+            if (keyCode == KeyEvent.VK_UP) {
+                world.currentBlock.rotate(world.currentState);
+            }
+            if (keyCode == KeyEvent.VK_RIGHT) {
+                world.moveRight();
+            }
+            if (keyCode == KeyEvent.VK_LEFT) {
+                world.moveLeft();
+            }
+            if(keyCode == KeyEvent.VK_DOWN){
+                FPS = 10;//this is to speed up the current block while it is falling
+                if (counter % 2 == 1) {
+                    world.currentState.Player1Score++;
+                    System.out.println(world.currentState.Player1Score);
+                }
+                if (counter % 2 == 0) {
+                    world.currentState.Player2Score++;
+                    System.out.println(world.currentState.Player2Score);
+                }
+            }
         }
-        if (keyCode == KeyEvent.VK_RIGHT) {
-            world.moveRight();
-        }
-        if (keyCode == KeyEvent.VK_LEFT) {
-            world.moveLeft();
-        }
-        if(keyCode == KeyEvent.VK_DOWN){
-            FPS = 10;//this is to speed up the current block while it is falling
-            world.currentState.score++;
+
+        if (counter % 2 == 0) {
+            if (keyCode == KeyEvent.VK_W) {
+                world.currentBlock.rotate(world.currentState);
+            }
+            if (keyCode == KeyEvent.VK_D) {
+                world.moveRight();
+            }
+            if (keyCode == KeyEvent.VK_A) {
+                world.moveLeft();
+            }
+            if(keyCode == KeyEvent.VK_S){
+                FPS = 10;//this is to speed up the current block while it is falling
+                if (counter % 2 == 1) {
+                    world.currentState.Player1Score++;
+                    System.out.println(world.currentState.Player1Score);
+                }
+                if (counter % 2 == 0) {
+                    world.currentState.Player2Score++;
+                    System.out.println(world.currentState.Player2Score);
+                }
+            }
         }
         if(keyCode == KeyEvent.VK_SHIFT){
             //world.hold();//to add a block to the hold
         }
 
-        if(keyCode == KeyEvent.VK_S){//method for saving the score and player --> need to include another && gameover part to if statement
+        if(keyCode == KeyEvent.VK_SHIFT){//method for saving the score and player --> need to include another && gameover part to if statement
             SavedScores.saveScore(player, 100);
             System.out.println("saved score");
         }
@@ -177,9 +210,10 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
-        if(keyCode == KeyEvent.VK_DOWN){
+        if(keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S){
             FPS = 2;
         }
+        
 
     }
 
@@ -263,8 +297,15 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
         world.drawBoard(g);
         world.drawBlocks(g);
-        g.drawString("SCORE: " + world.currentState.score, 250, 15);
-        g.drawString("CURRENT PLAYER: " + player, 70, 15);
+        g.drawString("Player 1 Score: " + world.currentState.Player1Score, 250, 15);
+        g.drawString("Player 2 Score: " + world.currentState.Player2Score, 250, 45);
+        if (counter % 2 == 0) {
+            g.drawString("CURRENT PLAYER: Player 2", 70, 15);
+        }
+        else {
+            g.drawString("CURRENT PLAYER: Player 1", 70, 15);
+        }
+        
         g.fillRoundRect(5, 5, 45, 25, 10, 10);
         g.fillRoundRect(545, 5, 45, 25, 10, 10);
         g.fillRoundRect(625, 5, 55, 25, 10, 10);

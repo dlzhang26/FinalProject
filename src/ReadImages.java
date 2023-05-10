@@ -26,6 +26,7 @@ public class ReadImages {
     public ReadImages(){
         try {
             /*
+
             this.title = ImageIO.read(new File("FolderForImages/origTitle.png")); ///reading image file
             this.button = ImageIO.read(new File("FolderForImages/button.png"));
             this.soundOnImage = ImageIO.read(new File("FolderForImages/soundOn.png"));

@@ -17,6 +17,8 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     static int page = 0;
     boolean showStart;
     String player;
+    static boolean gameover=false;
+    static Scoreboard highScores;
 
     class Runner implements Runnable {//Runnable interface
 
@@ -32,6 +34,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                 }
             }
 
+            
         }
 
 
@@ -227,8 +230,10 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         addKeyListener(this);//adding key/mouselisteners so functions can be performed. 
         addMouseListener(this);
         this.setPreferredSize(new Dimension(WIDTH * BLOCKSIZE, HEIGHT * BLOCKSIZE));
+        //this.highScores = new Scoreboard();
         Thread mainThread = new Thread(new Runner());
         mainThread.start();
+        
     }
 
     public static void main(String[] args) {
@@ -271,7 +276,21 @@ public class Main extends JPanel implements KeyListener, MouseListener {
             world.TopRow(g);
             gameGraphics(g);
         }
+        if(page==3){
+            drawGameOver(g);
+        }
     }
+    public void drawGameOver(Graphics g){
+       int p1score = world.currentState.Player1Score;
+       int p2score = world.currentState.Player2Score;
+       int winner = Math.max(p1score, p2score);
+       g.drawString("winning score: " + winner, 100, 200); ;
+      // this.highScores.append("Player 1 ", p1score);
+       //this.highScores.append("Player 2 ", p2score);
+
+
+    }
+
 
     public void drawStartScreen(Graphics g) {//method for drawing of the startscreen
         Graphics2D g2d = (Graphics2D)g;//typecasting

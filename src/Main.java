@@ -17,7 +17,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     static int page = 0;
     boolean showStart;
     String player;
-    static boolean gameover=false;
+    static boolean gameover;
     static Scoreboard highScores;
 
     class Runner implements Runnable {//Runnable interface
@@ -27,13 +27,16 @@ public class Main extends JPanel implements KeyListener, MouseListener {
                 if(page==2){//while we are on the game screen, run the game
                     world.updateBlocks(1.0 / (double) FPS);
                 }
+
                 repaint();
                 try {
                     Thread.sleep(1000 / FPS);
                 } catch (InterruptedException e) {
                 }
+                
             }
-
+          
+            
             
         }
 
@@ -50,7 +53,9 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
             if (page<1){//only increments if page is currently 0
                 if(pages.soundon==true){StdAudio.play("click.wav");}
+
                 page++;
+                System.out.println("page: "+ page);
             }
 
         }
@@ -239,6 +244,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
     public static void main(String[] args) {
         JFrame frame = new JFrame("TETRIS!!!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//stops running program when JFrame is closed
+        gameover = false;
         Main mainInstance = new Main();
         frame.setContentPane(mainInstance);
         frame.pack();
@@ -274,6 +280,20 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         if (page==2){
             world.TopRow(g);
             gameGraphics(g);
+            if(gameover==true){
+                System.out.println("GAME OVER");
+                int p1score = world.currentState.Player1Score;
+                int p2score = world.currentState.Player2Score;
+                world.currentBlock.isPaused=true;
+                world.nextBlock.isPaused = true;
+                int Winner = Math.max(p1score, p2score);
+                g.setColor(Color.BLACK);
+                g.fillRect(0, 0, WIDTH*30, HEIGHT*30);
+
+                g.setColor(Color.white);
+       
+                g.drawString("winning score: " + Winner, 100, 200); 
+            }
         }
         if(page==3){
             drawGameOver(g);

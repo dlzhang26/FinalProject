@@ -14,6 +14,7 @@ public class State extends OrderedCollection{
     //length is backwards, indicates if there is less than 20
     int length;
     Pair Lastpos;
+    boolean first=true; 
 
     int Player1Score;
     int Player2Score;
@@ -390,41 +391,20 @@ public class State extends OrderedCollection{
     /****************************************************************************************************
      * check for lose
      */
-    public void checkLose(Pair[] block, Pair pos){
+    public void checkLose(Pair[] block, Pair pos, boolean first){
 
-        //Two Ways of losing, if block spawns on top of other blocks
-        boolean checkA = false;
-        boolean checkB = false;
-        int top = 0;
-        for(Pair p : block){
-            if(p.y<top){
-                top = (int)p.y;
-            }
+        //Check for lose by comparing last pos to new pos
+        boolean checker=false; 
+        if(pos.x==Lastpos.x && Lastpos.y==pos.y){
+            checker =true;
+        }if(first){
+            System.out.println("Got here first time");
         }
-        Pair center = new Pair(5, top +pos.y/30);
+        else if (checker){
+            System.out.println("Made Game Over");
+            Main.gameover=true;
 
-        LinkedList<Integer> game= new LinkedList<>();
-        for(Pair p: block){
-            game.add(checkSpace(p.x+center.x, p.y+center.y));        
         }
-        for(int i: game){
-            if (i==1){
-                checkA = true;
-            }
-        }
-
-        //Second way is to see if it collides immediately
-        checkB = !checkCollision(checkB, block);
-
-
-        if(checkA || checkB){
-            //game OVer!
-            //Main.gameover =true;
-            System.out.println("game over!");
-        }
-
-
-
     }
 
 
@@ -433,9 +413,8 @@ public class State extends OrderedCollection{
      */
 
     public void newblock(Pair[] block, Pair pos){
-        
-        Lastpos=new Pair(360, 30);
-        checkLose(block, pos);
+        Pair lastposi = Lastpos;
+
         int top = 0;
         for(Pair p : block){
             if(p.y<top){
@@ -447,7 +426,9 @@ public class State extends OrderedCollection{
         for(Pair p: block){
             SpaceON(p.x+center.x, p.y+center.y);
         }
-        
+        Lastpos=new Pair(360, 30);
+        checkLose(block, lastposi, first);
+        first = false;
         System.out.println(this);
         Main.counter++;
         System.out.println(Main.counter);

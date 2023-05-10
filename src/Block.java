@@ -11,10 +11,12 @@ class Block {
 
     boolean isFalling;
     boolean isPaused;
+    boolean isAdd; 
 
     Pair[] randomizedBlock;//array of pairs that is holding a randomized block
 
     Pair[] jBlock, lBlock, sBlock, zBlock, oBlock, iBlock, tBlock;
+
 
     //this constructor is used for the preview/next block. We need 2 constructors so one stores the state and the other
     //does not so when we generate the current and next block, the next block does not interfere with the current state

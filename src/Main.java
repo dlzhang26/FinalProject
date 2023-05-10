@@ -282,9 +282,6 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
     public void gameGraphics(Graphics g){//method for drawing of the game graphics
         world.drawBoard(g);
-        g.drawString("SCORE: ", 250, 15);
-        g.drawString("CURRENT PLAYER: " + player, 70, 15);
-
         Graphics2D g2d = (Graphics2D)g;//typecasting
 
         //draws back button, play button, and pause button

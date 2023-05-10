@@ -39,11 +39,14 @@ public class pages{
     public static void soundOption(Graphics g) {//making a sound toggle switch for music
         if (soundon == true) {
             Graphics2D g2d = (Graphics2D)g;//typecasting
+            /*
             try {
                 soundOffImage = ImageIO.read(new File("soundOff.png"));
             } catch (IOException e) {
                 System.err.println(e);
             }
+
+             */
             //draws image
             //g2d.drawImage(soundOffImage,soundOffImage.getWidth(this), soundOffImage.getHeight(this), this);
 

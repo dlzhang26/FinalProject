@@ -11,16 +11,23 @@ public class World {
     int height;
     int width;
 
+    ReadImages image = new ReadImages();
+
     Random rand = new Random(key);
     static int key = 4567;
     int currentBlockKey;
     int nextBlockKey;
-    private Image blockImage;
+
+
+
+    /////////////////////////
+    int count;
+    ///////////////////////////
+
     int row, column;
     int size = Main.BLOCKSIZE;//takes static variable from Main.java named BLOCKSIZE
     Block currentBlock;
     Block nextBlock;
-    Block holdBlock;
 
     State currentState;
 
@@ -36,11 +43,6 @@ public class World {
         this.key = generateKey();
         System.out.println("key is: "+key);
 
-        try {
-            blockImage = ImageIO.read(new File("BlockPicture.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         this.currentState = new State();
 
@@ -89,7 +91,7 @@ public class World {
         }
     }
 
-    
+
     private static int generateKey(){
         Random randomKey = new Random();
         int r = randomKey.nextInt();
@@ -104,9 +106,9 @@ public class World {
         int boardX = 7 * size; // x-coordinate of the board's top-left corner
         int boardY = 1 * size; // y-coordinate of the board's top-left corner
         
-        currentState.drawState(g, blockImage, boardX, boardY, size);
+        currentState.drawState(g, image.blockImage, boardX, boardY, size);
         TopRow(g);
-        
+
     }
     public void TopRow(Graphics g) {
         g.setColor(Color.white);
@@ -118,14 +120,6 @@ public class World {
         else {
             g.drawString("CURRENT PLAYER: Player 1", 70, 15);
         }
-        
-        g.fillRoundRect(5, 5, 45, 25, 10, 10);
-        g.fillRoundRect(545, 5, 45, 25, 10, 10);
-        g.fillRoundRect(625, 5, 55, 25, 10, 10);
-        g.setColor(Color.black);
-        g.drawString(" BACK", 6, 20);
-        g.drawString(" PAUSE", 545, 20);
-        g.drawString(" RESUME", 625, 20);
     }
 
     public void checkCollision() {

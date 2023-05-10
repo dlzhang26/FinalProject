@@ -32,12 +32,18 @@ class Block {
         //initializing falling
         this.isFalling = false;
         this.isPaused = false;
+
         int imageKey = key % imageFiles.length;
+        /*
         try {
             blockImage = ImageIO.read(new File(imageFiles[imageKey]));
         } catch (IOException e) {
             System.err.println("Error loading image: " + e.getMessage());
         }
+
+
+         */
+
         color = setColor(imageKey);
     }
 
@@ -52,11 +58,14 @@ class Block {
 
         currenState.newblock(randomizedBlock, position);
         int imageKey = key % imageFiles.length;
+        /*
         try {
             blockImage = ImageIO.read(new File(imageFiles[imageKey]));
         } catch (IOException e) {
             System.err.println("Error loading image: " + e.getMessage());
         }
+
+         */
         
     }
     public Color setColor(int random){

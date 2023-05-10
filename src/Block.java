@@ -183,7 +183,7 @@ class Block {
                 bottom = (int) p.y;
             }
         }
-        if (this.isFalling && !this.isPaused) {
+        
             if (position.y + bottom * 30 > 570) {
                 position.y = 570 - bottom * 30;
                 this.isFalling = false;
@@ -192,9 +192,10 @@ class Block {
             
         }
         */
-        position.y += 30;//30 is the block size
+        if (this.isFalling && !this.isPaused) {
+            position.y += 30;//30 is the block size
             cstate.updatePos(randomizedBlock, position);
-        
+        }
         
         return randomizedBlock;
     }

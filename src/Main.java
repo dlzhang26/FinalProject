@@ -160,6 +160,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
         }
         if(keyCode == KeyEvent.VK_DOWN){
             FPS = 10;//this is to speed up the current block while it is falling
+            world.currentState.score++;
         }
         if(keyCode == KeyEvent.VK_SHIFT){
             //world.hold();//to add a block to the hold
@@ -262,7 +263,7 @@ public class Main extends JPanel implements KeyListener, MouseListener {
 
         world.drawBoard(g);
         world.drawBlocks(g);
-        g.drawString("SCORE: ", 250, 15);
+        g.drawString("SCORE: " + world.currentState.score, 250, 15);
         g.drawString("CURRENT PLAYER: " + player, 70, 15);
         g.fillRoundRect(5, 5, 45, 25, 10, 10);
         g.fillRoundRect(545, 5, 45, 25, 10, 10);

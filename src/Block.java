@@ -141,12 +141,14 @@ class Block {
             }
         }
         if (this.isFalling && !this.isPaused) {
-            if( position.x + right * 30 > 450){
-                position.x = 480-right *30;
-                return randomizedBlock;
+            if(!cstate.checkRight(randomizedBlock)){
+                cstate.updatePos(randomizedBlock, position);
+            }else{
+                position.x += 30;//30 is the block size
+                cstate.updatePos(randomizedBlock, position);
             }
-            position.x += 30;//30 is the block size
-            cstate.updatePos(randomizedBlock, position);
+            
+            
         }
         return randomizedBlock;
     }
@@ -159,11 +161,13 @@ class Block {
             }
         }
         if (this.isFalling && !this.isPaused) {
-            if (position.x + left * 30 < 240) {
-                position.x = 240 - left * 30;
+            if (!cstate.checkLeft(randomizedBlock)){
+                cstate.updatePos(randomizedBlock, position);
+            }else{
+                position.x-=30;
+                cstate.updatePos(randomizedBlock, position);
             }
-            position.x -= 30;//30 is the block size
-            cstate.updatePos(randomizedBlock, position);
+            
         }
         return randomizedBlock;
     }

@@ -59,6 +59,105 @@ public class State extends OrderedCollection{
         }
         return n.rowstate[(int)column];
     }
+    public boolean checkLeft(Pair[] block){
+        boolean goleft =true;
+        int currRow=(int) (Lastpos.y/30);
+        // new column
+        int currCol = (int) (((Lastpos.x/30))-7);
+        System.out.println("Current Column: "+ currCol+ "\n" + "Current Row: " + currRow);
+        Pair center = new Pair((double) currCol,(double)currRow); 
+        
+         /******************************************************************
+          * This part of the method is to find the lowest blocks, basically the blocks that would be interacting with lower blocks
+          */
+        LinkedList <Pair> Check= new LinkedList<Pair>();
+        double biggesty = 0;
+        double smallesty = 0;
+
+        //Identify the bounds for the shape,
+        for(Pair p: block){
+            if(p.y>biggesty){
+                biggesty = p.y;
+            }
+            if(p.y<smallesty){
+                smallesty = p.y;
+            }
+        }
+        //find the lowest point for each row
+        for(double i = smallesty; i<biggesty+1; i++){
+            Pair lowestPoint = new Pair(2, i);
+            for(Pair p: block){
+                if(p.y==lowestPoint.y && p.x<lowestPoint.x){
+                    lowestPoint = p;
+                }
+            }
+            Check.add(lowestPoint);
+        }
+        System.out.println("The Leftmost Block is at: ");
+        for(Pair p: Check){
+            System.out.println(p.x + ", " + p.y);
+        }
+        for(Pair p: Check){
+            System.out.println("Check " + p.x + ", "+ p.y);
+            System.out.println("Checking: " + (center.x+ p.x) + ", " + (center.y+p.y));
+            if(p.x+center.x<0 || checkSpace((center.x + p.x-1), center.y+p.y) ==1){
+                System.out.println("called checkleft!!!!");
+                goleft=false;
+                System.out.println("goLeft Set: "+ goleft);
+            }
+        }
+        return goleft;
+    }
+
+    public boolean checkRight(Pair[] block){
+        boolean goRight =true;
+        int currRow=(int) (Lastpos.y/30);
+        // new column
+        int currCol = (int) (((Lastpos.x/30))-7);
+        System.out.println("Current Column: "+ currCol+ "\n" + "Current Row: " + currRow);
+        Pair center = new Pair((double) currCol,(double)currRow); 
+        
+         /******************************************************************
+          * This part of the method is to find the lowest blocks, basically the blocks that would be interacting with lower blocks
+          */
+        LinkedList <Pair> Check= new LinkedList<Pair>();
+        double biggesty = 0;
+        double smallesty = 0;
+
+        //Identify the bounds for the shape,
+        for(Pair p: block){
+            if(p.y>biggesty){
+                biggesty = p.y;
+            }
+            if(p.y<smallesty){
+                smallesty = p.y;
+            }
+        }
+        //find the lowest point for each row
+        for(double i = smallesty; i<biggesty+1; i++){
+            Pair rightPoint = new Pair(-2, i);
+            for(Pair p: block){
+                if(p.y==rightPoint.y && p.x>rightPoint.x){
+                    rightPoint = p;
+                }
+            }
+            Check.add(rightPoint);
+        }
+        System.out.println("The RightMost Block is at: ");
+        for(Pair p: Check){
+            System.out.println(p.x + ", " + p.y);
+        }
+        for(Pair p: Check){
+            System.out.println("Check " + p.x + ", "+ p.y);
+            System.out.println("Checking: " + (center.x+ p.x) + ", " + (center.y+p.y));
+            if(p.x+center.x>9 || checkSpace((center.x + p.x+1), center.y+p.y) ==1){
+                System.out.println("called checkRight!!!!");
+                goRight=false;
+                System.out.println("goLeft Set: "+ goRight);
+            }
+        }
+        return goRight;
+    }
 
 
 

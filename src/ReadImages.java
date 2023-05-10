@@ -24,6 +24,7 @@ public class ReadImages {
     public static Image blockImage2;
     public ReadImages(){
         try {
+            
             this.title = ImageIO.read(new File("FolderForImages/origTitle.png")); ///reading image file
             this.button = ImageIO.read(new File("FolderForImages/button.png"));
             this.soundOnImage = ImageIO.read(new File("FolderForImages/soundOn.png"));
@@ -39,7 +40,7 @@ public class ReadImages {
             this.blockImage = ImageIO.read(new File("FolderForImages/BlockPicture.png"));
             this.blockImage1 = ImageIO.read(new File("FolderForImages/RedBlock.png"));
             this.blockImage2 = ImageIO.read(new File("FolderForImages/BlueBlock.png"));
-
+            
             /*
             //images for first page
             this.title = ImageIO.read(new File("origTitle.png")); ///reading image file
@@ -60,8 +61,8 @@ public class ReadImages {
             this.blockImage = ImageIO.read(new File("BlockPicture.png"));
             this.blockImage1 = ImageIO.read(new File("RedBlock.png"));
             this.blockImage2 = ImageIO.read(new File("BlueBlock.png"));
-
-             */
+*/
+             
 
         } catch (IOException e) {
             System.err.println(e);

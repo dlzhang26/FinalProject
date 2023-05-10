@@ -18,8 +18,6 @@ public class World {
     int currentBlockKey;
     int nextBlockKey;
 
-
-
     /////////////////////////
     int count;
     ///////////////////////////

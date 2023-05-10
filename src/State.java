@@ -18,9 +18,6 @@ public class State extends OrderedCollection{
     int Player1Score;
     int Player2Score;
 
-
-
-
     // Constructor - Creates the first end, but then appends 20 rows - Important for instantiation of an initial blank State
     public State(){
         Player1Score = 0;
